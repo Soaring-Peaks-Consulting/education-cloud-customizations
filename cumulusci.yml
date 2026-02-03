@@ -1,0 +1,25 @@
+minimum_cumulusci_version: '4.8.0'
+project:
+    name: education-cloud-customizations
+    package:
+        name: education-cloud-customizations
+        api_version: '63.0'
+    git:
+        default_branch: 'main'
+    source_format: sfdx
+
+tasks:
+    robot:
+        options:
+            suites: robot/education-cloud-customizations/tests
+            options:
+                outputdir: robot/education-cloud-customizations/results
+
+    robot_testdoc:
+        options:
+            path: robot/education-cloud-customizations/tests
+            output: robot/education-cloud-customizations/doc/education-cloud-customizations_tests.html
+
+    run_tests:
+        options:
+            required_org_code_coverage_percent: 75
