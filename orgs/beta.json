@@ -1,6 +1,7 @@
 {
   "orgName": "education-cloud-customizations - Beta Test Org",
   "edition": "Developer",
+  "features": [ "EducationCloud:5", "PersonAccounts" ],
   "settings": {
     "lightningExperienceSettings": {
       "enableS1DesktopEnabled": true
@@ -16,5 +17,6 @@
       "sessionSettings": {
         "forceRelogin": false
       }
-    }  }
+    }
+  }
 }

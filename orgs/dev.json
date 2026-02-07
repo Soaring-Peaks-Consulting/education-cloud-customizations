@@ -1,6 +1,7 @@
 {
   "orgName": "education-cloud-customizations - Dev Org",
   "edition": "Developer",
+  "features": [ "EducationCloud:5", "PersonAccounts" ],
   "settings": {
     "lightningExperienceSettings": {
       "enableS1DesktopEnabled": true
@@ -19,6 +20,16 @@
     },
     "languageSettings": {
       "enableTranslationWorkbench": true
+    },
+    "industriesSettings": {
+      "enableEducationCloud": true,
+      "enableStudentSuccess": true,
+      "enableAcademicOperations": true,
+      "enableGroupMembershipPref": true,
+      "enableEventManagementOrgPref": true,
+      "enableMultipleTopicsForShiftsOrgPref": true,
+      "enableShareSaWithArOrgPref": true,
+      "enableAppFrmAnywhereOrgPref": true
     }
   }
 }
