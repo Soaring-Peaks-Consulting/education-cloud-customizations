@@ -8,6 +8,27 @@ project:
         default_branch: 'main'
     source_format: sfdx
 
+flows:
+    deploy_unmanaged:
+        steps:
+            3.2:
+                flow: deploy_education_cloud_customizations
+
+    deploy_education_cloud_customizations:
+        steps:
+            1:
+                task: assign_permission_sets
+                options:
+                    api_names: EducationCloudAccess, OmniStudioExecution
+            2:
+                task: deploy_account_record_types
+            3:
+                task: deploy_account_settings
+            4:
+                task: deploy_appointments_quickstart
+            5:
+                task: deploy_custom_report_types
+
 tasks:
     robot:
         options:
@@ -23,3 +44,27 @@ tasks:
     run_tests:
         options:
             required_org_code_coverage_percent: 75
+
+    deploy_account_record_types:
+        class_path: cumulusci.tasks.salesforce.Deploy
+        description: Deploys standard Account record types (College).
+        options:
+            path: unpackaged/account-record-types
+
+    deploy_account_settings:
+        class_path: cumulusci.tasks.salesforce.Deploy
+        description: Enables relating contacts to multiple accounts.
+        options:
+            path: unpackaged/account-settings
+
+    deploy_appointments_quickstart:
+        class_path: cumulusci.tasks.salesforce.Deploy
+        description: Deploys basic setup for appointment scheduling in Education Cloud.
+        options:
+            path: unpackaged/appointments-quickstart
+
+    deploy_custom_report_types:
+        class_path: cumulusci.tasks.salesforce.Deploy
+        description: Deploys custom report types for Education Cloud.
+        options:
+            path: unpackaged/custom-report-types
