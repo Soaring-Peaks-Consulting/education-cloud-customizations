@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AppointmentSchedulingPolicy xmlns="http://soap.sforce.com/2006/04/metadata">
+    <appointmentStartTimeInterval>30</appointmentStartTimeInterval>
+    <isSvcTerrOpHoursWithShiftsUsed>false</isSvcTerrOpHoursWithShiftsUsed>
+    <isSvcTerritoryMemberShiftUsed>true</isSvcTerritoryMemberShiftUsed>
+    <masterLabel>Default Appointment Scheduling Policy</masterLabel>
+    <shouldCheckExternalCalendar>false</shouldCheckExternalCalendar>
+    <shouldConsiderCalendarEvents>true</shouldConsiderCalendarEvents>
+    <shouldEnforceExcludedResource>true</shouldEnforceExcludedResource>
+    <shouldEnforceRequiredResource>true</shouldEnforceRequiredResource>
+    <shouldMatchSkill>false</shouldMatchSkill>
+    <shouldMatchSkillLevel>false</shouldMatchSkillLevel>
+    <shouldRespectVisitingHours>false</shouldRespectVisitingHours>
+    <shouldUsePrimaryMembers>true</shouldUsePrimaryMembers>
+    <shouldUseSecondaryMembers>true</shouldUseSecondaryMembers>
+</AppointmentSchedulingPolicy>
