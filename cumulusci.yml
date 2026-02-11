@@ -27,6 +27,10 @@ flows:
             4:
                 task: deploy_appointments_quickstart
             5:
+                task: deploy_case_record_types
+            6:
+                task: deploy_individual_application_record_types
+            7:
                 task: deploy_custom_report_types
 
 tasks:
@@ -47,7 +51,7 @@ tasks:
 
     deploy_account_record_types:
         class_path: cumulusci.tasks.salesforce.Deploy
-        description: Deploys standard Account record types (College).
+        description: Deploys standard Account record types (College) for Education Cloud.
         options:
             path: unpackaged/account-record-types
 
@@ -63,8 +67,20 @@ tasks:
         options:
             path: unpackaged/appointments-quickstart
 
+    deploy_case_record_types:
+        class_path: cumulusci.tasks.salesforce.Deploy
+        description: Deploys standard Case record types (Academic) for Education Cloud, as well as the business processes.
+        options:
+            path: unpackaged/case-record-types
+
     deploy_custom_report_types:
         class_path: cumulusci.tasks.salesforce.Deploy
         description: Deploys custom report types for Education Cloud.
         options:
             path: unpackaged/custom-report-types
+
+    deploy_individual_application_record_types:
+        class_path: cumulusci.tasks.salesforce.Deploy
+        description: Deploys standard Individual Application record types (Admissions) for Education Cloud, as well as the Application Record Type Config.
+        options:
+            path: unpackaged/individual-application-record-types
