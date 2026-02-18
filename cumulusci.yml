@@ -25,13 +25,24 @@ flows:
             3:
                 task: deploy_account_settings
             4:
-                task: deploy_appointments_quickstart
+                flow: deploy_appointments_quickstart
             5:
                 task: deploy_case_record_types
             6:
                 task: deploy_individual_application_record_types
             7:
                 task: deploy_custom_report_types
+            8:
+                task: set_education_cloud_objects_org_wide_defaults
+
+    deploy_appointments_quickstart:
+        description: Deploys basic setup for appointment scheduling in Education Cloud, as well as Public Read Only org-wide sharing settings for the relevant objects.
+        steps:
+            1:
+                task: deploy_appointments_quickstart
+            2:
+                task: set_education_cloud_appointment_objects_org_wide_defaults
+                    
 
 tasks:
     robot:
@@ -84,3 +95,99 @@ tasks:
         description: Deploys standard Individual Application record types (Admissions) for Education Cloud, as well as the Application Record Type Config.
         options:
             path: unpackaged/individual-application-record-types
+
+    set_education_cloud_objects_org_wide_defaults:
+        class_path: cumulusci.tasks.metadata_etl.SetOrgWideDefaults
+        description: Updates the organization-wide sharing settings for the relevant Education Cloud objects.
+        options:
+            org_wide_defaults: [{
+                api_name: AcademicSession,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: AcademicTerm,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: AcademicYear,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: ApplicationRenderMethod,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: ApplicationStageDefinition,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: ApplicationTimeline,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: CourseOffering,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: Examination,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: Learning,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: LearningAchievement,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: LearningPathwayTemplate,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: ProgramTermApplnTimeline,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }]
+
+    set_education_cloud_appointment_objects_org_wide_defaults:
+        class_path: cumulusci.tasks.metadata_etl.SetOrgWideDefaults
+        description: Updates the organization-wide sharing settings for the objects related to appointment scheduling in Education Cloud.
+        options:
+            org_wide_defaults: [{
+                api_name: EngagementChannelType,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: Location,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: OperatingHours,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: ServiceResource,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: ServiceTerritory,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: Shift,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: SuccessTeam,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: WorkType,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }, {
+                api_name: WorkTypeGroup,
+                internal_sharing_model: Read,
+                external_sharing_model: Read
+            }]
