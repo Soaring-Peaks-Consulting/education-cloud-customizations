@@ -14,7 +14,15 @@ flows:
             3.2:
                 flow: deploy_education_cloud_customizations
 
+    dev_org_with_community:
+        steps:
+            1: 
+                flow: dev_org
+            2:
+                flow: setup_education_cloud_community
+
     deploy_education_cloud_customizations:
+        description: Assigns the necessary permission sets to the running user and deploys various metadata components including record types, account settings, and custom report types. Also deploys a quickstart for appointment scheduling in Education Cloud, and sets org-wide sharing settings for the relevant Education Cloud objects.
         steps:
             1:
                 task: assign_permission_sets
@@ -34,8 +42,6 @@ flows:
                 task: deploy_custom_report_types
             8:
                 task: set_education_cloud_objects_org_wide_defaults
-            9:
-                flow: setup_education_cloud_community
 
     deploy_appointments_quickstart:
         description: Deploys basic setup for appointment scheduling in Education Cloud, as well as Public Read Only org-wide sharing settings for the relevant objects.
@@ -53,6 +59,7 @@ flows:
                 options:
                     name: Connected University Student Portal
                     template: Education Portal
+                    timeout: 600
             2:
                 task: publish_community
                 options:
