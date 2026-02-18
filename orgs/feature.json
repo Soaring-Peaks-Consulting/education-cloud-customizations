@@ -18,6 +18,9 @@
         "forceRelogin": false
       }
     },
+    "communitiesSettings": {
+      "enableNetworksEnabled": true
+    },
     "languageSettings": {
       "enableTranslationWorkbench": true
     },

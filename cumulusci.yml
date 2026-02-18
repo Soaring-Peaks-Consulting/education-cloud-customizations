@@ -34,6 +34,8 @@ flows:
                 task: deploy_custom_report_types
             8:
                 task: set_education_cloud_objects_org_wide_defaults
+            9:
+                flow: setup_education_cloud_community
 
     deploy_appointments_quickstart:
         description: Deploys basic setup for appointment scheduling in Education Cloud, as well as Public Read Only org-wide sharing settings for the relevant objects.
@@ -42,8 +44,20 @@ flows:
                 task: deploy_appointments_quickstart
             2:
                 task: set_education_cloud_appointment_objects_org_wide_defaults
-                    
 
+    setup_education_cloud_community:
+        description: Creates and publishes a community using the Education Portal template.
+        steps:
+            1:
+                task: create_community
+                options:
+                    name: Connected University Student Portal
+                    template: Education Portal
+            2:
+                task: publish_community
+                options:
+                    name: Connected University Student Portal
+                    
 tasks:
     robot:
         options:
