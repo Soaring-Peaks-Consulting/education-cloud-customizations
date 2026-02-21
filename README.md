@@ -1,6 +1,6 @@
 # Education Cloud Customizations
 
-Various Education Cloud customizations that help Education Cloud consultants, developers, and customers use Education Cloud to its full potential.
+Various Education Cloud customizations that help Education Cloud consultants, developers, and customers use Education Cloud to its full potential in scratch orgs and other development environments.
 
 ## Deployment
 
@@ -25,6 +25,8 @@ Assigns the necessary permission sets to the running user and deploys various me
 6. task: `deploy_individual_application_record_types`
 7. task: `deploy_custom_report_types`
 8. task: `set_education_cloud_objects_org_wide_defaults`
+9. task: `update_admin_profile` - enables the new record types for the System Administrator profile
+10. task: `snowfakery` - inserts sample data
 
 #### `deploy_appointments_quickstart`
 Deploys basic setup for appointment scheduling in Education Cloud, as well as Public Read Only org-wide sharing settings for the relevant objects.

@@ -42,6 +42,23 @@ flows:
                 task: deploy_custom_report_types
             8:
                 task: set_education_cloud_objects_org_wide_defaults
+            9:
+                task: update_admin_profile
+                options:
+                    record_types:
+                        - record_type: Account.College
+                          visible: true
+                          default: true
+                        - record_type: Case.Academic
+                          visible: true
+                          default: true
+                        - record_type: IndividualApplication.Admissions
+                          visible: true
+                          default: true
+            10:
+                task: snowfakery
+                options:
+                    recipe: datasets/example_data.yml
 
     deploy_appointments_quickstart:
         description: Deploys basic setup for appointment scheduling in Education Cloud, as well as Public Read Only org-wide sharing settings for the relevant objects.
