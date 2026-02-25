@@ -26,12 +26,17 @@ Assigns the necessary permission sets to the running user and deploys various me
 7. task: `deploy_custom_report_types`
 8. task: `set_education_cloud_objects_org_wide_defaults`
 9. task: `update_admin_profile` - enables the new record types for the System Administrator profile
-10. task: `snowfakery` - inserts sample data
+10. flow: `insert_sample_data`
 
 #### `deploy_appointments_quickstart`
 Deploys basic setup for appointment scheduling in Education Cloud, as well as Public Read Only org-wide sharing settings for the relevant objects.
 1. task: `deploy_appointments_quickstart`
 2. task: `set_education_cloud_appointment_objects_org_wide_defaults`
+
+#### `insert_sample_data`
+Inserts sample data for testing and demonstration purposes.
+1. task: `snowfakery` - inserts records from the datasets/sample_account_data.yml recipe file
+2. task: `snowfakery` - inserts records from the datasets/sample_academic_calendar_data.yml recipe file
 
 #### `setup_education_cloud_community`
 Creates and publishes a community using the Education Portal template.

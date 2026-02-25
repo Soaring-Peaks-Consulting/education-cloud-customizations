@@ -56,9 +56,7 @@ flows:
                           visible: true
                           default: true
             10:
-                task: snowfakery
-                options:
-                    recipe: datasets/example_data.yml
+                flow: insert_sample_data
 
     deploy_appointments_quickstart:
         description: Deploys basic setup for appointment scheduling in Education Cloud, as well as Public Read Only org-wide sharing settings for the relevant objects.
@@ -67,6 +65,18 @@ flows:
                 task: deploy_appointments_quickstart
             2:
                 task: set_education_cloud_appointment_objects_org_wide_defaults
+
+    insert_sample_data:
+        description: Inserts sample data for testing and demonstration purposes.
+        steps:
+            1:
+                task: snowfakery
+                options:
+                    recipe: datasets/sample_account_data.yml
+            2:
+                task: snowfakery
+                options:
+                    recipe: datasets/sample_academic_calendar_data.yml
 
     setup_education_cloud_community:
         description: Creates and publishes a community using the Education Portal template.

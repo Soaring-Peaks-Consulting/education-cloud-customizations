@@ -1,0 +1,600 @@
+- snowfakery_version: 3
+# =============================================================================
+# Snowfakery Recipe: Connected University Academic Calendar
+# Salesforce Education Cloud — AcademicYear, AcademicTerm, AcademicSession
+#
+# DYNAMIC DATE STRATEGY
+# ---------------------
+# All dates are computed relative to `today` so this recipe stays accurate
+# year after year without manual edits.
+#
+# Per the Snowfakery docs, `today` is a Python date object available in all
+# formula expressions. To construct a specific date dynamically, we use:
+#
+#   today.replace(year=..., month=..., day=...)
+#
+# Academic Year Definition (August–July):
+#   • If today is August or later  → current AY fall started THIS calendar year
+#   • If today is before August    → current AY fall started LAST calendar year
+#
+# The variable `ay_start_year` holds the calendar year of the fall semester
+# for the CURRENT academic year. Every other year is an offset from that.
+#
+# STRUCTURE per Academic Year:
+#   Fall Term   → 1 Full-Term Session  (Aug 19 – Dec 13)
+#   Spring Term → 1 Full-Term Session  (Jan 13 – May 9)
+#   Summer Term → 2 Sessions: Full Term (May 20 – Jul 26) + Intensive (Jun 9 – Jul 11)
+#
+# COVERAGE: Current AY ± 3 years  (7 academic years total)
+#
+# Corrected Object Fields (Salesforce Education Cloud):
+#   AcademicYear    : Name, Year, Description
+#   AcademicTerm    : Name, Description, StartDate, EndDate, Season, IsActive,
+#                     AcademicYearId
+#   AcademicSession : Name, Description, IsActive, AcademicTermId
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# GLOBAL VARIABLE
+# Determine the calendar year when the current AY's Fall semester started.
+#   Jan–Jul → fall started the PREVIOUS calendar year  (today.year - 1)
+#   Aug–Dec → fall started THIS calendar year          (today.year)
+# ---------------------------------------------------------------------------
+- var: ay_start_year
+  value: ${{ today.year if today.month >= 8 else today.year - 1 }}
+
+# =============================================================================
+# ACADEMIC YEAR:  ay_start_year - 3  (THREE YEARS AGO)
+# =============================================================================
+
+- object: AcademicYear
+  nickname: AY_minus3
+  fields:
+    Name:        ${{ (ay_start_year - 3)|string + "-" + (ay_start_year - 2)|string + " Academic Year" }}
+    Year:        ${{ ay_start_year - 3 }}
+    Description: ${{ "Academic Year " + (ay_start_year - 3)|string + "-" + (ay_start_year - 2)|string + " at Connected University." }}
+
+- object: AcademicTerm
+  nickname: Term_Fall_minus3
+  fields:
+    Name:        ${{ "Fall " + (ay_start_year - 3)|string }}
+    Description: ${{ "Fall semester " + (ay_start_year - 3)|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year - 3, month=8,  day=19) }}
+    EndDate:     ${{ today.replace(year=ay_start_year - 3, month=12, day=13) }}
+    Season:      Fall
+    IsActive:    false
+    AcademicYearId:
+      reference: AY_minus3
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Fall " + (ay_start_year - 3)|string + " - Full Term" }}
+    Description: ${{ "Standard 16-week full-term session, Fall " + (ay_start_year - 3)|string + "." }}
+    IsActive:    false
+    AcademicTermId:
+      reference: Term_Fall_minus3
+
+- object: AcademicTerm
+  nickname: Term_Spring_minus3
+  fields:
+    Name:        ${{ "Spring " + (ay_start_year - 2)|string }}
+    Description: ${{ "Spring semester " + (ay_start_year - 2)|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year - 2, month=1, day=13) }}
+    EndDate:     ${{ today.replace(year=ay_start_year - 2, month=5, day=9)  }}
+    Season:      Spring
+    IsActive:    false
+    AcademicYearId:
+      reference: AY_minus3
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Spring " + (ay_start_year - 2)|string + " - Full Term" }}
+    Description: ${{ "Standard 16-week full-term session, Spring " + (ay_start_year - 2)|string + "." }}
+    IsActive:    false
+    AcademicTermId:
+      reference: Term_Spring_minus3
+
+- object: AcademicTerm
+  nickname: Term_Summer_minus3
+  fields:
+    Name:        ${{ "Summer " + (ay_start_year - 2)|string }}
+    Description: ${{ "Summer term " + (ay_start_year - 2)|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year - 2, month=5, day=20) }}
+    EndDate:     ${{ today.replace(year=ay_start_year - 2, month=7, day=31) }}
+    Season:      Summer
+    IsActive:    false
+    AcademicYearId:
+      reference: AY_minus3
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Summer " + (ay_start_year - 2)|string + " - Full Term" }}
+    Description: ${{ "10-week full-term session, Summer " + (ay_start_year - 2)|string + "." }}
+    IsActive:    false
+    AcademicTermId:
+      reference: Term_Summer_minus3
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Summer " + (ay_start_year - 2)|string + " - Intensive" }}
+    Description: ${{ "5-week intensive session, Summer " + (ay_start_year - 2)|string + "." }}
+    IsActive:    false
+    AcademicTermId:
+      reference: Term_Summer_minus3
+
+# =============================================================================
+# ACADEMIC YEAR:  ay_start_year - 2  (TWO YEARS AGO)
+# =============================================================================
+
+- object: AcademicYear
+  nickname: AY_minus2
+  fields:
+    Name:        ${{ (ay_start_year - 2)|string + "-" + (ay_start_year - 1)|string + " Academic Year" }}
+    Year:        ${{ ay_start_year - 2 }}
+    Description: ${{ "Academic Year " + (ay_start_year - 2)|string + "-" + (ay_start_year - 1)|string + " at Connected University." }}
+
+- object: AcademicTerm
+  nickname: Term_Fall_minus2
+  fields:
+    Name:        ${{ "Fall " + (ay_start_year - 2)|string }}
+    Description: ${{ "Fall semester " + (ay_start_year - 2)|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year - 2, month=8,  day=19) }}
+    EndDate:     ${{ today.replace(year=ay_start_year - 2, month=12, day=13) }}
+    Season:      Fall
+    IsActive:    false
+    AcademicYearId:
+      reference: AY_minus2
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Fall " + (ay_start_year - 2)|string + " - Full Term" }}
+    Description: ${{ "Standard 16-week full-term session, Fall " + (ay_start_year - 2)|string + "." }}
+    IsActive:    false
+    AcademicTermId:
+      reference: Term_Fall_minus2
+
+- object: AcademicTerm
+  nickname: Term_Spring_minus2
+  fields:
+    Name:        ${{ "Spring " + (ay_start_year - 1)|string }}
+    Description: ${{ "Spring semester " + (ay_start_year - 1)|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year - 1, month=1, day=13) }}
+    EndDate:     ${{ today.replace(year=ay_start_year - 1, month=5, day=9)  }}
+    Season:      Spring
+    IsActive:    false
+    AcademicYearId:
+      reference: AY_minus2
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Spring " + (ay_start_year - 1)|string + " - Full Term" }}
+    Description: ${{ "Standard 16-week full-term session, Spring " + (ay_start_year - 1)|string + "." }}
+    IsActive:    false
+    AcademicTermId:
+      reference: Term_Spring_minus2
+
+- object: AcademicTerm
+  nickname: Term_Summer_minus2
+  fields:
+    Name:        ${{ "Summer " + (ay_start_year - 1)|string }}
+    Description: ${{ "Summer term " + (ay_start_year - 1)|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year - 1, month=5, day=20) }}
+    EndDate:     ${{ today.replace(year=ay_start_year - 1, month=7, day=31) }}
+    Season:      Summer
+    IsActive:    false
+    AcademicYearId:
+      reference: AY_minus2
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Summer " + (ay_start_year - 1)|string + " - Full Term" }}
+    Description: ${{ "10-week full-term session, Summer " + (ay_start_year - 1)|string + "." }}
+    IsActive:    false
+    AcademicTermId:
+      reference: Term_Summer_minus2
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Summer " + (ay_start_year - 1)|string + " - Intensive" }}
+    Description: ${{ "5-week intensive session, Summer " + (ay_start_year - 1)|string + "." }}
+    IsActive:    false
+    AcademicTermId:
+      reference: Term_Summer_minus2
+
+# =============================================================================
+# ACADEMIC YEAR:  ay_start_year - 1  (ONE YEAR AGO)
+# =============================================================================
+
+- object: AcademicYear
+  nickname: AY_minus1
+  fields:
+    Name:        ${{ (ay_start_year - 1)|string + "-" + ay_start_year|string + " Academic Year" }}
+    Year:        ${{ ay_start_year - 1 }}
+    Description: ${{ "Academic Year " + (ay_start_year - 1)|string + "-" + ay_start_year|string + " at Connected University." }}
+
+- object: AcademicTerm
+  nickname: Term_Fall_minus1
+  fields:
+    Name:        ${{ "Fall " + (ay_start_year - 1)|string }}
+    Description: ${{ "Fall semester " + (ay_start_year - 1)|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year - 1, month=8,  day=19) }}
+    EndDate:     ${{ today.replace(year=ay_start_year - 1, month=12, day=13) }}
+    Season:      Fall
+    IsActive:    false
+    AcademicYearId:
+      reference: AY_minus1
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Fall " + (ay_start_year - 1)|string + " - Full Term" }}
+    Description: ${{ "Standard 16-week full-term session, Fall " + (ay_start_year - 1)|string + "." }}
+    IsActive:    false
+    AcademicTermId:
+      reference: Term_Fall_minus1
+
+- object: AcademicTerm
+  nickname: Term_Spring_minus1
+  fields:
+    Name:        ${{ "Spring " + ay_start_year|string }}
+    Description: ${{ "Spring semester " + ay_start_year|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year, month=1, day=13) }}
+    EndDate:     ${{ today.replace(year=ay_start_year, month=5, day=9)  }}
+    Season:      Spring
+    IsActive:    false
+    AcademicYearId:
+      reference: AY_minus1
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Spring " + ay_start_year|string + " - Full Term" }}
+    Description: ${{ "Standard 16-week full-term session, Spring " + ay_start_year|string + "." }}
+    IsActive:    false
+    AcademicTermId:
+      reference: Term_Spring_minus1
+
+- object: AcademicTerm
+  nickname: Term_Summer_minus1
+  fields:
+    Name:        ${{ "Summer " + ay_start_year|string }}
+    Description: ${{ "Summer term " + ay_start_year|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year, month=5, day=20) }}
+    EndDate:     ${{ today.replace(year=ay_start_year, month=7, day=31) }}
+    Season:      Summer
+    IsActive:    false
+    AcademicYearId:
+      reference: AY_minus1
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Summer " + ay_start_year|string + " - Full Term" }}
+    Description: ${{ "10-week full-term session, Summer " + ay_start_year|string + "." }}
+    IsActive:    false
+    AcademicTermId:
+      reference: Term_Summer_minus1
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Summer " + ay_start_year|string + " - Intensive" }}
+    Description: ${{ "5-week intensive session, Summer " + ay_start_year|string + "." }}
+    IsActive:    false
+    AcademicTermId:
+      reference: Term_Summer_minus1
+
+# =============================================================================
+# ACADEMIC YEAR:  ay_start_year  (CURRENT)
+# =============================================================================
+
+- object: AcademicYear
+  nickname: AY_current
+  fields:
+    Name:        ${{ ay_start_year|string + "-" + (ay_start_year + 1)|string + " Academic Year" }}
+    Year:        ${{ ay_start_year }}
+    Description: ${{ "Academic Year " + ay_start_year|string + "-" + (ay_start_year + 1)|string + " at Connected University." }}
+
+# ── Fall (current AY) ───────────────────────────────────────────────────────
+- object: AcademicTerm
+  nickname: Term_Fall_current
+  fields:
+    Name:        ${{ "Fall " + ay_start_year|string }}
+    Description: ${{ "Fall semester " + ay_start_year|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year, month=8,  day=19) }}
+    EndDate:     ${{ today.replace(year=ay_start_year, month=12, day=13) }}
+    Season:      Fall
+    IsActive:    true
+    AcademicYearId:
+      reference: AY_current
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Fall " + ay_start_year|string + " - Full Term" }}
+    Description: ${{ "Standard 16-week full-term session, Fall " + ay_start_year|string + "." }}
+    IsActive:    true
+    AcademicTermId:
+      reference: Term_Fall_current
+
+# ── Spring (current AY) ─────────────────────────────────────────────────────
+- object: AcademicTerm
+  nickname: Term_Spring_current
+  fields:
+    Name:        ${{ "Spring " + (ay_start_year + 1)|string }}
+    Description: ${{ "Spring semester " + (ay_start_year + 1)|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year + 1, month=1, day=13) }}
+    EndDate:     ${{ today.replace(year=ay_start_year + 1, month=5, day=9)  }}
+    Season:      Spring
+    IsActive:    true
+    AcademicYearId:
+      reference: AY_current
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Spring " + (ay_start_year + 1)|string + " - Full Term" }}
+    Description: ${{ "Standard 16-week full-term session, Spring " + (ay_start_year + 1)|string + "." }}
+    IsActive:    true
+    AcademicTermId:
+      reference: Term_Spring_current
+
+# ── Summer (current AY) ─────────────────────────────────────────────────────
+- object: AcademicTerm
+  nickname: Term_Summer_current
+  fields:
+    Name:        ${{ "Summer " + (ay_start_year + 1)|string }}
+    Description: ${{ "Summer term " + (ay_start_year + 1)|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year + 1, month=5, day=20) }}
+    EndDate:     ${{ today.replace(year=ay_start_year + 1, month=7, day=31) }}
+    Season:      Summer
+    IsActive:    true
+    AcademicYearId:
+      reference: AY_current
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Summer " + (ay_start_year + 1)|string + " - Full Term" }}
+    Description: ${{ "10-week full-term session, Summer " + (ay_start_year + 1)|string + "." }}
+    IsActive:    true
+    AcademicTermId:
+      reference: Term_Summer_current
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Summer " + (ay_start_year + 1)|string + " - Intensive" }}
+    Description: ${{ "5-week intensive session, Summer " + (ay_start_year + 1)|string + "." }}
+    IsActive:    true
+    AcademicTermId:
+      reference: Term_Summer_current
+
+# =============================================================================
+# ACADEMIC YEAR:  ay_start_year + 1  (ONE YEAR AHEAD)
+# =============================================================================
+
+- object: AcademicYear
+  nickname: AY_plus1
+  fields:
+    Name:        ${{ (ay_start_year + 1)|string + "-" + (ay_start_year + 2)|string + " Academic Year" }}
+    Year:        ${{ ay_start_year + 1 }}
+    Description: ${{ "Academic Year " + (ay_start_year + 1)|string + "-" + (ay_start_year + 2)|string + " at Connected University." }}
+
+- object: AcademicTerm
+  nickname: Term_Fall_plus1
+  fields:
+    Name:        ${{ "Fall " + (ay_start_year + 1)|string }}
+    Description: ${{ "Fall semester " + (ay_start_year + 1)|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year + 1, month=8,  day=19) }}
+    EndDate:     ${{ today.replace(year=ay_start_year + 1, month=12, day=13) }}
+    Season:      Fall
+    IsActive:    true
+    AcademicYearId:
+      reference: AY_plus1
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Fall " + (ay_start_year + 1)|string + " - Full Term" }}
+    Description: ${{ "Standard 16-week full-term session, Fall " + (ay_start_year + 1)|string + "." }}
+    IsActive:    true
+    AcademicTermId:
+      reference: Term_Fall_plus1
+
+- object: AcademicTerm
+  nickname: Term_Spring_plus1
+  fields:
+    Name:        ${{ "Spring " + (ay_start_year + 2)|string }}
+    Description: ${{ "Spring semester " + (ay_start_year + 2)|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year + 2, month=1, day=13) }}
+    EndDate:     ${{ today.replace(year=ay_start_year + 2, month=5, day=9)  }}
+    Season:      Spring
+    IsActive:    true
+    AcademicYearId:
+      reference: AY_plus1
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Spring " + (ay_start_year + 2)|string + " - Full Term" }}
+    Description: ${{ "Standard 16-week full-term session, Spring " + (ay_start_year + 2)|string + "." }}
+    IsActive:    true
+    AcademicTermId:
+      reference: Term_Spring_plus1
+
+- object: AcademicTerm
+  nickname: Term_Summer_plus1
+  fields:
+    Name:        ${{ "Summer " + (ay_start_year + 2)|string }}
+    Description: ${{ "Summer term " + (ay_start_year + 2)|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year + 2, month=5, day=20) }}
+    EndDate:     ${{ today.replace(year=ay_start_year + 2, month=7, day=31) }}
+    Season:      Summer
+    IsActive:    true
+    AcademicYearId:
+      reference: AY_plus1
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Summer " + (ay_start_year + 2)|string + " - Full Term" }}
+    Description: ${{ "10-week full-term session, Summer " + (ay_start_year + 2)|string + "." }}
+    IsActive:    true
+    AcademicTermId:
+      reference: Term_Summer_plus1
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Summer " + (ay_start_year + 2)|string + " - Intensive" }}
+    Description: ${{ "5-week intensive session, Summer " + (ay_start_year + 2)|string + "." }}
+    IsActive:    true
+    AcademicTermId:
+      reference: Term_Summer_plus1
+
+# =============================================================================
+# ACADEMIC YEAR:  ay_start_year + 2  (TWO YEARS AHEAD)
+# =============================================================================
+
+- object: AcademicYear
+  nickname: AY_plus2
+  fields:
+    Name:        ${{ (ay_start_year + 2)|string + "-" + (ay_start_year + 3)|string + " Academic Year" }}
+    Year:        ${{ ay_start_year + 2 }}
+    Description: ${{ "Academic Year " + (ay_start_year + 2)|string + "-" + (ay_start_year + 3)|string + " at Connected University." }}
+
+- object: AcademicTerm
+  nickname: Term_Fall_plus2
+  fields:
+    Name:        ${{ "Fall " + (ay_start_year + 2)|string }}
+    Description: ${{ "Fall semester " + (ay_start_year + 2)|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year + 2, month=8,  day=19) }}
+    EndDate:     ${{ today.replace(year=ay_start_year + 2, month=12, day=13) }}
+    Season:      Fall
+    IsActive:    true
+    AcademicYearId:
+      reference: AY_plus2
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Fall " + (ay_start_year + 2)|string + " - Full Term" }}
+    Description: ${{ "Standard 16-week full-term session, Fall " + (ay_start_year + 2)|string + "." }}
+    IsActive:    true
+    AcademicTermId:
+      reference: Term_Fall_plus2
+
+- object: AcademicTerm
+  nickname: Term_Spring_plus2
+  fields:
+    Name:        ${{ "Spring " + (ay_start_year + 3)|string }}
+    Description: ${{ "Spring semester " + (ay_start_year + 3)|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year + 3, month=1, day=13) }}
+    EndDate:     ${{ today.replace(year=ay_start_year + 3, month=5, day=9)  }}
+    Season:      Spring
+    IsActive:    true
+    AcademicYearId:
+      reference: AY_plus2
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Spring " + (ay_start_year + 3)|string + " - Full Term" }}
+    Description: ${{ "Standard 16-week full-term session, Spring " + (ay_start_year + 3)|string + "." }}
+    IsActive:    true
+    AcademicTermId:
+      reference: Term_Spring_plus2
+
+- object: AcademicTerm
+  nickname: Term_Summer_plus2
+  fields:
+    Name:        ${{ "Summer " + (ay_start_year + 3)|string }}
+    Description: ${{ "Summer term " + (ay_start_year + 3)|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year + 3, month=5, day=20) }}
+    EndDate:     ${{ today.replace(year=ay_start_year + 3, month=7, day=31) }}
+    Season:      Summer
+    IsActive:    true
+    AcademicYearId:
+      reference: AY_plus2
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Summer " + (ay_start_year + 3)|string + " - Full Term" }}
+    Description: ${{ "10-week full-term session, Summer " + (ay_start_year + 3)|string + "." }}
+    IsActive:    true
+    AcademicTermId:
+      reference: Term_Summer_plus2
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Summer " + (ay_start_year + 3)|string + " - Intensive" }}
+    Description: ${{ "5-week intensive session, Summer " + (ay_start_year + 3)|string + "." }}
+    IsActive:    true
+    AcademicTermId:
+      reference: Term_Summer_plus2
+
+# =============================================================================
+# ACADEMIC YEAR:  ay_start_year + 3  (THREE YEARS AHEAD)
+# =============================================================================
+
+- object: AcademicYear
+  nickname: AY_plus3
+  fields:
+    Name:        ${{ (ay_start_year + 3)|string + "-" + (ay_start_year + 4)|string + " Academic Year" }}
+    Year:        ${{ ay_start_year + 3 }}
+    Description: ${{ "Academic Year " + (ay_start_year + 3)|string + "-" + (ay_start_year + 4)|string + " at Connected University." }}
+
+- object: AcademicTerm
+  nickname: Term_Fall_plus3
+  fields:
+    Name:        ${{ "Fall " + (ay_start_year + 3)|string }}
+    Description: ${{ "Fall semester " + (ay_start_year + 3)|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year + 3, month=8,  day=19) }}
+    EndDate:     ${{ today.replace(year=ay_start_year + 3, month=12, day=13) }}
+    Season:      Fall
+    IsActive:    true
+    AcademicYearId:
+      reference: AY_plus3
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Fall " + (ay_start_year + 3)|string + " - Full Term" }}
+    Description: ${{ "Standard 16-week full-term session, Fall " + (ay_start_year + 3)|string + "." }}
+    IsActive:    true
+    AcademicTermId:
+      reference: Term_Fall_plus3
+
+- object: AcademicTerm
+  nickname: Term_Spring_plus3
+  fields:
+    Name:        ${{ "Spring " + (ay_start_year + 4)|string }}
+    Description: ${{ "Spring semester " + (ay_start_year + 4)|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year + 4, month=1, day=13) }}
+    EndDate:     ${{ today.replace(year=ay_start_year + 4, month=5, day=9)  }}
+    Season:      Spring
+    IsActive:    true
+    AcademicYearId:
+      reference: AY_plus3
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Spring " + (ay_start_year + 4)|string + " - Full Term" }}
+    Description: ${{ "Standard 16-week full-term session, Spring " + (ay_start_year + 4)|string + "." }}
+    IsActive:    true
+    AcademicTermId:
+      reference: Term_Spring_plus3
+
+- object: AcademicTerm
+  nickname: Term_Summer_plus3
+  fields:
+    Name:        ${{ "Summer " + (ay_start_year + 4)|string }}
+    Description: ${{ "Summer term " + (ay_start_year + 4)|string + " at Connected University." }}
+    StartDate:   ${{ today.replace(year=ay_start_year + 4, month=5, day=20) }}
+    EndDate:     ${{ today.replace(year=ay_start_year + 4, month=7, day=31) }}
+    Season:      Summer
+    IsActive:    true
+    AcademicYearId:
+      reference: AY_plus3
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Summer " + (ay_start_year + 4)|string + " - Full Term" }}
+    Description: ${{ "10-week full-term session, Summer " + (ay_start_year + 4)|string + "." }}
+    IsActive:    true
+    AcademicTermId:
+      reference: Term_Summer_plus3
+
+- object: AcademicSession
+  fields:
+    Name:        ${{ "Summer " + (ay_start_year + 4)|string + " - Intensive" }}
+    Description: ${{ "5-week intensive session, Summer " + (ay_start_year + 4)|string + "." }}
+    IsActive:    true
+    AcademicTermId:
+      reference: Term_Summer_plus3
