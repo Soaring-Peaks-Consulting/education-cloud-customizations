@@ -1,0 +1,578 @@
+- snowfakery_version: 3
+# =============================================================================
+# Snowfakery Recipe: Connected University — AcademicTermEnrollment Records
+# Depends on: sample_account_data.yml and sample_academic_calendar_data.yml (included via sample_data.yml)
+#
+# STUDENT PERSONAS
+# ----------------
+# Sophia Student     — Incoming Freshman: enrolled in Fall (current) only
+# Student 2 (Senior) — Undergraduate Senior: 7 terms, Fall minus3 → Spring current
+# Student 3 (Grad)   — Graduate Student: 3 terms, Fall minus1 → Spring current
+# Student 4 (Alumni) — Gruduated Spring minus1
+# Student 5          — Continuing Sophomore, enrolled since Fall minus1
+# Student 6          — Continuing Junior, enrolled since Fall minus2, skipped a term
+# Student 7          — Graduate student who withdrew mid-program, now re-admitted
+#
+# AcademicTermEnrollment Fields:
+#   AcademicTermId          - reference to AcademicTerm
+#   EnrollmentDate          - date of enrollment
+#   EnrollmentReason        - First Time | Continuing | Transfer in | Re-admit
+#   EnrollmentStatus        - Active | Dropout | Expelled | Active | No show
+#                             | Other | Transferred | Withdrawn
+#   ExitDate                - populated only for Dropout, Expelled, Withdrawn
+#   ExitReason              - text, populated only for Dropout, Expelled, Withdrawn
+#   LearnerAccountId        - reference to PersonAccount
+#   StudentAcademicLevel    - Undergraduate | Graduate | Doctoral
+#                             | Professional Education
+#   StudyYearClassification - Freshman | Sophomore | Junior | Senior
+#   TermGradePointAverage   - number(2,4), only populated for completed terms
+# =============================================================================
+
+# =============================================================================
+# SOPHIA STUDENT — Incoming Freshman
+# First and only term: Fall (current). No GPA yet (term in progress).
+# =============================================================================
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_current
+    LearnerAccountId:
+      reference: Sophia
+    LearnerContactId:
+      reference: Sophia_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year, month=8, day=1) }}
+    EnrollmentReason:     First Time
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Freshman
+
+# =============================================================================
+# STUDENT 2 — Undergraduate Senior
+# Enrolled Fall minus3 through Spring current (7 terms, skipping summers).
+# Completing senior year now; strong consistent GPA.
+# =============================================================================
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_minus3
+    LearnerAccountId:
+      reference: Student_2
+    LearnerContactId:
+      reference: Student_2_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year - 3, month=8, day=1) }}
+    EnrollmentReason:     First Time
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Freshman
+    TermGradePointAverage: 3.45
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Spring_minus3
+    LearnerAccountId:
+      reference: Student_2
+    LearnerContactId:
+      reference: Student_2_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year - 2, month=1, day=6) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Freshman
+    TermGradePointAverage: 3.52
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_minus2
+    LearnerAccountId:
+      reference: Student_2
+    LearnerContactId:
+      reference: Student_2_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year - 2, month=8, day=1) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Sophomore
+    TermGradePointAverage: 3.61
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Spring_minus2
+    LearnerAccountId:
+      reference: Student_2
+    LearnerContactId:
+      reference: Student_2_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year - 1, month=1, day=6) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Sophomore
+    TermGradePointAverage: 3.58
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_minus1
+    LearnerAccountId:
+      reference: Student_2
+    LearnerContactId:
+      reference: Student_2_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year - 1, month=8, day=1) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Junior
+    TermGradePointAverage: 3.70
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Spring_minus1
+    LearnerAccountId:
+      reference: Student_2
+    LearnerContactId:
+      reference: Student_2_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year, month=1, day=6) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Junior
+    TermGradePointAverage: 3.66
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_current
+    LearnerAccountId:
+      reference: Student_2
+    LearnerContactId:
+      reference: Student_2_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year, month=8, day=1) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Senior
+    TermGradePointAverage: 3.74
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Spring_current
+    LearnerAccountId:
+      reference: Student_2
+    LearnerContactId:
+      reference: Student_2_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year + 1, month=1, day=6) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Senior
+
+# =============================================================================
+# STUDENT 3 — Graduate Student
+# Enrolled Fall minus1 through Spring current (3 terms).
+# =============================================================================
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_minus1
+    LearnerAccountId:
+      reference: Student_3
+    LearnerContactId:
+      reference: Student_3_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year - 1, month=8, day=1) }}
+    EnrollmentReason:     First Time
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Graduate
+    TermGradePointAverage: 3.80
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Spring_minus1
+    LearnerAccountId:
+      reference: Student_3
+    LearnerContactId:
+      reference: Student_3_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year, month=1, day=6) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Graduate
+    TermGradePointAverage: 3.75
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_current
+    LearnerAccountId:
+      reference: Student_3
+    LearnerContactId:
+      reference: Student_3_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year, month=8, day=1) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Graduate
+    TermGradePointAverage: 3.88
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Spring_current
+    LearnerAccountId:
+      reference: Student_3
+    LearnerContactId:
+      reference: Student_3_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year + 1, month=1, day=6) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Graduate
+
+# =============================================================================
+# STUDENT 4 — Alumni
+# Completed 8 terms Fall minus3 through Spring minus1.
+# =============================================================================
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_minus3
+    LearnerAccountId:
+      reference: Student_4
+    LearnerContactId:
+      reference: Student_4_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year - 3, month=8, day=1) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Sophomore
+    TermGradePointAverage: 2.95
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Spring_minus3
+    LearnerAccountId:
+      reference: Student_4
+    LearnerContactId:
+      reference: Student_4_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year - 2, month=1, day=6) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Sophomore
+    TermGradePointAverage: 3.10
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_minus2
+    LearnerAccountId:
+      reference: Student_4
+    LearnerContactId:
+      reference: Student_4_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year - 2, month=8, day=1) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Junior
+    TermGradePointAverage: 3.05
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Spring_minus2
+    LearnerAccountId:
+      reference: Student_4
+    LearnerContactId:
+      reference: Student_4_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year - 1, month=1, day=6) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Junior
+    TermGradePointAverage: 3.22
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Summer_minus2
+    LearnerAccountId:
+      reference: Student_4
+    LearnerContactId:
+      reference: Student_4_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year - 1, month=5, day=21) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Junior
+    TermGradePointAverage: 3.33
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_minus1
+    LearnerAccountId:
+      reference: Student_4
+    LearnerContactId:
+      reference: Student_4_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year - 1, month=8, day=1) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Senior
+    TermGradePointAverage: 3.40
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Spring_minus1
+    LearnerAccountId:
+      reference: Student_4
+    LearnerContactId:
+      reference: Student_4_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year, month=1, day=6) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Graduated
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Senior
+    TermGradePointAverage: 3.38
+
+# =============================================================================
+# STUDENT 5 — Continuing Sophomore
+# Started Fall minus1, enrolled through Spring current.
+# =============================================================================
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_minus1
+    LearnerAccountId:
+      reference: Student_5
+    LearnerContactId:
+      reference: Student_5_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year - 1, month=8, day=1) }}
+    EnrollmentReason:     First Time
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Freshman
+    TermGradePointAverage: 2.88
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Spring_minus1
+    LearnerAccountId:
+      reference: Student_5
+    LearnerContactId:
+      reference: Student_5_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year, month=1, day=6) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Freshman
+    TermGradePointAverage: 3.00
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_current
+    LearnerAccountId:
+      reference: Student_5
+    LearnerContactId:
+      reference: Student_5_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year, month=8, day=1) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Sophomore
+    TermGradePointAverage: 3.15
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Spring_current
+    LearnerAccountId:
+      reference: Student_5
+    LearnerContactId:
+      reference: Student_5_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year + 1, month=1, day=6) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Sophomore
+
+# =============================================================================
+# STUDENT 6 — Continuing Junior
+# Started Fall minus2, withdrew Spring minus2, re-admitted Fall minus1.
+# =============================================================================
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_minus2
+    LearnerAccountId:
+      reference: Student_6
+    LearnerContactId:
+      reference: Student_6_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year - 2, month=8, day=1) }}
+    EnrollmentReason:     First Time
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Freshman
+    TermGradePointAverage: 2.70
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Spring_minus2
+    LearnerAccountId:
+      reference: Student_6
+    LearnerContactId:
+      reference: Student_6_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year - 1, month=1, day=6) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Withdrawn
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Freshman
+    ExitDate:             ${{ today.replace(year=ay_start_year - 1, month=3, day=15) }}
+    ExitReason:           Personal circumstances required withdrawal from the semester.
+    TermGradePointAverage: 1.50
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_minus1
+    LearnerAccountId:
+      reference: Student_6
+    LearnerContactId:
+      reference: Student_6_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year - 1, month=8, day=1) }}
+    EnrollmentReason:     Re-admit
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Sophomore
+    TermGradePointAverage: 2.95
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Spring_minus1
+    LearnerAccountId:
+      reference: Student_6
+    LearnerContactId:
+      reference: Student_6_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year, month=1, day=6) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Sophomore
+    TermGradePointAverage: 3.10
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_current
+    LearnerAccountId:
+      reference: Student_6
+    LearnerContactId:
+      reference: Student_6_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year, month=8, day=1) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Junior
+    TermGradePointAverage: 3.20
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Spring_current
+    LearnerAccountId:
+      reference: Student_6
+    LearnerContactId:
+      reference: Student_6_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year + 1, month=1, day=6) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Undergraduate
+    StudyYearClassification: Junior
+
+# =============================================================================
+# STUDENT 7 — Graduate Student, Withdrew then Re-admitted
+# Attempted grad school Fall minus2, dropped out, re-admitted Fall minus1.
+# =============================================================================
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_minus2
+    LearnerAccountId:
+      reference: Student_7
+    LearnerContactId:
+      reference: Student_7_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year - 2, month=8, day=1) }}
+    EnrollmentReason:     First Time
+    EnrollmentStatus:     Dropout
+    StudentAcademicLevel: Graduate
+    ExitDate:             ${{ today.replace(year=ay_start_year - 2, month=10, day=20) }}
+    ExitReason:           Student stopped attending classes and did not complete the term.
+    TermGradePointAverage: 1.33
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_minus1
+    LearnerAccountId:
+      reference: Student_7
+    LearnerContactId:
+      reference: Student_7_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year - 1, month=8, day=1) }}
+    EnrollmentReason:     Re-admit
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Graduate
+    TermGradePointAverage: 3.44
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Spring_minus1
+    LearnerAccountId:
+      reference: Student_7
+    LearnerContactId:
+      reference: Student_7_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year, month=1, day=6) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Graduate
+    TermGradePointAverage: 3.56
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_current
+    LearnerAccountId:
+      reference: Student_7
+    LearnerContactId:
+      reference: Student_7_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year, month=8, day=1) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Graduate
+    TermGradePointAverage: 3.60
+
+- object: AcademicTermEnrollment
+  fields:
+    AcademicTermId:
+      reference: Term_Spring_current
+    LearnerAccountId:
+      reference: Student_7
+    LearnerContactId:
+      reference: Student_7_Contact
+    EnrollmentDate:       ${{ today.replace(year=ay_start_year + 1, month=1, day=6) }}
+    EnrollmentReason:     Continuing
+    EnrollmentStatus:     Active
+    StudentAcademicLevel: Graduate

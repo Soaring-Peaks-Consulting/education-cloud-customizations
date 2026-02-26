@@ -19,14 +19,13 @@ Don't want one of the configuration tasks to run? Modify the `deploy_education_c
 Assigns the necessary permission sets to the running user and deploys various metadata components including record types, account settings, and custom report types. Also deploys a quickstart for appointment scheduling in Education Cloud, and sets org-wide sharing settings for the relevant Education Cloud objects.
 1. task: `assign_permission_sets` - assigns the EducationCloudAccess and OmniStudioExecution permission sets to the running user
 2. task: `deploy_account_record_types`
-3. task: `deploy_account_settings`
-4. flow: `deploy_appointments_quickstart`
-5. task: `deploy_case_record_types`
-6. task: `deploy_individual_application_record_types`
-7. task: `deploy_custom_report_types`
-8. task: `set_education_cloud_objects_org_wide_defaults`
-9. task: `update_admin_profile` - enables the new record types for the System Administrator profile
-10. flow: `insert_sample_data`
+3. flow: `deploy_appointments_quickstart`
+4. task: `deploy_case_record_types`
+5. task: `deploy_individual_application_record_types`
+6. task: `deploy_custom_report_types`
+7. task: `set_education_cloud_objects_org_wide_defaults`
+8. task: `update_admin_profile` - enables the new record types for the System Administrator profile
+9. flow: `insert_sample_data`
 
 #### `deploy_appointments_quickstart`
 Deploys basic setup for appointment scheduling in Education Cloud, as well as Public Read Only org-wide sharing settings for the relevant objects.
@@ -35,8 +34,7 @@ Deploys basic setup for appointment scheduling in Education Cloud, as well as Pu
 
 #### `insert_sample_data`
 Inserts sample data for testing and demonstration purposes.
-1. task: `snowfakery` - inserts records from the datasets/sample_account_data.yml recipe file
-2. task: `snowfakery` - inserts records from the datasets/sample_academic_calendar_data.yml recipe file
+1. task: `snowfakery` - inserts records from the recipe files in the datasets directory
 
 #### `setup_education_cloud_community`
 Creates and publishes a community using the Education Portal template.
@@ -46,8 +44,6 @@ Creates and publishes a community using the Education Portal template.
 ### Custom Tasks
 #### `deploy_account_record_types`
 Deploys standard Account record types (College) for Education Cloud.
-#### `deploy_account_settings`
-Enables relating contacts to multiple accounts.
 #### `deploy_appointments_quickstart`
 Deploys basic setup for appointment scheduling in Education Cloud.
 #### `deploy_case_record_types`

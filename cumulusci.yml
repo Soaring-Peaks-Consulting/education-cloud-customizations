@@ -31,18 +31,16 @@ flows:
             2:
                 task: deploy_account_record_types
             3:
-                task: deploy_account_settings
-            4:
                 flow: deploy_appointments_quickstart
-            5:
+            4:
                 task: deploy_case_record_types
-            6:
+            5:
                 task: deploy_individual_application_record_types
-            7:
+            6:
                 task: deploy_custom_report_types
-            8:
+            7:
                 task: set_education_cloud_objects_org_wide_defaults
-            9:
+            8:
                 task: update_admin_profile
                 options:
                     record_types:
@@ -55,7 +53,7 @@ flows:
                         - record_type: IndividualApplication.Admissions
                           visible: true
                           default: true
-            10:
+            9:
                 flow: insert_sample_data
 
     deploy_appointments_quickstart:
@@ -72,11 +70,8 @@ flows:
             1:
                 task: snowfakery
                 options:
-                    recipe: datasets/sample_account_data.yml
-            2:
-                task: snowfakery
-                options:
-                    recipe: datasets/sample_academic_calendar_data.yml
+                    recipe: datasets/sample_data.yml
+                    drop_missing_schema: true
 
     setup_education_cloud_community:
         description: Creates and publishes a community using the Education Portal template.
@@ -113,12 +108,6 @@ tasks:
         description: Deploys standard Account record types (College) for Education Cloud.
         options:
             path: unpackaged/account-record-types
-
-    deploy_account_settings:
-        class_path: cumulusci.tasks.salesforce.Deploy
-        description: Enables relating contacts to multiple accounts.
-        options:
-            path: unpackaged/account-settings
 
     deploy_appointments_quickstart:
         class_path: cumulusci.tasks.salesforce.Deploy

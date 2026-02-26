@@ -1,7 +1,7 @@
 {
   "orgName": "education-cloud-customizations - Feature Test Org",
   "edition": "Developer",
-  "features": [ "EducationCloud:5", "PersonAccounts" ],
+  "features": [ "EducationCloud:5", "PersonAccounts", "ContactsToMultipleAccounts" ],
   "settings": {
     "lightningExperienceSettings": {
       "enableS1DesktopEnabled": true
