@@ -1,0 +1,941 @@
+- snowfakery_version: 3
+# =============================================================================
+# Snowfakery Recipe: Connected University — Course Catalog
+# Objects: Learning, LearningCourse, LearningAchievement, LearningOutcomeItem,
+#          LearningFoundationItem
+#
+# STRUCTURE
+# ---------
+# Each course is built as a Learning record with "friends" that create the
+# tightly-coupled child records inline:
+#   Learning (1)
+#     └─ LearningCourse (1)          via friends
+#     └─ LearningAchievement (1)     via friends
+#     └─ LearningOutcomeItem (1)     via friends, references Learning + Achievement
+#
+# LearningFoundationItem (prerequisite links) are defined AFTER all courses
+# so that both the dependent course's Learning and the prerequisite course's
+# LearningAchievement are already available via nickname.
+#
+# COURSE COUNT
+# ------------
+# Explicit named sequences : 22 courses (with prerequisite chains)
+# Random bulk courses       : 31 courses (via Dataset.iterate over learning_courses.csv)
+# Total                     : 50 courses
+#
+# PREREQUISITE CHAINS
+# -------------------
+# CHEM 101 → CHEM 201 → CHEM 301
+# MATH 101 → MATH 201 → MATH 301
+# PHYS 101 → PHYS 201  (PHYS 101 also requires MATH 101)
+# CS 101   → CS 201   → CS 301
+# STAT 201 → STAT 301  (STAT 201 also requires MATH 101)
+# FIN 301  → FIN 401   (Watson School, undergrad)
+# MBA 501  → MBA 601   (Watson School, graduate)
+#
+# ACCOUNT REFERENCES (defined in sample_data.yml)
+#   Connected : Connected University (IssuerId on all LearningAchievements)
+#   Watson    : Watson School of Business (ProviderId on business courses)
+# =============================================================================
+
+# =============================================================================
+# CHEMISTRY SEQUENCE
+# CHEM 101 → CHEM 201 → CHEM 301
+# =============================================================================
+
+- object: Learning
+  nickname: Learning_CHEM101
+  fields:
+    Name: Introduction to Chemistry
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+  friends:
+    - object: LearningCourse
+      nickname: LearningCourse_CHEM101
+      fields:
+        Name: Introduction to Chemistry
+        CourseNumber: 101
+        SubjectAbbreviation: CHEM
+        LearningId:
+          reference: Learning_CHEM101
+    - object: LearningAchievement
+      nickname: Achievement_CHEM101
+      fields:
+        Name: Introduction to Chemistry Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_CHEM101
+        LearningAchievementId:
+          reference: Achievement_CHEM101
+        Duration: 3
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_CHEM101_Lab
+  fields:
+    Name: Introduction to Chemistry Lab
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 1
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: Introduction to Chemistry Lab
+        CourseNumber: 101
+        SubjectAbbreviation: CHEM
+        LearningId:
+          reference: Learning_CHEM101_Lab
+    - object: LearningAchievement
+      nickname: Achievement_CHEM101_Lab
+      fields:
+        Name: Introduction to Chemistry Lab Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_CHEM101_Lab
+        LearningAchievementId:
+          reference: Achievement_CHEM101_Lab
+        Duration: 1
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_CHEM201
+  fields:
+    Name: Organic Chemistry
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: Organic Chemistry
+        CourseNumber: 201
+        SubjectAbbreviation: CHEM
+        LearningId:
+          reference: Learning_CHEM201
+    - object: LearningAchievement
+      nickname: Achievement_CHEM201
+      fields:
+        Name: Organic Chemistry Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_CHEM201
+        LearningAchievementId:
+          reference: Achievement_CHEM201
+        Duration: 3
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_CHEM301
+  fields:
+    Name: Physical Chemistry
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: Physical Chemistry
+        CourseNumber: 301
+        SubjectAbbreviation: CHEM
+        LearningId:
+          reference: Learning_CHEM301
+    - object: LearningAchievement
+      nickname: Achievement_CHEM301
+      fields:
+        Name: Physical Chemistry Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_CHEM301
+        LearningAchievementId:
+          reference: Achievement_CHEM301
+        Duration: 3
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+# =============================================================================
+# MATHEMATICS SEQUENCE
+# MATH 101 → MATH 201 → MATH 301
+# =============================================================================
+
+- object: Learning
+  nickname: Learning_MATH101
+  fields:
+    Name: Calculus I
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: Calculus I
+        CourseNumber: 101
+        SubjectAbbreviation: MATH
+        LearningId:
+          reference: Learning_MATH101
+    - object: LearningAchievement
+      nickname: Achievement_MATH101
+      fields:
+        Name: Calculus I Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_MATH101
+        LearningAchievementId:
+          reference: Achievement_MATH101
+        Duration: 3
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_MATH201
+  fields:
+    Name: Calculus II
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: Calculus II
+        CourseNumber: 201
+        SubjectAbbreviation: MATH
+        LearningId:
+          reference: Learning_MATH201
+    - object: LearningAchievement
+      nickname: Achievement_MATH201
+      fields:
+        Name: Calculus II Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_MATH201
+        LearningAchievementId:
+          reference: Achievement_MATH201
+        Duration: 3
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_MATH301
+  fields:
+    Name: Calculus III
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: Calculus III
+        CourseNumber: 301
+        SubjectAbbreviation: MATH
+        LearningId:
+          reference: Learning_MATH301
+    - object: LearningAchievement
+      nickname: Achievement_MATH301
+      fields:
+        Name: Calculus III Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_MATH301
+        LearningAchievementId:
+          reference: Achievement_MATH301
+        Duration: 3
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+# =============================================================================
+# PHYSICS SEQUENCE
+# PHYS 101 → PHYS 201  (PHYS 101 also requires MATH 101)
+# =============================================================================
+
+- object: Learning
+  nickname: Learning_PHYS101
+  fields:
+    Name: Physics I - Mechanics
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: Physics I - Mechanics
+        CourseNumber: 101
+        SubjectAbbreviation: PHYS
+        LearningId:
+          reference: Learning_PHYS101
+    - object: LearningAchievement
+      nickname: Achievement_PHYS101
+      fields:
+        Name: Physics I - Mechanics Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_PHYS101
+        LearningAchievementId:
+          reference: Achievement_PHYS101
+        Duration: 3
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_PHYS101_Lab
+  fields:
+    Name: Physics I Lab
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 1
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: Physics I Lab
+        CourseNumber: 101
+        SubjectAbbreviation: PHYS
+        LearningId:
+          reference: Learning_PHYS101_Lab
+    - object: LearningAchievement
+      nickname: Achievement_PHYS101_Lab
+      fields:
+        Name: Physics I Lab Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_PHYS101_Lab
+        LearningAchievementId:
+          reference: Achievement_PHYS101_Lab
+        Duration: 1
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_PHYS201
+  fields:
+    Name: Physics II - Electricity and Magnetism
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: Physics II - Electricity and Magnetism
+        CourseNumber: 201
+        SubjectAbbreviation: PHYS
+        LearningId:
+          reference: Learning_PHYS201
+    - object: LearningAchievement
+      nickname: Achievement_PHYS201
+      fields:
+        Name: Physics II - Electricity and Magnetism Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_PHYS201
+        LearningAchievementId:
+          reference: Achievement_PHYS201
+        Duration: 3
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+# =============================================================================
+# COMPUTER SCIENCE SEQUENCE
+# CS 101 → CS 201 → CS 301
+# =============================================================================
+
+- object: Learning
+  nickname: Learning_CS101
+  fields:
+    Name: Introduction to Computer Science
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: Introduction to Computer Science
+        CourseNumber: 101
+        SubjectAbbreviation: CS
+        LearningId:
+          reference: Learning_CS101
+    - object: LearningAchievement
+      nickname: Achievement_CS101
+      fields:
+        Name: Introduction to Computer Science Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_CS101
+        LearningAchievementId:
+          reference: Achievement_CS101
+        Duration: 3
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_CS201
+  fields:
+    Name: Data Structures and Algorithms
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: Data Structures and Algorithms
+        CourseNumber: 201
+        SubjectAbbreviation: CS
+        LearningId:
+          reference: Learning_CS201
+    - object: LearningAchievement
+      nickname: Achievement_CS201
+      fields:
+        Name: Data Structures and Algorithms Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_CS201
+        LearningAchievementId:
+          reference: Achievement_CS201
+        Duration: 3
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_CS301
+  fields:
+    Name: Software Engineering
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: Software Engineering
+        CourseNumber: 301
+        SubjectAbbreviation: CS
+        LearningId:
+          reference: Learning_CS301
+    - object: LearningAchievement
+      nickname: Achievement_CS301
+      fields:
+        Name: Software Engineering Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_CS301
+        LearningAchievementId:
+          reference: Achievement_CS301
+        Duration: 3
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+# =============================================================================
+# STATISTICS SEQUENCE
+# STAT 201 → STAT 301  (STAT 201 also requires MATH 101)
+# =============================================================================
+
+- object: Learning
+  nickname: Learning_STAT201
+  fields:
+    Name: Probability and Statistics
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: Probability and Statistics
+        CourseNumber: 201
+        SubjectAbbreviation: STAT
+        LearningId:
+          reference: Learning_STAT201
+    - object: LearningAchievement
+      nickname: Achievement_STAT201
+      fields:
+        Name: Probability and Statistics Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_STAT201
+        LearningAchievementId:
+          reference: Achievement_STAT201
+        Duration: 3
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_STAT301
+  fields:
+    Name: Statistical Inference
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: Statistical Inference
+        CourseNumber: 301
+        SubjectAbbreviation: STAT
+        LearningId:
+          reference: Learning_STAT301
+    - object: LearningAchievement
+      nickname: Achievement_STAT301
+      fields:
+        Name: Statistical Inference Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_STAT301
+        LearningAchievementId:
+          reference: Achievement_STAT301
+        Duration: 3
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+# =============================================================================
+# WATSON SCHOOL OF BUSINESS — FINANCE SEQUENCE
+# FIN 301 → FIN 401  (Undergraduate, Watson)
+# =============================================================================
+
+- object: Learning
+  nickname: Learning_FIN301
+  fields:
+    Name: Corporate Finance
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+    ProviderId:
+      reference: Watson
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: Corporate Finance
+        CourseNumber: 301
+        SubjectAbbreviation: FIN
+        LearningId:
+          reference: Learning_FIN301
+    - object: LearningAchievement
+      nickname: Achievement_FIN301
+      fields:
+        Name: Corporate Finance Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_FIN301
+        LearningAchievementId:
+          reference: Achievement_FIN301
+        Duration: 3
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_FIN401
+  fields:
+    Name: Investment Analysis
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+    ProviderId:
+      reference: Watson
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: Investment Analysis
+        CourseNumber: 401
+        SubjectAbbreviation: FIN
+        LearningId:
+          reference: Learning_FIN401
+    - object: LearningAchievement
+      nickname: Achievement_FIN401
+      fields:
+        Name: Investment Analysis Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_FIN401
+        LearningAchievementId:
+          reference: Achievement_FIN401
+        Duration: 3
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+# =============================================================================
+# WATSON SCHOOL OF BUSINESS — MBA SEQUENCE
+# MBA 501 → MBA 601  (Graduate, Watson)
+# =============================================================================
+
+- object: Learning
+  nickname: Learning_MBA501
+  fields:
+    Name: MBA Foundations - Strategy and Leadership
+    AcademicLevel: Graduate
+    IsActive: true
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+    ProviderId:
+      reference: Watson
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: MBA Foundations - Strategy and Leadership
+        CourseNumber: 501
+        SubjectAbbreviation: MBA
+        LearningId:
+          reference: Learning_MBA501
+    - object: LearningAchievement
+      nickname: Achievement_MBA501
+      fields:
+        Name: MBA Foundations - Strategy and Leadership Achievement
+        AcademicLevel: Graduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_MBA501
+        LearningAchievementId:
+          reference: Achievement_MBA501
+        Duration: 3
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_MBA601
+  fields:
+    Name: MBA Capstone - Global Business Strategy
+    AcademicLevel: Graduate
+    IsActive: true
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+    ProviderId:
+      reference: Watson
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: MBA Capstone - Global Business Strategy
+        CourseNumber: 601
+        SubjectAbbreviation: MBA
+        LearningId:
+          reference: Learning_MBA601
+    - object: LearningAchievement
+      nickname: Achievement_MBA601
+      fields:
+        Name: MBA Capstone - Global Business Strategy Achievement
+        AcademicLevel: Graduate
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_MBA601
+        LearningAchievementId:
+          reference: Achievement_MBA601
+        Duration: 3
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+# =============================================================================
+# BULK RANDOM COURSES  (28 courses to reach total of 50)
+# Mix of undergraduate and graduate, various subjects and formats.
+# These use random_choice for variation but do not participate in prerequisite
+# chains, so nicknames are not needed.
+# =============================================================================
+
+# ── Bulk Courses (31 courses) ─────────────────────────────────────────────────
+# One Learning per row in learning_courses.csv.
+# Columns: name, abbreviation, academic_level, course_number_min, course_number_max
+
+- object: Learning
+  for_each:
+    var: _course
+    value:
+      Dataset.iterate:
+        dataset: learning_courses.csv
+  fields:
+    Name: ${{ _course.name }}
+    AcademicLevel: ${{ _course.academic_level }}
+    IsActive: true
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: LearningCourse
+  friends:
+    - object: LearningCourse
+      fields:
+        Name: ${{ Learning.Name }}
+        CourseNumber:
+          fake.RandomInt:
+            min: ${{ _course.course_number_min }}
+            max: ${{ _course.course_number_max }}
+        SubjectAbbreviation: ${{ _course.abbreviation }}
+        LearningId:
+          reference: Learning
+    - object: LearningAchievement
+      fields:
+        Name: ${{ Learning.Name + " Achievement" }}
+        AcademicLevel: ${{ _course.academic_level }}
+        IssuerId:
+          reference: Connected
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning
+        LearningAchievementId:
+          reference: LearningAchievement
+        Duration: 3
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+# =============================================================================
+# LEARNING FOUNDATION ITEMS — PREREQUISITE CHAINS
+# Defined after all courses so all nicknames are available.
+#
+# Each LearningFoundationItem links:
+#   LearningId          : the course that HAS a prerequisite requirement
+#   LearningAchievementId: the Achievement the student must have earned first
+#
+# Rigorous courses (CHEM 301, PHYS 201, CS 301, STAT 301, MBA 601) require
+# a minimum numeric grade of 80 or 90.
+# =============================================================================
+
+# CHEM 201 requires CHEM 101
+- object: LearningFoundationItem
+  fields:
+    LearningId:
+      reference: Learning_CHEM201
+    LearningAchievementId:
+      reference: Achievement_CHEM101
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: Prerequisite
+
+# CHEM 301 requires CHEM 201 (rigorous — minimum grade 80)
+- object: LearningFoundationItem
+  fields:
+    LearningId:
+      reference: Learning_CHEM301
+    LearningAchievementId:
+      reference: Achievement_CHEM201
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: Prerequisite
+    MinimumNumericGrade: 80
+
+# MATH 201 requires MATH 101
+- object: LearningFoundationItem
+  fields:
+    LearningId:
+      reference: Learning_MATH201
+    LearningAchievementId:
+      reference: Achievement_MATH101
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: Prerequisite
+
+# MATH 301 requires MATH 201 (rigorous — minimum grade 80)
+- object: LearningFoundationItem
+  fields:
+    LearningId:
+      reference: Learning_MATH301
+    LearningAchievementId:
+      reference: Achievement_MATH201
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: Prerequisite
+    MinimumNumericGrade: 80
+
+# PHYS 101 requires MATH 101
+- object: LearningFoundationItem
+  fields:
+    LearningId:
+      reference: Learning_PHYS101
+    LearningAchievementId:
+      reference: Achievement_MATH101
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: Prerequisite
+
+# PHYS 201 requires PHYS 101 (rigorous — minimum grade 80)
+- object: LearningFoundationItem
+  fields:
+    LearningId:
+      reference: Learning_PHYS201
+    LearningAchievementId:
+      reference: Achievement_PHYS101
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: Prerequisite
+    MinimumNumericGrade: 80
+
+# PHYS 201 also requires MATH 201
+- object: LearningFoundationItem
+  fields:
+    LearningId:
+      reference: Learning_PHYS201
+    LearningAchievementId:
+      reference: Achievement_MATH201
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: Prerequisite
+
+# CS 201 requires CS 101
+- object: LearningFoundationItem
+  fields:
+    LearningId:
+      reference: Learning_CS201
+    LearningAchievementId:
+      reference: Achievement_CS101
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: Prerequisite
+
+# CS 301 requires CS 201 (rigorous — minimum grade 80)
+- object: LearningFoundationItem
+  fields:
+    LearningId:
+      reference: Learning_CS301
+    LearningAchievementId:
+      reference: Achievement_CS201
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: Prerequisite
+    MinimumNumericGrade: 80
+
+# STAT 201 requires MATH 101
+- object: LearningFoundationItem
+  fields:
+    LearningId:
+      reference: Learning_STAT201
+    LearningAchievementId:
+      reference: Achievement_MATH101
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: Prerequisite
+
+# STAT 301 requires STAT 201 (rigorous — minimum grade 90)
+- object: LearningFoundationItem
+  fields:
+    LearningId:
+      reference: Learning_STAT301
+    LearningAchievementId:
+      reference: Achievement_STAT201
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: Prerequisite
+    MinimumNumericGrade: 90
+
+# FIN 401 requires FIN 301
+- object: LearningFoundationItem
+  fields:
+    LearningId:
+      reference: Learning_FIN401
+    LearningAchievementId:
+      reference: Achievement_FIN301
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: Prerequisite
+
+# MBA 601 requires MBA 501 (rigorous — minimum grade 90)
+- object: LearningFoundationItem
+  fields:
+    LearningId:
+      reference: Learning_MBA601
+    LearningAchievementId:
+      reference: Achievement_MBA501
+    Duration: 3
+    DurationUnit: Credit Hours
+    Type: Prerequisite
+    MinimumNumericGrade: 90

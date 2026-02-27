@@ -1,0 +1,32 @@
+name,abbreviation,academic_level,course_number_min,course_number_max
+Introduction to Psychology,PSY,Undergraduate,100,399
+Macroeconomics,ECON,Undergraduate,100,399
+Microeconomics,ECON,Undergraduate,100,399
+World History Since 1945,HIST,Undergraduate,100,399
+Introduction to Sociology,SOC,Undergraduate,100,399
+Environmental Science,ENV,Undergraduate,100,399
+Introduction to Philosophy,PHIL,Undergraduate,100,399
+Comparative Politics,POLS,Undergraduate,100,399
+Cultural Anthropology,ANTH,Undergraduate,100,399
+Introduction to Literary Analysis,ENGL,Undergraduate,100,399
+Cell Biology,BIOL,Undergraduate,100,399
+Public Speaking and Rhetoric,COMM,Undergraduate,100,399
+Social Psychology,PSYC,Undergraduate,100,399
+Marketing Strategy,MKTG,Undergraduate,200,499
+Organizational Behavior,MGMT,Undergraduate,200,499
+Business Ethics,BUSA,Undergraduate,200,499
+Operations Management,MGMT,Undergraduate,200,499
+Supply Chain Management,MGMT,Undergraduate,200,499
+Managerial Accounting,ACCT,Undergraduate,200,499
+Business Communications,BUSA,Undergraduate,200,499
+Entrepreneurship and Innovation,ENTR,Undergraduate,200,499
+Advanced Machine Learning,CS,Graduate,500,799
+Data Science and Analytics,DATA,Graduate,500,799
+Research Methods in Social Sciences,SOC,Graduate,500,799
+Advanced Molecular Biology,BIOL,Graduate,500,799
+Graduate Seminar in Economics,ECON,Graduate,500,799
+Computational Neuroscience,NEUR,Graduate,500,799
+Graduate Finance and Capital Markets,FIN,Graduate,500,699
+Corporate Strategy and Governance,MGMT,Graduate,500,699
+Global Marketing Management,MKTG,Graduate,500,699
+Mergers and Acquisitions,FIN,Graduate,500,699
