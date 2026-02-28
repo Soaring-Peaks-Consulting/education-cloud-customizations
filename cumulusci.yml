@@ -37,10 +37,12 @@ flows:
             5:
                 task: deploy_individual_application_record_types
             6:
-                task: deploy_custom_report_types
+                task: deploy_learning_achievement_record_types
             7:
-                task: set_education_cloud_objects_org_wide_defaults
+                task: deploy_custom_report_types
             8:
+                task: set_education_cloud_objects_org_wide_defaults
+            9:
                 task: update_admin_profile
                 options:
                     record_types:
@@ -53,7 +55,16 @@ flows:
                         - record_type: IndividualApplication.Admissions
                           visible: true
                           default: true
-            9:
+                        - record_type: LearningAchievement.Learning_Course
+                          visible: true
+                          default: true
+                        - record_type: LearningAchievement.Learning_Program
+                          visible: true
+                          default: false
+                        - record_type: LearningAchievement.Achievement_Group
+                          visible: true
+                          default: false
+            10:
                 flow: insert_sample_data
 
     deploy_appointments_quickstart:
@@ -132,6 +143,12 @@ tasks:
         description: Deploys standard Individual Application record types (Admissions) for Education Cloud, as well as the Application Record Type Config.
         options:
             path: unpackaged/individual-application-record-types
+
+    deploy_learning_achievement_record_types:
+        class_path: cumulusci.tasks.salesforce.Deploy
+        description: Deploys standard Learning Achievement record types (Learning Course, Learning Program, and Achievement Group) for Education Cloud, as well as the Learning Achievement Config.
+        options:
+            path: unpackaged/learning-achievement-record-types
 
     set_education_cloud_objects_org_wide_defaults:
         class_path: cumulusci.tasks.metadata_etl.SetOrgWideDefaults

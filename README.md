@@ -22,10 +22,11 @@ Assigns the necessary permission sets to the running user and deploys various me
 3. flow: `deploy_appointments_quickstart`
 4. task: `deploy_case_record_types`
 5. task: `deploy_individual_application_record_types`
-6. task: `deploy_custom_report_types`
-7. task: `set_education_cloud_objects_org_wide_defaults`
-8. task: `update_admin_profile` - enables the new record types for the System Administrator profile
-9. flow: `insert_sample_data`
+6. task: `deploy_learning_achievement_record_types`
+7. task: `deploy_custom_report_types`
+8. task: `set_education_cloud_objects_org_wide_defaults`
+9. task: `update_admin_profile` - enables the new record types for the System Administrator profile
+10. flow: `insert_sample_data`
 
 #### `deploy_appointments_quickstart`
 Deploys basic setup for appointment scheduling in Education Cloud, as well as Public Read Only org-wide sharing settings for the relevant objects.
@@ -52,6 +53,8 @@ Deploys standard Case record types (Academic) for Education Cloud, as well as th
 Deploys custom report types for Education Cloud.
 #### `deploy_individual_application_record_types`
 Deploys standard Individual Application record types (Admissions) for Education Cloud, as well as the Application Record Type Config.
+#### `deploy_learning_achievement_record_types`
+Deploys standard Learning Achievement record types (Learning Course, Learning Program, and Achievement Group) for Education Cloud, as well as the Learning Achievement Config.
 #### `set_education_cloud_appointment_objects_org_wide_defaults`
 Updates the organization-wide sharing settings for the objects related to appointment scheduling in Education Cloud.
 #### `set_education_cloud_objects_org_wide_defaults`

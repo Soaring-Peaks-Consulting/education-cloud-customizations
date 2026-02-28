@@ -68,6 +68,7 @@
         AcademicLevel: Undergraduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -102,6 +103,7 @@
         AcademicLevel: Undergraduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -136,6 +138,7 @@
         AcademicLevel: Undergraduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -170,6 +173,7 @@
         AcademicLevel: Undergraduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -209,6 +213,7 @@
         AcademicLevel: Undergraduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -243,6 +248,7 @@
         AcademicLevel: Undergraduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -277,6 +283,7 @@
         AcademicLevel: Undergraduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -316,6 +323,7 @@
         AcademicLevel: Undergraduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -350,6 +358,7 @@
         AcademicLevel: Undergraduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -384,6 +393,7 @@
         AcademicLevel: Undergraduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -423,6 +433,7 @@
         AcademicLevel: Undergraduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -457,6 +468,7 @@
         AcademicLevel: Undergraduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -491,6 +503,7 @@
         AcademicLevel: Undergraduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -530,6 +543,7 @@
         AcademicLevel: Undergraduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -564,6 +578,7 @@
         AcademicLevel: Undergraduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -605,6 +620,7 @@
         AcademicLevel: Undergraduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -641,6 +657,7 @@
         AcademicLevel: Undergraduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -682,6 +699,7 @@
         AcademicLevel: Graduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -718,6 +736,7 @@
         AcademicLevel: Graduate
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
@@ -769,6 +788,7 @@
         AcademicLevel: ${{ _course.academic_level }}
         IssuerId:
           reference: Connected
+        RecordType: Learning_Course
     - object: LearningOutcomeItem
       fields:
         LearningId:
