@@ -1,0 +1,386 @@
+- snowfakery_version: 3
+# =============================================================================
+# Snowfakery Recipe: Connected University — Learning Programs
+# Objects: Learning, LearningProgram, LearningAchievement, LearningOutcomeItem
+#
+# STRUCTURE
+# ---------
+# Each program is built as a Learning record with "friends":
+#   Learning (1)
+#     └─ LearningProgram (1)         via friends
+#     └─ LearningAchievement (1)     via friends
+#     └─ LearningOutcomeItem (1)     via friends, references Learning + Achievement
+#
+# PROGRAM COUNT: 10 (6 Undergraduate, 4 Graduate)
+#
+# ACCOUNT REFERENCES (defined in sample_data.yml)
+#   Connected : Connected University (ProviderId + IssuerId on all records)
+# =============================================================================
+
+# =============================================================================
+# UNDERGRADUATE PROGRAMS  (6)
+# =============================================================================
+
+- object: Learning
+  nickname: Learning_BS_Chemistry
+  fields:
+    Name: Bachelor of Science in Chemistry
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 128
+    DurationUnit: Credit Hours
+    Type: LearningProgram
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgram
+      fields:
+        Name: Bachelor of Science in Chemistry
+        LearningId:
+          reference: Learning_BS_Chemistry
+        IsTopLevelProgram: true
+    - object: LearningAchievement
+      nickname: Achievement_BS_Chemistry
+      fields:
+        Name: Bachelor of Science in Chemistry Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+        RecordType: Learning_Program
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_BS_Chemistry
+        LearningAchievementId:
+          reference: Achievement_BS_Chemistry
+        Duration: 128
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_BS_Mathematics
+  fields:
+    Name: Bachelor of Science in Mathematics
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 128
+    DurationUnit: Credit Hours
+    Type: LearningProgram
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgram
+      fields:
+        Name: Bachelor of Science in Mathematics
+        LearningId:
+          reference: Learning_BS_Mathematics
+        IsTopLevelProgram: true
+    - object: LearningAchievement
+      nickname: Achievement_BS_Mathematics
+      fields:
+        Name: Bachelor of Science in Mathematics Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+        RecordType: Learning_Program
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_BS_Mathematics
+        LearningAchievementId:
+          reference: Achievement_BS_Mathematics
+        Duration: 128
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_BS_ComputerScience
+  fields:
+    Name: Bachelor of Science in Computer Science
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 128
+    DurationUnit: Credit Hours
+    Type: LearningProgram
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgram
+      fields:
+        Name: Bachelor of Science in Computer Science
+        LearningId:
+          reference: Learning_BS_ComputerScience
+        IsTopLevelProgram: true
+    - object: LearningAchievement
+      nickname: Achievement_BS_ComputerScience
+      fields:
+        Name: Bachelor of Science in Computer Science Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+        RecordType: Learning_Program
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_BS_ComputerScience
+        LearningAchievementId:
+          reference: Achievement_BS_ComputerScience
+        Duration: 128
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_BS_Biology
+  fields:
+    Name: Bachelor of Science in Biology
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 128
+    DurationUnit: Credit Hours
+    Type: LearningProgram
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgram
+      fields:
+        Name: Bachelor of Science in Biology
+        LearningId:
+          reference: Learning_BS_Biology
+        IsTopLevelProgram: true
+    - object: LearningAchievement
+      nickname: Achievement_BS_Biology
+      fields:
+        Name: Bachelor of Science in Biology Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+        RecordType: Learning_Program
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_BS_Biology
+        LearningAchievementId:
+          reference: Achievement_BS_Biology
+        Duration: 128
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_BBA
+  fields:
+    Name: Bachelor of Business Administration
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 128
+    DurationUnit: Credit Hours
+    Type: LearningProgram
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgram
+      fields:
+        Name: Bachelor of Business Administration
+        LearningId:
+          reference: Learning_BBA
+        IsTopLevelProgram: true
+    - object: LearningAchievement
+      nickname: Achievement_BBA
+      fields:
+        Name: Bachelor of Business Administration Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+        RecordType: Learning_Program
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_BBA
+        LearningAchievementId:
+          reference: Achievement_BBA
+        Duration: 128
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_BA_Psychology
+  fields:
+    Name: Bachelor of Arts in Psychology
+    AcademicLevel: Undergraduate
+    IsActive: true
+    Duration: 128
+    DurationUnit: Credit Hours
+    Type: LearningProgram
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgram
+      fields:
+        Name: Bachelor of Arts in Psychology
+        LearningId:
+          reference: Learning_BA_Psychology
+        IsTopLevelProgram: true
+    - object: LearningAchievement
+      nickname: Achievement_BA_Psychology
+      fields:
+        Name: Bachelor of Arts in Psychology Achievement
+        AcademicLevel: Undergraduate
+        IssuerId:
+          reference: Connected
+        RecordType: Learning_Program
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_BA_Psychology
+        LearningAchievementId:
+          reference: Achievement_BA_Psychology
+        Duration: 128
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+# =============================================================================
+# GRADUATE PROGRAMS  (4)
+# =============================================================================
+
+- object: Learning
+  nickname: Learning_MS_ComputerScience
+  fields:
+    Name: Master of Science in Computer Science
+    AcademicLevel: Graduate
+    IsActive: true
+    Duration: 128
+    DurationUnit: Credit Hours
+    Type: LearningProgram
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgram
+      fields:
+        Name: Master of Science in Computer Science
+        LearningId:
+          reference: Learning_MS_ComputerScience
+        IsTopLevelProgram: true
+    - object: LearningAchievement
+      nickname: Achievement_MS_ComputerScience
+      fields:
+        Name: Master of Science in Computer Science Achievement
+        AcademicLevel: Graduate
+        IssuerId:
+          reference: Connected
+        RecordType: Learning_Program
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_MS_ComputerScience
+        LearningAchievementId:
+          reference: Achievement_MS_ComputerScience
+        Duration: 128
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_MS_DataScience
+  fields:
+    Name: Master of Science in Data Science
+    AcademicLevel: Graduate
+    IsActive: true
+    Duration: 128
+    DurationUnit: Credit Hours
+    Type: LearningProgram
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgram
+      fields:
+        Name: Master of Science in Data Science
+        LearningId:
+          reference: Learning_MS_DataScience
+        IsTopLevelProgram: true
+    - object: LearningAchievement
+      nickname: Achievement_MS_DataScience
+      fields:
+        Name: Master of Science in Data Science Achievement
+        AcademicLevel: Graduate
+        IssuerId:
+          reference: Connected
+        RecordType: Learning_Program
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_MS_DataScience
+        LearningAchievementId:
+          reference: Achievement_MS_DataScience
+        Duration: 128
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_MBA
+  fields:
+    Name: Master of Business Administration
+    AcademicLevel: Graduate
+    IsActive: true
+    Duration: 128
+    DurationUnit: Credit Hours
+    Type: LearningProgram
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgram
+      fields:
+        Name: Master of Business Administration
+        LearningId:
+          reference: Learning_MBA
+        IsTopLevelProgram: true
+    - object: LearningAchievement
+      nickname: Achievement_MBA
+      fields:
+        Name: Master of Business Administration Achievement
+        AcademicLevel: Graduate
+        IssuerId:
+          reference: Connected
+        RecordType: Learning_Program
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_MBA
+        LearningAchievementId:
+          reference: Achievement_MBA
+        Duration: 128
+        DurationUnit: Credit Hours
+        IsPrimary: true
+
+- object: Learning
+  nickname: Learning_MS_Biology
+  fields:
+    Name: Master of Science in Biology
+    AcademicLevel: Graduate
+    IsActive: true
+    Duration: 128
+    DurationUnit: Credit Hours
+    Type: LearningProgram
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgram
+      fields:
+        Name: Master of Science in Biology
+        LearningId:
+          reference: Learning_MS_Biology
+        IsTopLevelProgram: true
+    - object: LearningAchievement
+      nickname: Achievement_MS_Biology
+      fields:
+        Name: Master of Science in Biology Achievement
+        AcademicLevel: Graduate
+        IssuerId:
+          reference: Connected
+        RecordType: Learning_Program
+    - object: LearningOutcomeItem
+      fields:
+        LearningId:
+          reference: Learning_MS_Biology
+        LearningAchievementId:
+          reference: Achievement_MS_Biology
+        Duration: 128
+        DurationUnit: Credit Hours
+        IsPrimary: true

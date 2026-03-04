@@ -5,3 +5,4 @@
 - include_file: sample_account_data.yml
 - include_file: sample_academic_term_enrollment_data.yml
 - include_file: sample_learning_course_data.yml
+- include_file: sample_learning_program_data.yml
