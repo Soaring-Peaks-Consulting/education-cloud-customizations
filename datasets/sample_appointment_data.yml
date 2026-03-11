@@ -1,0 +1,614 @@
+- snowfakery_version: 3
+
+# =============================================================================
+# OPERATING HOURS
+# =============================================================================
+
+- object: OperatingHours
+  nickname: DefaultOperatingHours
+  fields:
+    Name: Default
+
+# =============================================================================
+# SERVICE TERRITORY
+# =============================================================================
+
+- object: ServiceTerritory
+  nickname: ConnectedUniversityTerritory
+  fields:
+    Name: Connected University
+    OperatingHoursId:
+      reference: DefaultOperatingHours
+    IsActive: true
+
+# =============================================================================
+# SERVICE RESOURCE
+# =============================================================================
+
+- object: ServiceResource
+  nickname: AdamAdvisorResource
+  fields:
+    Name: Adam Advisor
+    RelatedRecordId:
+      reference: Adam
+    IsActive: true
+
+# =============================================================================
+# SERVICE TERRITORY MEMBER
+# =============================================================================
+
+- object: ServiceTerritoryMember
+  fields:
+    ServiceTerritoryId:
+      reference: ConnectedUniversityTerritory
+    ServiceResourceId:
+      reference: AdamAdvisorResource
+    EffectiveStartDate: ${{ today.replace(day=1).strftime("%Y-%m-%dT00:00:00.000-07:00") }}
+
+# =============================================================================
+# SUCCESS TEAM
+# CaseRecordTypeId is looked up via Salesforce.find_record.
+# =============================================================================
+
+- object: SuccessTeam
+  fields:
+    Name: Academic Advising
+    CanSelfSchedule: true
+    CaseRecordTypeId: 
+      SalesforceQuery.find_record:
+        from: RecordType
+        where: SObjectType = 'Case' AND DeveloperName = 'Academic'
+    DefaultUnassignedCaseTeam: Advising
+    IsActive: true
+    ResourceAssignmentType: Manual
+
+# =============================================================================
+# APPOINTMENT CATEGORY
+# =============================================================================
+
+- object: AppointmentCategory
+  fields:
+    Name: Scheduled
+    IsScheduled: true
+
+# =============================================================================
+# ENGAGEMENT CHANNEL TYPES
+# Defined first so WorkType friends can reference them by nickname.
+# =============================================================================
+
+- object: EngagementChannelType
+  nickname: ChannelType_InPerson
+  fields:
+    Name: In Person
+    IsActive: true
+    ContactPointType: InPerson
+    UsageType: Salesforce Scheduler
+
+- object: EngagementChannelType
+  nickname: ChannelType_Video
+  fields:
+    Name: Video
+    IsActive: true
+    ContactPointType: Video
+    UsageType: Salesforce Scheduler
+
+# =============================================================================
+# CASE TEAM ROLE
+# =============================================================================
+
+- object: CaseTeamRole
+  nickname: Role_Advisor
+  fields:
+    Name: Advisor
+    AccessLevel: Edit
+    PreferencesVisibleInCSP: true
+
+# =============================================================================
+# CASE TEAM TEMPLATE + MEMBER
+# =============================================================================
+
+- object: CaseTeamTemplate
+  nickname: Template_Advising
+  fields:
+    Name: Advising
+  friends:
+    - object: CaseTeamTemplateMember
+      fields:
+        TeamTemplateId:
+          reference: Template_Advising
+        TeamRoleId:
+          reference: Role_Advisor
+        MemberId:
+          reference: Adam
+
+# =============================================================================
+# CASE TEAM TEMPLATE RECORD
+# For each of the existing cases, add the Advising Case Team.
+# =============================================================================
+
+- object: CaseTeamTemplateRecord
+  fields:
+    ParentId: 
+      reference: Case_Sophia
+    TeamTemplateId:
+      reference: Template_Advising
+
+- object: CaseTeamTemplateRecord
+  fields:
+    ParentId: 
+      reference: Case_Student_2
+    TeamTemplateId:
+      reference: Template_Advising
+
+- object: CaseTeamTemplateRecord
+  fields:
+    ParentId: 
+      reference: Case_Student_3
+    TeamTemplateId:
+      reference: Template_Advising
+
+- object: CaseTeamTemplateRecord
+  fields:
+    ParentId: 
+      reference: Case_Student_4
+    TeamTemplateId:
+      reference: Template_Advising
+
+- object: CaseTeamTemplateRecord
+  fields:
+    ParentId: 
+      reference: Case_Student_5
+    TeamTemplateId:
+      reference: Template_Advising
+
+- object: CaseTeamTemplateRecord
+  fields:
+    ParentId: 
+      reference: Case_Student_6
+    TeamTemplateId:
+      reference: Template_Advising
+
+- object: CaseTeamTemplateRecord
+  fields:
+    ParentId: 
+      reference: Case_Student_7
+    TeamTemplateId:
+      reference: Template_Advising
+
+# =============================================================================
+# WORK TYPE GROUPS + WORK TYPE GROUP ROLES
+# Defined first so WorkTypeGroupMember friends can reference them by nickname.
+# =============================================================================
+
+- object: WorkTypeGroup
+  nickname: WTG_GeneralAdvising
+  fields:
+    Name: General Advising
+    IsActive: true
+  friends:
+    - object: WorkTypeGroupRole
+      fields:
+        CaseTeamRole: Advisor
+        WorkTypeGroupId:
+          reference: WTG_GeneralAdvising
+
+- object: WorkTypeGroup
+  nickname: WTG_GraduationAudit
+  fields:
+    Name: Graduation Audit
+    IsActive: true
+  friends:
+    - object: WorkTypeGroupRole
+      fields:
+        CaseTeamRole: Advisor
+        WorkTypeGroupId:
+          reference: WTG_GraduationAudit
+
+- object: WorkTypeGroup
+  nickname: WTG_CareerPlanning
+  fields:
+    Name: Career Planning
+    IsActive: true
+  friends:
+    - object: WorkTypeGroupRole
+      fields:
+        CaseTeamRole: Advisor
+        WorkTypeGroupId:
+          reference: WTG_CareerPlanning
+
+# =============================================================================
+# WORK TYPES + WORK TYPE GROUP MEMBERS + ENGAGEMENT CHANNEL WORK TYPES +
+# SERVICE TERRITORY WORK TYPES
+# =============================================================================
+
+# ── General Advising ─────────────────────────────────────────────────────────
+# AreAllEngmtChnlSupported: true — no specific EngagementChannelType needed
+
+- object: WorkType
+  nickname: WT_GeneralAdvising
+  fields:
+    Name: General Advising
+    AppointmentCategoryId:
+      reference: AppointmentCategory
+    ShouldAutoCreateSvcAppt: true
+    DurationType: Minutes
+    EstimatedDuration: 30
+  friends:
+    - object: WorkTypeGroupMember
+      fields:
+        WorkTypeId:
+          reference: WT_GeneralAdvising
+        WorkTypeGroupId:
+          reference: WTG_GeneralAdvising
+    - object: EngagementChannelWorkType
+      fields:
+        WorkTypeId:
+          reference: WT_GeneralAdvising
+        AreAllEngmtChnlSupported: true
+    - object: ServiceTerritoryWorkType
+      fields:
+        WorkTypeId:
+          reference: WT_GeneralAdvising
+        ServiceTerritoryId:
+          reference: ConnectedUniversityTerritory
+
+# ── Graduation Audit ─────────────────────────────────────────────────────────
+# AreAllEngmtChnlSupported: false — linked to In Person channel only
+
+- object: WorkType
+  nickname: WT_GraduationAudit
+  fields:
+    Name: Graduation Audit
+    AppointmentCategoryId:
+      reference: AppointmentCategory
+    ShouldAutoCreateSvcAppt: true
+    DurationType: Minutes
+    EstimatedDuration: 30
+  friends:
+    - object: WorkTypeGroupMember
+      fields:
+        WorkTypeId:
+          reference: WT_GraduationAudit
+        WorkTypeGroupId:
+          reference: WTG_GraduationAudit
+    - object: EngagementChannelWorkType
+      fields:
+        WorkTypeId:
+          reference: WT_GraduationAudit
+        AreAllEngmtChnlSupported: false
+        EngagementChannelTypeId:
+          reference: ChannelType_InPerson
+    - object: ServiceTerritoryWorkType
+      fields:
+        WorkTypeId:
+          reference: WT_GraduationAudit
+        ServiceTerritoryId:
+          reference: ConnectedUniversityTerritory
+
+# ── Career Planning ───────────────────────────────────────────────────────────
+# AreAllEngmtChnlSupported: false — linked to In Person channel only
+
+- object: WorkType
+  nickname: WT_CareerPlanning
+  fields:
+    Name: Career Planning
+    AppointmentCategoryId:
+      reference: AppointmentCategory
+    ShouldAutoCreateSvcAppt: true
+    DurationType: Minutes
+    EstimatedDuration: 30
+  friends:
+    - object: WorkTypeGroupMember
+      fields:
+        WorkTypeId:
+          reference: WT_CareerPlanning
+        WorkTypeGroupId:
+          reference: WTG_CareerPlanning
+    - object: EngagementChannelWorkType
+      fields:
+        WorkTypeId:
+          reference: WT_CareerPlanning
+        AreAllEngmtChnlSupported: false
+        EngagementChannelTypeId:
+          reference: ChannelType_InPerson
+    - object: ServiceTerritoryWorkType
+      fields:
+        WorkTypeId:
+          reference: WT_CareerPlanning
+        ServiceTerritoryId:
+          reference: ConnectedUniversityTerritory
+
+# =============================================================================
+# SHIFTS — Adam Advisor
+# =============================================================================
+
+# ── Date variables ────────────────────────────────────────────────────────────
+
+- var: first_monday
+  value: ${{ today + relativedelta(day=1, weekday=0) }}
+
+- var: first_tuesday
+  value: ${{ today + relativedelta(day=1, weekday=1) }}
+
+# =============================================================================
+# GENERAL ADVISING SHIFTS  (Mon–Fri, COUNT=50 for 10 weeks)
+# Supports In Person and Video channels.
+# =============================================================================
+
+- object: Shift
+  nickname: Shift_GeneralAdvising_Morning
+  fields:
+    StartTime:           ${{ first_monday.strftime("%Y-%m-%dT09:00:00.000-07:00") }}
+    EndTime:             ${{ first_monday.strftime("%Y-%m-%dT12:00:00.000-07:00") }}
+    RecurrencePattern:   RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;COUNT=50;
+    ServiceResourceId:
+      reference: AdamAdvisorResource
+    ServiceTerritoryId:
+      reference: ConnectedUniversityTerritory
+    AppointmentCategoryId:
+      reference: AppointmentCategory
+    Status:              Confirmed
+    Type:                Recurring
+  friends:
+    - object: ShiftWorkTopic
+      fields:
+        ShiftId:
+          reference: Shift_GeneralAdvising_Morning
+        WorkTypeGroupId:
+          reference: WTG_GeneralAdvising
+    - object: ShiftEngagementChannel
+      fields:
+        ShiftId:
+          reference: Shift_GeneralAdvising_Morning
+        EngagementChannelTypeId:
+          reference: ChannelType_InPerson
+    - object: ShiftEngagementChannel
+      fields:
+        ShiftId:
+          reference: Shift_GeneralAdvising_Morning
+        EngagementChannelTypeId:
+          reference: ChannelType_Video
+
+- object: Shift
+  nickname: Shift_GeneralAdvising_Afternoon
+  fields:
+    StartTime:           ${{ first_monday.strftime("%Y-%m-%dT13:00:00.000-07:00") }}
+    EndTime:             ${{ first_monday.strftime("%Y-%m-%dT17:00:00.000-07:00") }}
+    RecurrencePattern:   RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;COUNT=50;
+    ServiceResourceId:
+      reference: AdamAdvisorResource
+    ServiceTerritoryId:
+      reference: ConnectedUniversityTerritory
+    AppointmentCategoryId:
+      reference: AppointmentCategory
+    Status:              Confirmed
+    Type:                Recurring
+  friends:
+    - object: ShiftWorkTopic
+      fields:
+        ShiftId:
+          reference: Shift_GeneralAdvising_Afternoon
+        WorkTypeGroupId:
+          reference: WTG_GeneralAdvising
+    - object: ShiftEngagementChannel
+      fields:
+        ShiftId:
+          reference: Shift_GeneralAdvising_Afternoon
+        EngagementChannelTypeId:
+          reference: ChannelType_InPerson
+    - object: ShiftEngagementChannel
+      fields:
+        ShiftId:
+          reference: Shift_GeneralAdvising_Afternoon
+        EngagementChannelTypeId:
+          reference: ChannelType_Video
+
+# =============================================================================
+# GRADUATION AUDIT SHIFTS  (Mon/Wed/Fri, COUNT=30 for 10 weeks)
+# Supports In Person only.
+# =============================================================================
+
+- object: Shift
+  nickname: Shift_GraduationAudit_Morning
+  fields:
+    StartTime:           ${{ first_monday.strftime("%Y-%m-%dT09:00:00.000-07:00") }}
+    EndTime:             ${{ first_monday.strftime("%Y-%m-%dT12:00:00.000-07:00") }}
+    RecurrencePattern:   RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,WE,FR;COUNT=30;
+    ServiceResourceId:
+      reference: AdamAdvisorResource
+    ServiceTerritoryId:
+      reference: ConnectedUniversityTerritory
+    AppointmentCategoryId:
+      reference: AppointmentCategory
+    Status:              Confirmed
+    Type:                Recurring
+  friends:
+    - object: ShiftWorkTopic
+      fields:
+        ShiftId:
+          reference: Shift_GraduationAudit_Morning
+        WorkTypeGroupId:
+          reference: WTG_GraduationAudit
+    - object: ShiftEngagementChannel
+      fields:
+        ShiftId:
+          reference: Shift_GraduationAudit_Morning
+        EngagementChannelTypeId:
+          reference: ChannelType_InPerson
+
+- object: Shift
+  nickname: Shift_GraduationAudit_Afternoon
+  fields:
+    StartTime:           ${{ first_monday.strftime("%Y-%m-%dT13:00:00.000-07:00") }}
+    EndTime:             ${{ first_monday.strftime("%Y-%m-%dT17:00:00.000-07:00") }}
+    RecurrencePattern:   RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,WE,FR;COUNT=30;
+    ServiceResourceId:
+      reference: AdamAdvisorResource
+    ServiceTerritoryId:
+      reference: ConnectedUniversityTerritory
+    AppointmentCategoryId:
+      reference: AppointmentCategory
+    Status:              Confirmed
+    Type:                Recurring
+  friends:
+    - object: ShiftWorkTopic
+      fields:
+        ShiftId:
+          reference: Shift_GraduationAudit_Afternoon
+        WorkTypeGroupId:
+          reference: WTG_GraduationAudit
+    - object: ShiftEngagementChannel
+      fields:
+        ShiftId:
+          reference: Shift_GraduationAudit_Afternoon
+        EngagementChannelTypeId:
+          reference: ChannelType_InPerson
+
+# =============================================================================
+# CAREER PLANNING SHIFTS  (Tue/Thu, COUNT=20 for 10 weeks)
+# First occurrence is first Tuesday of the month. Supports In Person only.
+# =============================================================================
+
+- object: Shift
+  nickname: Shift_CareerPlanning_Morning
+  fields:
+    StartTime:           ${{ first_tuesday.strftime("%Y-%m-%dT09:00:00.000-07:00") }}
+    EndTime:             ${{ first_tuesday.strftime("%Y-%m-%dT12:00:00.000-07:00") }}
+    RecurrencePattern:   RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TU,TH;COUNT=20;
+    ServiceResourceId:
+      reference: AdamAdvisorResource
+    ServiceTerritoryId:
+      reference: ConnectedUniversityTerritory
+    AppointmentCategoryId:
+      reference: AppointmentCategory
+    Status:              Confirmed
+    Type:                Recurring
+  friends:
+    - object: ShiftWorkTopic
+      fields:
+        ShiftId:
+          reference: Shift_CareerPlanning_Morning
+        WorkTypeGroupId:
+          reference: WTG_CareerPlanning
+    - object: ShiftEngagementChannel
+      fields:
+        ShiftId:
+          reference: Shift_CareerPlanning_Morning
+        EngagementChannelTypeId:
+          reference: ChannelType_InPerson
+
+- object: Shift
+  nickname: Shift_CareerPlanning_Afternoon
+  fields:
+    StartTime:           ${{ first_tuesday.strftime("%Y-%m-%dT13:00:00.000-07:00") }}
+    EndTime:             ${{ first_tuesday.strftime("%Y-%m-%dT17:00:00.000-07:00") }}
+    RecurrencePattern:   RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TU,TH;COUNT=20;
+    ServiceResourceId:
+      reference: AdamAdvisorResource
+    ServiceTerritoryId:
+      reference: ConnectedUniversityTerritory
+    AppointmentCategoryId:
+      reference: AppointmentCategory
+    Status:              Confirmed
+    Type:                Recurring
+  friends:
+    - object: ShiftWorkTopic
+      fields:
+        ShiftId:
+          reference: Shift_CareerPlanning_Afternoon
+        WorkTypeGroupId:
+          reference: WTG_CareerPlanning
+    - object: ShiftEngagementChannel
+      fields:
+        ShiftId:
+          reference: Shift_CareerPlanning_Afternoon
+        EngagementChannelTypeId:
+          reference: ChannelType_InPerson
+
+# =============================================================================
+# SERVICE APPOINTMENTS — Adam Advisor & Sophia Student
+# =============================================================================
+
+# ── Date variables ─────────────────────────────────────────────────────────────
+
+- var: last_friday
+  value: ${{ today + relativedelta(day=today.day-7, weekday=4) }}
+
+- var: upcoming_friday
+  value: ${{ today + relativedelta(weekday=4) }}
+
+
+# =============================================================================
+# PAST APPOINTMENT — Last Friday at 9:30am PT (Completed)
+# =============================================================================
+
+- object: ServiceAppointment
+  nickname: SA_Sophia_LastFriday
+  fields:
+    AppointmentCategoryId:
+      reference: AppointmentCategory
+    ArrivalWindowStartTime:  ${{ last_friday.strftime("%Y-%m-%dT09:30:00.000-07:00") }}
+    ArrivalWindowEndTime:    ${{ last_friday.strftime("%Y-%m-%dT10:00:00.000-07:00") }}
+    ContactId:
+      reference: Sophia_Contact
+    DueDate:                 ${{ last_friday.strftime("%Y-%m-%dT10:00:00.000-07:00") }}
+    Duration:                30
+    DurationType:            Minutes
+    EarliestStartTime:       ${{ last_friday.strftime("%Y-%m-%dT08:30:00.000-07:00") }}
+    EngagementChannelTypeId:
+      reference: ChannelType_InPerson
+    ParentRecordId:
+      reference: Case_Sophia
+    SchedEndTime:            ${{ last_friday.strftime("%Y-%m-%dT10:00:00.000-07:00") }}
+    SchedStartTime:          ${{ last_friday.strftime("%Y-%m-%dT09:30:00.000-07:00") }}
+    ServiceTerritoryId:
+      reference: ConnectedUniversityTerritory
+    Status:                  Completed
+    WorkTypeId:
+      reference: WT_GeneralAdvising
+  friends:
+    - object: AssignedResource
+      fields:
+        ServiceAppointmentId:
+          reference: SA_Sophia_LastFriday
+        ServiceResourceId:
+          reference: AdamAdvisorResource
+        IsRequiredResource:  true
+
+
+# =============================================================================
+# UPCOMING APPOINTMENT — This Friday at 9:00am PT (Scheduled)
+# =============================================================================
+
+- object: ServiceAppointment
+  nickname: SA_Sophia_UpcomingFriday
+  fields:
+    AppointmentCategoryId:
+      reference: AppointmentCategory
+    ArrivalWindowStartTime:  ${{ upcoming_friday.strftime("%Y-%m-%dT09:00:00.000-07:00") }}
+    ArrivalWindowEndTime:    ${{ upcoming_friday.strftime("%Y-%m-%dT09:30:00.000-07:00") }}
+    ContactId:
+      reference: Sophia_Contact
+    DueDate:                 ${{ upcoming_friday.strftime("%Y-%m-%dT09:30:00.000-07:00") }}
+    Duration:                30
+    DurationType:            Minutes
+    EarliestStartTime:       ${{ upcoming_friday.strftime("%Y-%m-%dT08:00:00.000-07:00") }}
+    EngagementChannelTypeId:
+      reference: ChannelType_InPerson
+    ParentRecordId:
+      reference: Case_Sophia
+    SchedEndTime:            ${{ upcoming_friday.strftime("%Y-%m-%dT09:30:00.000-07:00") }}
+    SchedStartTime:          ${{ upcoming_friday.strftime("%Y-%m-%dT09:00:00.000-07:00") }}
+    ServiceTerritoryId:
+      reference: ConnectedUniversityTerritory
+    Status:                  Scheduled
+    WorkTypeId:
+      reference: WT_GeneralAdvising
+  friends:
+    - object: AssignedResource
+      fields:
+        ServiceAppointmentId:
+          reference: SA_Sophia_UpcomingFriday
+        ServiceResourceId:
+          reference: AdamAdvisorResource
+        IsRequiredResource:  true

@@ -1,0 +1,35 @@
+- snowfakery_version: 3
+- object: User
+  nickname: Adam
+  fields:
+    Username: 
+      fake: Username
+    FirstName: Adam
+    LastName: Advisor
+    Email: adam.advisor@example.com
+    Alias: aadvisor
+    TimeZoneSidKey: America/Los_Angeles
+    LocaleSidKey: en_US
+    EmailEncodingKey: UTF-8
+    LanguageLocaleKey: en_US
+    ProfileId:
+      SalesforceQuery.find_record:
+        from: Profile
+        where: Name='Standard User'
+  friends:
+    - object: PermissionSetAssignment
+      fields:
+        AssigneeId:
+          reference: Adam
+        PermissionSetId:
+          SalesforceQuery.find_record:
+            from: PermissionSet
+            where: Name='EducationCloudAccess'
+    - object: PermissionSetAssignment
+      fields:
+        AssigneeId:
+          reference: Adam
+        PermissionSetId:
+          SalesforceQuery.find_record:
+            from: PermissionSet
+            where: Name='OmniStudioExecution'

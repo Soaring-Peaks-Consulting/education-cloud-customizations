@@ -32,6 +32,17 @@
       Salesforce.SpecialObject:
         name: PersonContact
         nickname: Sophia_Contact
+  friends:
+    - object: Case
+      nickname: Case_Sophia
+      fields:
+        AccountId:
+          reference: Sophia
+        ContactId:
+          reference: Sophia_Contact
+        RecordType: Academic
+        Origin: Web
+        Subject: ${{ Sophia.FirstName + " " + Sophia.LastName + " Academic Case" }}
 
 - object: Account
   nickname: Student_2
@@ -45,6 +56,17 @@
       Salesforce.SpecialObject:
         name: PersonContact
         nickname: Student_2_Contact
+  friends:
+    - object: Case
+      nickname: Case_Student_2
+      fields:
+        AccountId:
+          reference: Student_2
+        ContactId:
+          reference: Student_2_Contact
+        RecordType: Academic
+        Origin: Web
+        Subject: ${{ Student_2.FirstName + " " + Student_2.LastName + " Academic Case" }}
 
 - object: Account
   nickname: Student_3
@@ -58,6 +80,17 @@
       Salesforce.SpecialObject:
         name: PersonContact
         nickname: Student_3_Contact
+  friends:
+    - object: Case
+      nickname: Case_Student_3
+      fields:
+        AccountId:
+          reference: Student_3
+        ContactId:
+          reference: Student_3_Contact
+        RecordType: Academic
+        Origin: Web
+        Subject: ${{ Student_3.FirstName + " " + Student_3.LastName + " Academic Case" }}
 
 - object: Account
   nickname: Student_4
@@ -71,6 +104,17 @@
       Salesforce.SpecialObject:
         name: PersonContact
         nickname: Student_4_Contact
+  friends:
+    - object: Case
+      nickname: Case_Student_4
+      fields:
+        AccountId:
+          reference: Student_4
+        ContactId:
+          reference: Student_4_Contact
+        RecordType: Academic
+        Origin: Web
+        Subject: ${{ Student_4.FirstName + " " + Student_4.LastName + " Academic Case" }}
 
 - object: Account
   nickname: Student_5
@@ -84,6 +128,17 @@
       Salesforce.SpecialObject:
         name: PersonContact
         nickname: Student_5_Contact
+  friends:
+    - object: Case
+      nickname: Case_Student_5
+      fields:
+        AccountId:
+          reference: Student_5
+        ContactId:
+          reference: Student_5_Contact
+        RecordType: Academic
+        Origin: Web
+        Subject: ${{ Student_5.FirstName + " " + Student_5.LastName + " Academic Case" }}
 
 - object: Account
   nickname: Student_6
@@ -97,6 +152,17 @@
       Salesforce.SpecialObject:
         name: PersonContact
         nickname: Student_6_Contact
+  friends:
+    - object: Case
+      nickname: Case_Student_6
+      fields:
+        AccountId:
+          reference: Student_6
+        ContactId:
+          reference: Student_6_Contact
+        RecordType: Academic
+        Origin: Web
+        Subject: ${{ Student_6.FirstName + " " + Student_6.LastName + " Academic Case" }}
 
 - object: Account
   nickname: Student_7
@@ -110,6 +176,17 @@
       Salesforce.SpecialObject:
         name: PersonContact
         nickname: Student_7_Contact
+  friends:
+    - object: Case
+      nickname: Case_Student_7
+      fields:
+        AccountId:
+          reference: Student_7
+        ContactId:
+          reference: Student_7_Contact
+        RecordType: Academic
+        Origin: Web
+        Subject: ${{ Student_7.FirstName + " " + Student_7.LastName + " Academic Case" }}
 
 # ── Prospective Students (no enrollments) ────────────────────────────────────
 

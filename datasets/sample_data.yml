@@ -1,8 +1,11 @@
 - snowfakery_version: 3
 - plugin: snowfakery.standard_plugins.Salesforce
+- plugin: snowfakery.standard_plugins.Salesforce.SalesforceQuery
 - plugin: snowfakery.standard_plugins.datasets.Dataset
 - include_file: sample_academic_calendar_data.yml
 - include_file: sample_account_data.yml
 - include_file: sample_academic_term_enrollment_data.yml
 - include_file: sample_learning_course_data.yml
 - include_file: sample_learning_program_data.yml
+- include_file: sample_user_data.yml
+- include_file: sample_appointment_data.yml
