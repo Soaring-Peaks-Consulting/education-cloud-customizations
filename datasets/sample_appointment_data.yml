@@ -537,7 +537,6 @@
 - var: upcoming_friday
   value: ${{ today + relativedelta(weekday=4) }}
 
-
 # =============================================================================
 # PAST APPOINTMENT — Last Friday at 9:30am PT (Completed)
 # =============================================================================

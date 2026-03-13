@@ -34,6 +34,7 @@
       reference: Connected
   friends:
     - object: LearningProgram
+      nickname: LP_BS_Chemistry
       fields:
         Name: Bachelor of Science in Chemistry
         LearningId:
@@ -70,6 +71,7 @@
       reference: Connected
   friends:
     - object: LearningProgram
+      nickname: LP_BS_Mathematics
       fields:
         Name: Bachelor of Science in Mathematics
         LearningId:
@@ -106,6 +108,7 @@
       reference: Connected
   friends:
     - object: LearningProgram
+      nickname: LP_BS_ComputerScience
       fields:
         Name: Bachelor of Science in Computer Science
         LearningId:
@@ -142,6 +145,7 @@
       reference: Connected
   friends:
     - object: LearningProgram
+      nickname: LP_BS_Biology
       fields:
         Name: Bachelor of Science in Biology
         LearningId:
@@ -178,6 +182,7 @@
       reference: Connected
   friends:
     - object: LearningProgram
+      nickname: LP_BBA
       fields:
         Name: Bachelor of Business Administration
         LearningId:
@@ -214,6 +219,7 @@
       reference: Connected
   friends:
     - object: LearningProgram
+      nickname: LP_BA_Psychology
       fields:
         Name: Bachelor of Arts in Psychology
         LearningId:
@@ -254,6 +260,7 @@
       reference: Connected
   friends:
     - object: LearningProgram
+      nickname: LP_MS_ComputerScience
       fields:
         Name: Master of Science in Computer Science
         LearningId:
@@ -290,6 +297,7 @@
       reference: Connected
   friends:
     - object: LearningProgram
+      nickname: LP_MS_DataScience
       fields:
         Name: Master of Science in Data Science
         LearningId:
@@ -326,6 +334,7 @@
       reference: Connected
   friends:
     - object: LearningProgram
+      nickname: LP_MBA
       fields:
         Name: Master of Business Administration
         LearningId:
@@ -362,6 +371,7 @@
       reference: Connected
   friends:
     - object: LearningProgram
+      nickname: LP_MS_Biology
       fields:
         Name: Master of Science in Biology
         LearningId:

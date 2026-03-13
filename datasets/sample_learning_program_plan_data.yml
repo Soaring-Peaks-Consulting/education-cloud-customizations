@@ -1,0 +1,1220 @@
+- snowfakery_version: 3
+# =============================================================================
+# Snowfakery Recipe: Connected University — Learning Program Plans & Requirements
+# Objects: LearningProgramPlan, LearningProgramPlanRqmt,
+#          LearningAchievement (Achievement_Group type for elective groups),
+#          LearningOutcomeItem (linking elective courses to group achievements)
+#
+# STRUCTURE PER PROGRAM
+# ---------------------
+#   LearningProgramPlan (1)
+#     └─ LearningProgramPlanRqmt (N) — required courses and elective groups
+#
+# Elective groups are defined BEFORE the plan that uses them so their
+# LearningAchievement nicknames are available for LearningProgramPlanRqmt.
+#
+# ACTIVE FROM DATE
+# ----------------
+# All plans became active in spring of the prior academic year:
+# today.replace(year=today.year-1, month=1, day=15)
+#
+# PROGRAM SUMMARY
+# ---------------
+# Undergraduate (6):
+#   BS Chemistry           — CHEM/MATH/PHYS core + science electives
+#   BS Mathematics         — MATH/STAT/CS core + math electives
+#   BS Computer Science    — CS/MATH/STAT core + CS electives
+#   BS Biology             — CHEM/PHYS/MATH core + science electives
+#   BBA                    — FIN core + business electives
+#   BA Psychology          — MATH/STAT core + social science electives
+# Graduate (4):
+#   MS Computer Science    — CS/STAT core + advanced CS electives
+#   MS Data Science        — CS/STAT/MATH core + data science electives
+#   MBA                    — MBA core + business electives
+#   MS Biology             — CHEM/STAT core + life sciences electives
+# =============================================================================
+
+# =============================================================================
+# ELECTIVE GROUP ACHIEVEMENTS
+# Each group needs a LearningAchievement of RecordType Achievement_Group,
+# plus LearningOutcomeItem records linking each eligible course's achievement
+# to the group. Defined first so their nicknames can be referenced in
+# LearningProgramPlanRqmt below.
+# =============================================================================
+
+# ── BS Chemistry: Science Electives ──────────────────────────────────────────
+# Choose 9 credits from: PHYS 201, STAT 201, CS 101
+
+- object: LearningAchievement
+  nickname: AG_BSChem_SciElectives
+  fields:
+    Name: BS Chemistry Science Electives
+    AcademicLevel: Undergraduate
+    IssuerId:
+      reference: Connected
+    RecordType: Achievement_Group
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_BSChem_SciElectives
+    LearningId:
+      reference: Learning_PHYS201
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_BSChem_SciElectives
+    LearningId:
+      reference: Learning_STAT201
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_BSChem_SciElectives
+    LearningId:
+      reference: Learning_CS101
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+# ── BS Mathematics: Math & Applied Electives ─────────────────────────────────
+# Choose 9 credits from: PHYS 101, CS 201, STAT 301
+
+- object: LearningAchievement
+  nickname: AG_BSMath_AppliedElectives
+  fields:
+    Name: BS Mathematics Applied Electives
+    AcademicLevel: Undergraduate
+    IssuerId:
+      reference: Connected
+    RecordType: Achievement_Group
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_BSMath_AppliedElectives
+    LearningId:
+      reference: Learning_PHYS101
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_BSMath_AppliedElectives
+    LearningId:
+      reference: Learning_CS201
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_BSMath_AppliedElectives
+    LearningId:
+      reference: Learning_CHEM101
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+# ── BS Computer Science: CS Electives ────────────────────────────────────────
+# Choose 9 credits from: MATH 301, STAT 301, PHYS 101
+
+- object: LearningAchievement
+  nickname: AG_BSCS_Electives
+  fields:
+    Name: BS Computer Science Electives
+    AcademicLevel: Undergraduate
+    IssuerId:
+      reference: Connected
+    RecordType: Achievement_Group
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_BSCS_Electives
+    LearningId:
+      reference: Learning_MATH301
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_BSCS_Electives
+    LearningId:
+      reference: Learning_STAT301
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_BSCS_Electives
+    LearningId:
+      reference: Learning_PHYS101
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+# ── BS Biology: Life Sciences Electives ──────────────────────────────────────
+# Choose 9 credits from: CHEM 201, PHYS 101, STAT 201
+
+- object: LearningAchievement
+  nickname: AG_BSBio_SciElectives
+  fields:
+    Name: BS Biology Science Electives
+    AcademicLevel: Undergraduate
+    IssuerId:
+      reference: Connected
+    RecordType: Achievement_Group
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_BSBio_SciElectives
+    LearningId:
+      reference: Learning_STAT201
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_BSBio_SciElectives
+    LearningId:
+      reference: Learning_CHEM301
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_BSBio_SciElectives
+    LearningId:
+      reference: Learning_CS101
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+# ── BBA: Business Electives ───────────────────────────────────────────────────
+# Choose 6 credits from: FIN 401, STAT 201
+
+- object: LearningAchievement
+  nickname: AG_BBA_BusinessElectives
+  fields:
+    Name: BBA Business Electives
+    AcademicLevel: Undergraduate
+    IssuerId:
+      reference: Connected
+    RecordType: Achievement_Group
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_BBA_BusinessElectives
+    LearningId:
+      reference: Learning_FIN401
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_BBA_BusinessElectives
+    LearningId:
+      reference: Learning_STAT201
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_BBA_BusinessElectives
+    LearningId:
+      reference: Learning_MATH201
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+# ── BA Psychology: Social Science Electives ───────────────────────────────────
+# Choose 9 credits from: STAT 201, CS 101, CHEM 101
+
+- object: LearningAchievement
+  nickname: AG_BAPsych_SocialElectives
+  fields:
+    Name: BA Psychology Social Science Electives
+    AcademicLevel: Undergraduate
+    IssuerId:
+      reference: Connected
+    RecordType: Achievement_Group
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_BAPsych_SocialElectives
+    LearningId:
+      reference: Learning_CS101
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_BAPsych_SocialElectives
+    LearningId:
+      reference: Learning_PHYS101
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_BAPsych_SocialElectives
+    LearningId:
+      reference: Learning_CHEM101
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+# ── MS Computer Science: Advanced CS Electives ───────────────────────────────
+# Choose 9 credits from: STAT 301, MATH 301, PHYS 201
+
+- object: LearningAchievement
+  nickname: AG_MSCS_AdvancedElectives
+  fields:
+    Name: MS Computer Science Advanced Electives
+    AcademicLevel: Graduate
+    IssuerId:
+      reference: Connected
+    RecordType: Achievement_Group
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_MSCS_AdvancedElectives
+    LearningId:
+      reference: Learning_STAT301
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_MSCS_AdvancedElectives
+    LearningId:
+      reference: Learning_MATH301
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_MSCS_AdvancedElectives
+    LearningId:
+      reference: Learning_PHYS201
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+# ── MS Data Science: Data Science Electives ──────────────────────────────────
+# Choose 9 credits from: CS 301, STAT 301, MATH 301
+
+- object: LearningAchievement
+  nickname: AG_MSDS_DataElectives
+  fields:
+    Name: MS Data Science Electives
+    AcademicLevel: Graduate
+    IssuerId:
+      reference: Connected
+    RecordType: Achievement_Group
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_MSDS_DataElectives
+    LearningId:
+      reference: Learning_CS301
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_MSDS_DataElectives
+    LearningId:
+      reference: Learning_MATH301
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_MSDS_DataElectives
+    LearningId:
+      reference: Learning_PHYS101
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+# ── MBA: Business Electives ───────────────────────────────────────────────────
+# Choose 6 credits from: FIN 301, STAT 201
+
+- object: LearningAchievement
+  nickname: AG_MBA_BusinessElectives
+  fields:
+    Name: MBA Business Electives
+    AcademicLevel: Graduate
+    IssuerId:
+      reference: Connected
+    RecordType: Achievement_Group
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_MBA_BusinessElectives
+    LearningId:
+      reference: Learning_FIN401
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_MBA_BusinessElectives
+    LearningId:
+      reference: Learning_STAT301
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+# ── MS Biology: Life Sciences Electives ──────────────────────────────────────
+# Choose 9 credits from: CHEM 301, PHYS 201, STAT 301
+
+- object: LearningAchievement
+  nickname: AG_MSBio_LifeSciElectives
+  fields:
+    Name: MS Biology Life Sciences Electives
+    AcademicLevel: Graduate
+    IssuerId:
+      reference: Connected
+    RecordType: Achievement_Group
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_MSBio_LifeSciElectives
+    LearningId:
+      reference: Learning_PHYS201
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_MSBio_LifeSciElectives
+    LearningId:
+      reference: Learning_STAT301
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+- object: LearningOutcomeItem
+  fields:
+    LearningAchievementId:
+      reference: AG_MSBio_LifeSciElectives
+    LearningId:
+      reference: Learning_CS101
+    Duration: 3
+    DurationUnit: Credit Hours
+    IsPrimary: false
+
+# =============================================================================
+# LEARNING PROGRAM PLANS & REQUIREMENTS
+# =============================================================================
+
+# ── BS Chemistry ──────────────────────────────────────────────────────────────
+# Core: CHEM 101 (3), CHEM 101 Lab (1), CHEM 201 (3), CHEM 301 (3),
+#        MATH 101 (3), MATH 201 (3), PHYS 101 (3), PHYS 101 Lab (1) = 20 cr
+# Science Electives: 9 cr (choose from PHYS 201, STAT 201, CS 101)
+# Total core+electives: 29 cr (remainder to 128 satisfied by general ed)
+
+- object: LearningProgramPlan
+  nickname: Plan_BS_Chemistry
+  fields:
+    Name: Bachelor of Science in Chemistry
+    LearningProgramId:
+      reference: LP_BS_Chemistry
+    IsActive: true
+    ActiveFromDate: ${{ today.replace(year=today.year-1, month=1, day=15) }}
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Chemistry
+        Name: Introduction to Chemistry
+        LearningAchievementId:
+          reference: Achievement_CHEM101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Chemistry
+        Name: Introduction to Chemistry Lab
+        LearningAchievementId:
+          reference: Achievement_CHEM101_Lab
+        Duration: 1
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Chemistry
+        Name: Organic Chemistry
+        LearningAchievementId:
+          reference: Achievement_CHEM201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Chemistry
+        Name: Physical Chemistry
+        LearningAchievementId:
+          reference: Achievement_CHEM301
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Chemistry
+        Name: Calculus I
+        LearningAchievementId:
+          reference: Achievement_MATH101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Chemistry
+        Name: Calculus II
+        LearningAchievementId:
+          reference: Achievement_MATH201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Chemistry
+        Name: Physics I - Mechanics
+        LearningAchievementId:
+          reference: Achievement_PHYS101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Chemistry
+        Name: Physics I Lab
+        LearningAchievementId:
+          reference: Achievement_PHYS101_Lab
+        Duration: 1
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Chemistry
+        Name: Science Electives
+        GroupName: Science Electives
+        LearningAchievementId:
+          reference: AG_BSChem_SciElectives
+        Duration: 6
+        DurationUnit: Credit Hours
+
+# ── BS Mathematics ────────────────────────────────────────────────────────────
+# Core: MATH 101 (3), MATH 201 (3), MATH 301 (3),
+#        STAT 201 (3), STAT 301 (3), CS 101 (3) = 18 cr
+# Math & Applied Electives: 9 cr (choose from PHYS 101, CS 201, STAT 301)
+
+- object: LearningProgramPlan
+  nickname: Plan_BS_Mathematics
+  fields:
+    Name: Bachelor of Science in Mathematics
+    LearningProgramId:
+      reference: LP_BS_Mathematics
+    IsActive: true
+    ActiveFromDate: ${{ today.replace(year=today.year-1, month=1, day=15) }}
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Mathematics
+        Name: Calculus I
+        LearningAchievementId:
+          reference: Achievement_MATH101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Mathematics
+        Name: Calculus II
+        LearningAchievementId:
+          reference: Achievement_MATH201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Mathematics
+        Name: Calculus III
+        LearningAchievementId:
+          reference: Achievement_MATH301
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Mathematics
+        Name: Probability and Statistics
+        LearningAchievementId:
+          reference: Achievement_STAT201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Mathematics
+        Name: Statistical Inference
+        LearningAchievementId:
+          reference: Achievement_STAT301
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Mathematics
+        Name: Introduction to Computer Science
+        LearningAchievementId:
+          reference: Achievement_CS101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Mathematics
+        Name: Math & Applied Electives
+        GroupName: Math & Applied Electives
+        LearningAchievementId:
+          reference: AG_BSMath_AppliedElectives
+        Duration: 6
+        DurationUnit: Credit Hours
+
+# ── BS Computer Science ───────────────────────────────────────────────────────
+# Core: CS 101 (3), CS 201 (3), CS 301 (3),
+#        MATH 101 (3), MATH 201 (3), STAT 201 (3) = 18 cr
+# CS Electives: 9 cr (choose from MATH 301, STAT 301, PHYS 101)
+
+- object: LearningProgramPlan
+  nickname: Plan_BS_ComputerScience
+  fields:
+    Name: Bachelor of Science in Computer Science
+    LearningProgramId:
+      reference: LP_BS_ComputerScience
+    IsActive: true
+    ActiveFromDate: ${{ today.replace(year=today.year-1, month=1, day=15) }}
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_ComputerScience
+        Name: Introduction to Computer Science
+        LearningAchievementId:
+          reference: Achievement_CS101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_ComputerScience
+        Name: Data Structures and Algorithms
+        LearningAchievementId:
+          reference: Achievement_CS201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_ComputerScience
+        Name: Software Engineering
+        LearningAchievementId:
+          reference: Achievement_CS301
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_ComputerScience
+        Name: Calculus I
+        LearningAchievementId:
+          reference: Achievement_MATH101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_ComputerScience
+        Name: Calculus II
+        LearningAchievementId:
+          reference: Achievement_MATH201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_ComputerScience
+        Name: Probability and Statistics
+        LearningAchievementId:
+          reference: Achievement_STAT201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_ComputerScience
+        Name: CS Electives
+        GroupName: CS Electives
+        LearningAchievementId:
+          reference: AG_BSCS_Electives
+        Duration: 6
+        DurationUnit: Credit Hours
+
+# ── BS Biology ────────────────────────────────────────────────────────────────
+# Core: CHEM 101 (3), CHEM 101 Lab (1), CHEM 201 (3),
+#        MATH 101 (3), PHYS 101 (3), PHYS 101 Lab (1) = 14 cr
+# Life Sciences Electives: 9 cr (choose from CHEM 201, PHYS 101, STAT 201)
+
+- object: LearningProgramPlan
+  nickname: Plan_BS_Biology
+  fields:
+    Name: Bachelor of Science in Biology
+    LearningProgramId:
+      reference: LP_BS_Biology
+    IsActive: true
+    ActiveFromDate: ${{ today.replace(year=today.year-1, month=1, day=15) }}
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Biology
+        Name: Introduction to Chemistry
+        LearningAchievementId:
+          reference: Achievement_CHEM101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Biology
+        Name: Introduction to Chemistry Lab
+        LearningAchievementId:
+          reference: Achievement_CHEM101_Lab
+        Duration: 1
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Biology
+        Name: Organic Chemistry
+        LearningAchievementId:
+          reference: Achievement_CHEM201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Biology
+        Name: Calculus I
+        LearningAchievementId:
+          reference: Achievement_MATH101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Biology
+        Name: Physics I - Mechanics
+        LearningAchievementId:
+          reference: Achievement_PHYS101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Biology
+        Name: Physics I Lab
+        LearningAchievementId:
+          reference: Achievement_PHYS101_Lab
+        Duration: 1
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Biology
+        Name: Life Sciences Electives
+        GroupName: Life Sciences Electives
+        LearningAchievementId:
+          reference: AG_BSBio_SciElectives
+        Duration: 6
+        DurationUnit: Credit Hours
+
+# ── BBA ───────────────────────────────────────────────────────────────────────
+# Core: FIN 301 (3), MATH 101 (3), STAT 201 (3) = 9 cr
+# Business Electives: 6 cr (choose from FIN 401, STAT 201)
+
+- object: LearningProgramPlan
+  nickname: Plan_BBA
+  fields:
+    Name: Bachelor of Business Administration
+    LearningProgramId:
+      reference: LP_BBA
+    IsActive: true
+    ActiveFromDate: ${{ today.replace(year=today.year-1, month=1, day=15) }}
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BBA
+        Name: Corporate Finance
+        LearningAchievementId:
+          reference: Achievement_FIN301
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BBA
+        Name: Calculus I
+        LearningAchievementId:
+          reference: Achievement_MATH101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BBA
+        Name: Probability and Statistics
+        LearningAchievementId:
+          reference: Achievement_STAT201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BBA
+        Name: Business Electives
+        GroupName: Business Electives
+        LearningAchievementId:
+          reference: AG_BBA_BusinessElectives
+        Duration: 6
+        DurationUnit: Credit Hours
+
+# ── BA Psychology ─────────────────────────────────────────────────────────────
+# Core: MATH 101 (3), STAT 201 (3) = 6 cr
+# Social Science Electives: 9 cr (choose from STAT 201, CS 101, CHEM 101)
+
+- object: LearningProgramPlan
+  nickname: Plan_BA_Psychology
+  fields:
+    Name: Bachelor of Arts in Psychology
+    LearningProgramId:
+      reference: LP_BA_Psychology
+    IsActive: true
+    ActiveFromDate: ${{ today.replace(year=today.year-1, month=1, day=15) }}
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BA_Psychology
+        Name: Calculus I
+        LearningAchievementId:
+          reference: Achievement_MATH101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BA_Psychology
+        Name: Probability and Statistics
+        LearningAchievementId:
+          reference: Achievement_STAT201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BA_Psychology
+        Name: Social Science Electives
+        GroupName: Social Science Electives
+        LearningAchievementId:
+          reference: AG_BAPsych_SocialElectives
+        Duration: 6
+        DurationUnit: Credit Hours
+
+# ── MS Computer Science ───────────────────────────────────────────────────────
+# Core: CS 201 (3), CS 301 (3), STAT 201 (3), MATH 201 (3) = 12 cr
+# Advanced CS Electives: 9 cr (choose from STAT 301, MATH 301, PHYS 201)
+
+- object: LearningProgramPlan
+  nickname: Plan_MS_ComputerScience
+  fields:
+    Name: Master of Science in Computer Science
+    LearningProgramId:
+      reference: LP_MS_ComputerScience
+    IsActive: true
+    ActiveFromDate: ${{ today.replace(year=today.year-1, month=1, day=15) }}
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_ComputerScience
+        Name: Introduction to Computer Science
+        LearningAchievementId:
+          reference: Achievement_CS101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_ComputerScience
+        Name: Calculus I
+        LearningAchievementId:
+          reference: Achievement_MATH101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_ComputerScience
+        Name: Physics I - Mechanics
+        LearningAchievementId:
+          reference: Achievement_PHYS101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_ComputerScience
+        Name: Data Structures and Algorithms
+        LearningAchievementId:
+          reference: Achievement_CS201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_ComputerScience
+        Name: Software Engineering
+        LearningAchievementId:
+          reference: Achievement_CS301
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_ComputerScience
+        Name: Probability and Statistics
+        LearningAchievementId:
+          reference: Achievement_STAT201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_ComputerScience
+        Name: Calculus II
+        LearningAchievementId:
+          reference: Achievement_MATH201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_ComputerScience
+        Name: Advanced CS Electives
+        GroupName: Advanced CS Electives
+        LearningAchievementId:
+          reference: AG_MSCS_AdvancedElectives
+        Duration: 6
+        DurationUnit: Credit Hours
+
+# ── MS Data Science ───────────────────────────────────────────────────────────
+# Core: CS 201 (3), STAT 201 (3), STAT 301 (3), MATH 201 (3) = 12 cr
+# Data Science Electives: 9 cr (choose from CS 301, STAT 301, MATH 301)
+
+- object: LearningProgramPlan
+  nickname: Plan_MS_DataScience
+  fields:
+    Name: Master of Science in Data Science
+    LearningProgramId:
+      reference: LP_MS_DataScience
+    IsActive: true
+    ActiveFromDate: ${{ today.replace(year=today.year-1, month=1, day=15) }}
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_DataScience
+        Name: Introduction to Computer Science
+        LearningAchievementId:
+          reference: Achievement_CS101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_DataScience
+        Name: Calculus I
+        LearningAchievementId:
+          reference: Achievement_MATH101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_DataScience
+        Name: Data Structures and Algorithms
+        LearningAchievementId:
+          reference: Achievement_CS201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_DataScience
+        Name: Probability and Statistics
+        LearningAchievementId:
+          reference: Achievement_STAT201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_DataScience
+        Name: Statistical Inference
+        LearningAchievementId:
+          reference: Achievement_STAT301
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_DataScience
+        Name: Calculus II
+        LearningAchievementId:
+          reference: Achievement_MATH201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_DataScience
+        Name: Data Science Electives
+        GroupName: Data Science Electives
+        LearningAchievementId:
+          reference: AG_MSDS_DataElectives
+        Duration: 6
+        DurationUnit: Credit Hours
+
+# ── MBA ───────────────────────────────────────────────────────────────────────
+# Core: MBA 501 (3), MBA 601 (3), STAT 201 (3) = 9 cr
+# Business Electives: 6 cr (choose from FIN 301, STAT 201)
+
+- object: LearningProgramPlan
+  nickname: Plan_MBA
+  fields:
+    Name: Master of Business Administration
+    LearningProgramId:
+      reference: LP_MBA
+    IsActive: true
+    ActiveFromDate: ${{ today.replace(year=today.year-1, month=1, day=15) }}
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MBA
+        Name: Corporate Finance
+        LearningAchievementId:
+          reference: Achievement_FIN301
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MBA
+        Name: Calculus I
+        LearningAchievementId:
+          reference: Achievement_MATH101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MBA
+        Name: MBA Foundations - Strategy and Leadership
+        LearningAchievementId:
+          reference: Achievement_MBA501
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MBA
+        Name: MBA Capstone - Global Business Strategy
+        LearningAchievementId:
+          reference: Achievement_MBA601
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MBA
+        Name: Probability and Statistics
+        LearningAchievementId:
+          reference: Achievement_STAT201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MBA
+        Name: Business Electives
+        GroupName: Business Electives
+        LearningAchievementId:
+          reference: AG_MBA_BusinessElectives
+        Duration: 3
+        DurationUnit: Credit Hours
+
+# ── MS Biology ────────────────────────────────────────────────────────────────
+# Core: CHEM 201 (3), CHEM 301 (3), MATH 101 (3), STAT 201 (3) = 12 cr
+# Life Sciences Electives: 9 cr (choose from CHEM 301, PHYS 201, STAT 301)
+
+- object: LearningProgramPlan
+  nickname: Plan_MS_Biology
+  fields:
+    Name: Master of Science in Biology
+    LearningProgramId:
+      reference: LP_MS_Biology
+    IsActive: true
+    ActiveFromDate: ${{ today.replace(year=today.year-1, month=1, day=15) }}
+    ProviderId:
+      reference: Connected
+  friends:
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_Biology
+        Name: Introduction to Chemistry
+        LearningAchievementId:
+          reference: Achievement_CHEM101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_Biology
+        Name: Calculus II
+        LearningAchievementId:
+          reference: Achievement_MATH201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_Biology
+        Name: Physics I - Mechanics
+        LearningAchievementId:
+          reference: Achievement_PHYS101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_Biology
+        Name: Organic Chemistry
+        LearningAchievementId:
+          reference: Achievement_CHEM201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_Biology
+        Name: Physical Chemistry
+        LearningAchievementId:
+          reference: Achievement_CHEM301
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_Biology
+        Name: Calculus I
+        LearningAchievementId:
+          reference: Achievement_MATH101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_Biology
+        Name: Probability and Statistics
+        LearningAchievementId:
+          reference: Achievement_STAT201
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_MS_Biology
+        Name: Life Sciences Electives
+        GroupName: Life Sciences Electives
+        LearningAchievementId:
+          reference: AG_MSBio_LifeSciElectives
+        Duration: 6
+        DurationUnit: Credit Hours
