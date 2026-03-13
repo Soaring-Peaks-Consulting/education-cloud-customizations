@@ -1,0 +1,507 @@
+- snowfakery_version: 3
+# =============================================================================
+# Snowfakery Recipe: Connected University — Learner Programs & Requirements
+# Objects: LearnerProgram, LearnerProgramRequirement
+#
+# STUDENT SUMMARY
+# ---------------
+# Sophia       — Active Freshman    — BS Computer Science    (started Fall current)
+# Student_2    — Active Senior      — BS Mathematics         (started Fall minus3)
+# Student_3    — Active Grad        — MS Data Science        (started Fall minus1)
+# Student_4    — Completed Alumni   — BBA                    (completed Spring minus1)
+# Student_5    — Active Sophomore   — BS Biology             (started Fall minus1)
+# Student_6    — Active Junior      — BA Psychology          (started Fall minus2, re-admitted)
+# Student_7    — Active Grad        — MS Computer Science    (started Fall minus2, re-admitted)
+#
+# STATUS LOGIC
+# ------------
+# Completed requirements: courses the student has already finished based on
+#   their academic standing and terms completed.
+# Active requirements: courses the student is currently working toward.
+# LearnerProgram.Status: Active for currently enrolled; Completed for alumni.
+#
+# DATES
+# -----
+# StartDate / EndDate / ExpectedGraduationDate use today + relativedelta
+# anchored to academic year start (ay_start_year from academic calendar recipe).
+# Approximations:
+#   Fall semester start  : August 1
+#   Spring semester start: January 6
+#   Spring semester end  : May 15
+# =============================================================================
+
+# =============================================================================
+# SOPHIA STUDENT — BS Computer Science
+# Incoming Freshman, enrolled Fall current only.
+# All requirements Active (just started).
+# Expected graduation: Spring 4 years from now.
+# =============================================================================
+
+- object: LearnerProgram
+  nickname: LP_Sophia_BSCS
+  fields:
+    Name: ${{ Sophia.FirstName + " " + Sophia.LastName + "'s " + Plan_BS_ComputerScience.Name + " Learner Program" }}
+    LearnerAccountId:
+      reference: Sophia
+    LearnerContactId:
+      reference: Sophia_Contact
+    LearningProgramPlanId:
+      reference: Plan_BS_ComputerScience
+    StartDate: ${{ today.replace(year=ay_start_year, month=8, day=1) }}
+    ExpectedGraduationDate: ${{ today.replace(year=ay_start_year+4, month=5, day=15) }}
+    Status: Active
+  friends:
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Sophia_BSCS
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSCS_CS101
+        Name: ${{ Rqmt_BSCS_CS101.Name }}
+        Status: Active
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Sophia_BSCS
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSCS_CS201
+        Name: ${{ Rqmt_BSCS_CS201.Name }}
+        Status: Active
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Sophia_BSCS
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSCS_CS301
+        Name: ${{ Rqmt_BSCS_CS301.Name }}
+        Status: Active
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Sophia_BSCS
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSCS_MATH101
+        Name: ${{ Rqmt_BSCS_MATH101.Name }}
+        Status: Active
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Sophia_BSCS
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSCS_MATH201
+        Name: ${{ Rqmt_BSCS_MATH201.Name }}
+        Status: Active
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Sophia_BSCS
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSCS_STAT201
+        Name: ${{ Rqmt_BSCS_STAT201.Name }}
+        Status: Active
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Sophia_BSCS
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSCS_Elec
+        Name: ${{ Rqmt_BSCS_Elec.Name }}
+        Status: Active
+
+# =============================================================================
+# STUDENT 2 — BS Mathematics
+# Senior, enrolled Fall minus3 through Spring current (8 terms). Strong GPA.
+# Freshman/Sophomore courses Completed; Junior/Senior courses Active.
+# Completed: MATH101, MATH201, MATH301, STAT201, STAT301, CS101, PHYS101
+# Active: Math & Applied Electives (senior electives in progress)
+# Expected graduation: Spring current.
+# =============================================================================
+
+- object: LearnerProgram
+  nickname: LP_Student2_BSMath
+  fields:
+    Name: ${{ Student_2.FirstName + " " + Student_2.LastName + "'s " + Plan_BS_Mathematics.Name + " Learner Program" }}
+    LearnerAccountId:
+      reference: Student_2
+    LearnerContactId:
+      reference: Student_2_Contact
+    LearningProgramPlanId:
+      reference: Plan_BS_Mathematics
+    StartDate: ${{ today.replace(year=ay_start_year-3, month=8, day=1) }}
+    ExpectedGraduationDate: ${{ today.replace(year=ay_start_year+1, month=5, day=15) }}
+    Status: Active
+  friends:
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student2_BSMath
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSMath_MATH101
+        Name: ${{ Rqmt_BSMath_MATH101.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student2_BSMath
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSMath_MATH201
+        Name: ${{ Rqmt_BSMath_MATH201.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student2_BSMath
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSMath_MATH301
+        Name: ${{ Rqmt_BSMath_MATH301.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student2_BSMath
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSMath_STAT201
+        Name: ${{ Rqmt_BSMath_STAT201.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student2_BSMath
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSMath_STAT301
+        Name: ${{ Rqmt_BSMath_STAT301.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student2_BSMath
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSMath_CS101
+        Name: ${{ Rqmt_BSMath_CS101.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student2_BSMath
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSMath_PHYS101
+        Name: ${{ Rqmt_BSMath_PHYS101.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student2_BSMath
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSMath_Elec
+        Name: ${{ Rqmt_BSMath_Elec.Name }}
+        Status: Active
+
+# =============================================================================
+# STUDENT 3 — MS Data Science
+# Graduate student, enrolled Fall minus1 through Spring current (4 terms).
+# High GPA throughout. 3 terms completed — core courses done, elective in progress.
+# Completed: CS201, STAT201, STAT301, MATH201
+# Active: Data Science Electives
+# Expected graduation: Spring plus1.
+# =============================================================================
+
+- object: LearnerProgram
+  nickname: LP_Student3_MSDS
+  fields:
+    Name: ${{ Student_3.FirstName + " " + Student_3.LastName + "'s " + Plan_MS_DataScience.Name + " Learner Program" }}
+    LearnerAccountId:
+      reference: Student_3
+    LearnerContactId:
+      reference: Student_3_Contact
+    LearningProgramPlanId:
+      reference: Plan_MS_DataScience
+    StartDate: ${{ today.replace(year=ay_start_year-1, month=8, day=1) }}
+    ExpectedGraduationDate: ${{ today.replace(year=ay_start_year+2, month=5, day=15) }}
+    Status: Active
+  friends:
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student3_MSDS
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_MSDS_CS201
+        Name: ${{ Rqmt_MSDS_CS201.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student3_MSDS
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_MSDS_STAT201
+        Name: ${{ Rqmt_MSDS_STAT201.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student3_MSDS
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_MSDS_STAT301
+        Name: ${{ Rqmt_MSDS_STAT301.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student3_MSDS
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_MSDS_MATH201
+        Name: ${{ Rqmt_MSDS_MATH201.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student3_MSDS
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_MSDS_Elec
+        Name: ${{ Rqmt_MSDS_Elec.Name }}
+        Status: Active
+
+# =============================================================================
+# STUDENT 4 — BBA (Alumni, Completed Spring minus1)
+# Graduated after 7 terms (Fall minus3 through Spring minus1 + Summer).
+# All requirements Completed.
+# =============================================================================
+
+- object: LearnerProgram
+  nickname: LP_Student4_BBA
+  fields:
+    Name: ${{ Student_4.FirstName + " " + Student_4.LastName + "'s " + Plan_BBA.Name + " Learner Program" }}
+    LearnerAccountId:
+      reference: Student_4
+    LearnerContactId:
+      reference: Student_4_Contact
+    LearningProgramPlanId:
+      reference: Plan_BBA
+    StartDate: ${{ today.replace(year=ay_start_year-3, month=8, day=1) }}
+    EndDate: ${{ today.replace(year=ay_start_year, month=5, day=15) }}
+    ExpectedGraduationDate: ${{ today.replace(year=ay_start_year, month=5, day=15) }}
+    Status: Completed
+  friends:
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student4_BBA
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BBA_FIN301
+        Name: ${{ Rqmt_BBA_FIN301.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student4_BBA
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BBA_MATH101
+        Name: ${{ Rqmt_BBA_MATH101.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student4_BBA
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BBA_STAT201
+        Name: ${{ Rqmt_BBA_STAT201.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student4_BBA
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BBA_Elec
+        Name: ${{ Rqmt_BBA_Elec.Name }}
+        Status: Completed
+
+# =============================================================================
+# STUDENT 5 — BS Biology
+# Sophomore, enrolled Fall minus1 through Spring current (4 terms).
+# Freshman year complete; sophomore courses in progress.
+# Completed: CHEM101, CHEM101 Lab, MATH101
+# Active: CHEM201, PHYS101, PHYS101 Lab, Life Sciences Electives
+# Expected graduation: Spring plus2.
+# =============================================================================
+
+- object: LearnerProgram
+  nickname: LP_Student5_BSBio
+  fields:
+    Name: ${{ Student_5.FirstName + " " + Student_5.LastName + "'s " + Plan_BS_Biology.Name + " Learner Program" }}
+    LearnerAccountId:
+      reference: Student_5
+    LearnerContactId:
+      reference: Student_5_Contact
+    LearningProgramPlanId:
+      reference: Plan_BS_Biology
+    StartDate: ${{ today.replace(year=ay_start_year-1, month=8, day=1) }}
+    ExpectedGraduationDate: ${{ today.replace(year=ay_start_year+3, month=5, day=15) }}
+    Status: Active
+  friends:
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student5_BSBio
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSBio_CHEM101
+        Name: ${{ Rqmt_BSBio_CHEM101.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student5_BSBio
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSBio_CHEM101Lab
+        Name: ${{ Rqmt_BSBio_CHEM101Lab.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student5_BSBio
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSBio_MATH101
+        Name: ${{ Rqmt_BSBio_MATH101.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student5_BSBio
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSBio_CHEM201
+        Name: ${{ Rqmt_BSBio_CHEM201.Name }}
+        Status: Active
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student5_BSBio
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSBio_PHYS101
+        Name: ${{ Rqmt_BSBio_PHYS101.Name }}
+        Status: Active
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student5_BSBio
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSBio_PHYS101Lab
+        Name: ${{ Rqmt_BSBio_PHYS101Lab.Name }}
+        Status: Active
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student5_BSBio
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BSBio_Elec
+        Name: ${{ Rqmt_BSBio_Elec.Name }}
+        Status: Active
+
+# =============================================================================
+# STUDENT 6 — BA Psychology
+# Junior, started Fall minus2, withdrew Spring minus2, re-admitted Fall minus1.
+# Effective 4 active terms completed. Freshman year done; junior year in progress.
+# Completed: MATH101, STAT201
+# Active: Research Methods & Science Electives
+# Expected graduation: Spring plus1.
+# =============================================================================
+
+- object: LearnerProgram
+  nickname: LP_Student6_BAPsych
+  fields:
+    Name: ${{ Student_6.FirstName + " " + Student_6.LastName + "'s " + Plan_BA_Psychology.Name + " Learner Program" }}
+    LearnerAccountId:
+      reference: Student_6
+    LearnerContactId:
+      reference: Student_6_Contact
+    LearningProgramPlanId:
+      reference: Plan_BA_Psychology
+    StartDate: ${{ today.replace(year=ay_start_year-2, month=8, day=1) }}
+    ExpectedGraduationDate: ${{ today.replace(year=ay_start_year+2, month=5, day=15) }}
+    Status: Active
+  friends:
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student6_BAPsych
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BAPsych_MATH101
+        Name: ${{ Rqmt_BAPsych_MATH101.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student6_BAPsych
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BAPsych_STAT201
+        Name: ${{ Rqmt_BAPsych_STAT201.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student6_BAPsych
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_BAPsych_Elec
+        Name: ${{ Rqmt_BAPsych_Elec.Name }}
+        Status: Active
+
+# =============================================================================
+# STUDENT 7 — MS Computer Science
+# Re-admitted grad student. Dropped out Fall minus2, re-admitted Fall minus1.
+# Strong recovery GPA (3.44–3.60). 4 active terms completed; core nearly done.
+# Completed: CS201, CS301, STAT201, MATH201
+# Active: Advanced CS Electives
+# Expected graduation: Spring plus1.
+# =============================================================================
+
+- object: LearnerProgram
+  nickname: LP_Student7_MSCS
+  fields:
+    Name: ${{ Student_7.FirstName + " " + Student_7.LastName + "'s " + Plan_MS_ComputerScience.Name + " Learner Program" }}
+    LearnerAccountId:
+      reference: Student_7
+    LearnerContactId:
+      reference: Student_7_Contact
+    LearningProgramPlanId:
+      reference: Plan_MS_ComputerScience
+    StartDate: ${{ today.replace(year=ay_start_year-2, month=8, day=1) }}
+    ExpectedGraduationDate: ${{ today.replace(year=ay_start_year+2, month=5, day=15) }}
+    Status: Active
+  friends:
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student7_MSCS
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_MSCS_CS201
+        Name: ${{ Rqmt_MSCS_CS201.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student7_MSCS
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_MSCS_CS301
+        Name: ${{ Rqmt_MSCS_CS301.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student7_MSCS
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_MSCS_STAT201
+        Name: ${{ Rqmt_MSCS_STAT201.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student7_MSCS
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_MSCS_MATH201
+        Name: ${{ Rqmt_MSCS_MATH201.Name }}
+        Status: Completed
+    - object: LearnerProgramRequirement
+      fields:
+        LearnerProgramId:
+          reference: LP_Student7_MSCS
+        LearningProgramPlanRqmtId:
+          reference: Rqmt_MSCS_Elec
+        Name: ${{ Rqmt_MSCS_Elec.Name }}
+        Status: Active

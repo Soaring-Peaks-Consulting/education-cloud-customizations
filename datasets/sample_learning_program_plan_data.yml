@@ -101,16 +101,6 @@
     LearningAchievementId:
       reference: AG_BSMath_AppliedElectives
     LearningId:
-      reference: Learning_PHYS101
-    Duration: 3
-    DurationUnit: Credit Hours
-    IsPrimary: false
-
-- object: LearningOutcomeItem
-  fields:
-    LearningAchievementId:
-      reference: AG_BSMath_AppliedElectives
-    LearningId:
       reference: Learning_CS201
     Duration: 3
     DurationUnit: Credit Hours
@@ -120,7 +110,7 @@
     LearningAchievementId:
       reference: AG_BSMath_AppliedElectives
     LearningId:
-      reference: Learning_CHEM101
+      reference: Learning_PHYS201
     Duration: 3
     DurationUnit: Credit Hours
     IsPrimary: false
@@ -197,15 +187,7 @@
     Duration: 3
     DurationUnit: Credit Hours
     IsPrimary: false
-- object: LearningOutcomeItem
-  fields:
-    LearningAchievementId:
-      reference: AG_BSBio_SciElectives
-    LearningId:
-      reference: Learning_CS101
-    Duration: 3
-    DurationUnit: Credit Hours
-    IsPrimary: false
+
 
 # ── BBA: Business Electives ───────────────────────────────────────────────────
 # Choose 6 credits from: FIN 401, STAT 201
@@ -244,7 +226,7 @@
     LearningAchievementId:
       reference: AG_BBA_BusinessElectives
     LearningId:
-      reference: Learning_MATH201
+      reference: Learning_STAT301
     Duration: 3
     DurationUnit: Credit Hours
     IsPrimary: false
@@ -255,7 +237,7 @@
 - object: LearningAchievement
   nickname: AG_BAPsych_SocialElectives
   fields:
-    Name: BA Psychology Social Science Electives
+    Name: BA Psychology Research Methods & Science Electives
     AcademicLevel: Undergraduate
     IssuerId:
       reference: Connected
@@ -363,15 +345,7 @@
     Duration: 3
     DurationUnit: Credit Hours
     IsPrimary: false
-- object: LearningOutcomeItem
-  fields:
-    LearningAchievementId:
-      reference: AG_MSDS_DataElectives
-    LearningId:
-      reference: Learning_PHYS101
-    Duration: 3
-    DurationUnit: Credit Hours
-    IsPrimary: false
+
 
 # ── MBA: Business Electives ───────────────────────────────────────────────────
 # Choose 6 credits from: FIN 301, STAT 201
@@ -441,7 +415,7 @@
     LearningAchievementId:
       reference: AG_MSBio_LifeSciElectives
     LearningId:
-      reference: Learning_CS101
+      reference: Learning_PHYS201
     Duration: 3
     DurationUnit: Credit Hours
     IsPrimary: false
@@ -567,6 +541,7 @@
       reference: Connected
   friends:
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSMath_MATH101
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_Mathematics
@@ -576,6 +551,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSMath_MATH201
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_Mathematics
@@ -585,6 +561,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSMath_MATH301
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_Mathematics
@@ -594,6 +571,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSMath_STAT201
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_Mathematics
@@ -603,6 +581,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSMath_STAT301
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_Mathematics
@@ -612,6 +591,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSMath_CS101
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_Mathematics
@@ -621,6 +601,17 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSMath_PHYS101
+      fields:
+        LearningProgramPlanId:
+          reference: Plan_BS_Mathematics
+        Name: Physics I - Mechanics
+        LearningAchievementId:
+          reference: Achievement_PHYS101
+        Duration: 3
+        DurationUnit: Credit Hours
+    - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSMath_Elec
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_Mathematics
@@ -628,7 +619,7 @@
         GroupName: Math & Applied Electives
         LearningAchievementId:
           reference: AG_BSMath_AppliedElectives
-        Duration: 6
+        Duration: 3
         DurationUnit: Credit Hours
 
 # ── BS Computer Science ───────────────────────────────────────────────────────
@@ -648,6 +639,7 @@
       reference: Connected
   friends:
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSCS_CS101
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_ComputerScience
@@ -657,6 +649,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSCS_CS201
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_ComputerScience
@@ -666,6 +659,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSCS_CS301
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_ComputerScience
@@ -675,6 +669,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSCS_MATH101
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_ComputerScience
@@ -684,6 +679,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSCS_MATH201
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_ComputerScience
@@ -693,6 +689,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSCS_STAT201
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_ComputerScience
@@ -702,6 +699,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSCS_Elec
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_ComputerScience
@@ -729,6 +727,7 @@
       reference: Connected
   friends:
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSBio_CHEM101
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_Biology
@@ -738,6 +737,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSBio_CHEM101Lab
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_Biology
@@ -747,6 +747,7 @@
         Duration: 1
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSBio_CHEM201
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_Biology
@@ -756,6 +757,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSBio_MATH101
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_Biology
@@ -765,6 +767,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSBio_PHYS101
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_Biology
@@ -774,6 +777,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSBio_PHYS101Lab
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_Biology
@@ -783,6 +787,7 @@
         Duration: 1
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BSBio_Elec
       fields:
         LearningProgramPlanId:
           reference: Plan_BS_Biology
@@ -790,7 +795,7 @@
         GroupName: Life Sciences Electives
         LearningAchievementId:
           reference: AG_BSBio_SciElectives
-        Duration: 6
+        Duration: 3
         DurationUnit: Credit Hours
 
 # ── BBA ───────────────────────────────────────────────────────────────────────
@@ -809,6 +814,7 @@
       reference: Connected
   friends:
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BBA_FIN301
       fields:
         LearningProgramPlanId:
           reference: Plan_BBA
@@ -818,6 +824,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BBA_MATH101
       fields:
         LearningProgramPlanId:
           reference: Plan_BBA
@@ -827,6 +834,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BBA_STAT201
       fields:
         LearningProgramPlanId:
           reference: Plan_BBA
@@ -836,6 +844,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BBA_Elec
       fields:
         LearningProgramPlanId:
           reference: Plan_BBA
@@ -862,6 +871,7 @@
       reference: Connected
   friends:
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BAPsych_MATH101
       fields:
         LearningProgramPlanId:
           reference: Plan_BA_Psychology
@@ -871,6 +881,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BAPsych_STAT201
       fields:
         LearningProgramPlanId:
           reference: Plan_BA_Psychology
@@ -880,11 +891,12 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_BAPsych_Elec
       fields:
         LearningProgramPlanId:
           reference: Plan_BA_Psychology
-        Name: Social Science Electives
-        GroupName: Social Science Electives
+        Name: Research Methods & Science Electives
+        GroupName: Research Methods & Science Electives
         LearningAchievementId:
           reference: AG_BAPsych_SocialElectives
         Duration: 6
@@ -906,33 +918,7 @@
       reference: Connected
   friends:
     - object: LearningProgramPlanRqmt
-      fields:
-        LearningProgramPlanId:
-          reference: Plan_MS_ComputerScience
-        Name: Introduction to Computer Science
-        LearningAchievementId:
-          reference: Achievement_CS101
-        Duration: 3
-        DurationUnit: Credit Hours
-    - object: LearningProgramPlanRqmt
-      fields:
-        LearningProgramPlanId:
-          reference: Plan_MS_ComputerScience
-        Name: Calculus I
-        LearningAchievementId:
-          reference: Achievement_MATH101
-        Duration: 3
-        DurationUnit: Credit Hours
-    - object: LearningProgramPlanRqmt
-      fields:
-        LearningProgramPlanId:
-          reference: Plan_MS_ComputerScience
-        Name: Physics I - Mechanics
-        LearningAchievementId:
-          reference: Achievement_PHYS101
-        Duration: 3
-        DurationUnit: Credit Hours
-    - object: LearningProgramPlanRqmt
+      nickname: Rqmt_MSCS_CS201
       fields:
         LearningProgramPlanId:
           reference: Plan_MS_ComputerScience
@@ -942,6 +928,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_MSCS_CS301
       fields:
         LearningProgramPlanId:
           reference: Plan_MS_ComputerScience
@@ -951,6 +938,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_MSCS_STAT201
       fields:
         LearningProgramPlanId:
           reference: Plan_MS_ComputerScience
@@ -960,6 +948,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_MSCS_MATH201
       fields:
         LearningProgramPlanId:
           reference: Plan_MS_ComputerScience
@@ -969,6 +958,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_MSCS_Elec
       fields:
         LearningProgramPlanId:
           reference: Plan_MS_ComputerScience
@@ -995,24 +985,7 @@
       reference: Connected
   friends:
     - object: LearningProgramPlanRqmt
-      fields:
-        LearningProgramPlanId:
-          reference: Plan_MS_DataScience
-        Name: Introduction to Computer Science
-        LearningAchievementId:
-          reference: Achievement_CS101
-        Duration: 3
-        DurationUnit: Credit Hours
-    - object: LearningProgramPlanRqmt
-      fields:
-        LearningProgramPlanId:
-          reference: Plan_MS_DataScience
-        Name: Calculus I
-        LearningAchievementId:
-          reference: Achievement_MATH101
-        Duration: 3
-        DurationUnit: Credit Hours
-    - object: LearningProgramPlanRqmt
+      nickname: Rqmt_MSDS_CS201
       fields:
         LearningProgramPlanId:
           reference: Plan_MS_DataScience
@@ -1022,6 +995,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_MSDS_STAT201
       fields:
         LearningProgramPlanId:
           reference: Plan_MS_DataScience
@@ -1031,6 +1005,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_MSDS_STAT301
       fields:
         LearningProgramPlanId:
           reference: Plan_MS_DataScience
@@ -1040,6 +1015,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_MSDS_MATH201
       fields:
         LearningProgramPlanId:
           reference: Plan_MS_DataScience
@@ -1049,6 +1025,7 @@
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
+      nickname: Rqmt_MSDS_Elec
       fields:
         LearningProgramPlanId:
           reference: Plan_MS_DataScience
@@ -1056,7 +1033,7 @@
         GroupName: Data Science Electives
         LearningAchievementId:
           reference: AG_MSDS_DataElectives
-        Duration: 6
+        Duration: 3
         DurationUnit: Credit Hours
 
 # ── MBA ───────────────────────────────────────────────────────────────────────
@@ -1081,15 +1058,6 @@
         Name: Corporate Finance
         LearningAchievementId:
           reference: Achievement_FIN301
-        Duration: 3
-        DurationUnit: Credit Hours
-    - object: LearningProgramPlanRqmt
-      fields:
-        LearningProgramPlanId:
-          reference: Plan_MBA
-        Name: Calculus I
-        LearningAchievementId:
-          reference: Achievement_MATH101
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
@@ -1149,15 +1117,6 @@
       fields:
         LearningProgramPlanId:
           reference: Plan_MS_Biology
-        Name: Introduction to Chemistry
-        LearningAchievementId:
-          reference: Achievement_CHEM101
-        Duration: 3
-        DurationUnit: Credit Hours
-    - object: LearningProgramPlanRqmt
-      fields:
-        LearningProgramPlanId:
-          reference: Plan_MS_Biology
         Name: Calculus II
         LearningAchievementId:
           reference: Achievement_MATH201
@@ -1188,15 +1147,6 @@
         Name: Physical Chemistry
         LearningAchievementId:
           reference: Achievement_CHEM301
-        Duration: 3
-        DurationUnit: Credit Hours
-    - object: LearningProgramPlanRqmt
-      fields:
-        LearningProgramPlanId:
-          reference: Plan_MS_Biology
-        Name: Calculus I
-        LearningAchievementId:
-          reference: Achievement_MATH101
         Duration: 3
         DurationUnit: Credit Hours
     - object: LearningProgramPlanRqmt
