@@ -1,0 +1,81 @@
+- snowfakery_version: 3
+- object: User
+  nickname: Sophia_User
+  fields:
+    Username: 
+      fake: Username
+    FirstName: Sophia
+    LastName: Student
+    Email: sophia.student@example.com
+    Alias: sstudent
+    TimeZoneSidKey: America/Los_Angeles
+    LocaleSidKey: en_US
+    EmailEncodingKey: UTF-8
+    LanguageLocaleKey: en_US
+    ContactId:
+      SalesforceQuery.find_record:
+        from: Contact
+        where: FirstName='Sophia' AND LastName='Student'
+    ProfileId:
+      SalesforceQuery.find_record:
+        from: Profile
+        where: Name='Customer Community Plus User'
+  friends:
+    - object: PermissionSetAssignment
+      fields:
+        AssigneeId:
+          reference: Sophia_User
+        PermissionSetId:
+          SalesforceQuery.find_record:
+            from: PermissionSet
+            where: Name='EducationCloudExprcCloudAccess'
+    - object: PermissionSetAssignment
+      fields:
+        AssigneeId:
+          reference: Sophia_User
+        PermissionSetId:
+          SalesforceQuery.find_record:
+            from: PermissionSet
+            where: Name='OmniStudioUser'
+
+- object: User
+  nickname: Prospect_1_User
+  fields:
+    __prospect_contact:
+      SalesforceQuery.find_record:
+        fields: Id, FirstName, LastName
+        from: Contact
+        where: Account.AccountNumber='PROSPECT-0000001'
+    Username: 
+      fake: Username
+    FirstName: ${{ __prospect_contact.FirstName }}
+    LastName: ${{ __prospect_contact.LastName }}
+    Email: ${{ __prospect_contact.FirstName + "." + __prospect_contact.LastName + "@example.com" }}
+    Alias: 
+      fake: Alias
+    TimeZoneSidKey: America/Los_Angeles
+    LocaleSidKey: en_US
+    EmailEncodingKey: UTF-8
+    LanguageLocaleKey: en_US
+    ContactId: ${{ __prospect_contact.Id }}
+    ProfileId:
+      SalesforceQuery.find_record:
+        from: Profile
+        where: Name='Customer Community Plus User'
+  friends:
+    - object: PermissionSetAssignment
+      fields:
+        AssigneeId:
+          reference: Prospect_1_User
+        PermissionSetId:
+          SalesforceQuery.find_record:
+            from: PermissionSet
+            where: Name='EducationCloudExprcCloudAccess'
+    - object: PermissionSetAssignment
+      fields:
+        AssigneeId:
+          reference: Prospect_1_User
+        PermissionSetId:
+          SalesforceQuery.find_record:
+            from: PermissionSet
+            where: Name='OmniStudioUser'

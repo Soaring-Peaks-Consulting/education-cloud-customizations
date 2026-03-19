@@ -19,7 +19,8 @@
       }
     },
     "communitiesSettings": {
-      "enableNetworksEnabled": true
+      "enableNetworksEnabled": true,
+      "enableOotbProfExtUserOpsEnable": true
     },
     "languageSettings": {
       "enableTranslationWorkbench": true

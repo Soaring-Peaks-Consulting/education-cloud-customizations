@@ -1,0 +1,4 @@
+- snowfakery_version: 3
+- plugin: snowfakery.standard_plugins.Salesforce
+- plugin: snowfakery.standard_plugins.Salesforce.SalesforceQuery
+- include_file: sample_user_data.yml

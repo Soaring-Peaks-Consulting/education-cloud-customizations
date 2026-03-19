@@ -197,6 +197,7 @@
       fake: FirstName
     LastName:
       fake: LastName
+    AccountNumber: PROSPECT-0000001
     RecordType: PersonAccount
     PersonContactId:
       Salesforce.SpecialObject:

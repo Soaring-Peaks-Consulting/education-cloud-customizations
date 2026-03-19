@@ -81,22 +81,43 @@ flows:
             1:
                 task: snowfakery
                 options:
-                    recipe: datasets/sample_data.yml
+                    recipe: datasets/sample-data/sample_data.yml
                     drop_missing_schema: true
 
     setup_education_cloud_community:
         description: Creates and publishes a community using the Education Portal template.
         steps:
             1:
+                task: execute_anon
+                options:
+                    apex: 
+                        UserRole president = new UserRole(Name='President');
+                        insert president;
+                        User adminUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+                        adminUser.UserRoleId = president.Id;
+                        update adminUser;
+            2:
                 task: create_community
                 options:
                     name: Connected University Student Portal
                     template: Education Portal
                     timeout: 600
-            2:
+            3:
                 task: publish_community
                 options:
                     name: Connected University Student Portal
+            4: 
+                task: create_network_member_groups
+                options:
+                    network_name: Connected University Student Portal
+                    profile_names: Customer Community Plus User
+            5:
+                task: snowfakery
+                options:
+                    recipe: datasets/community-sample-data/community_sample_data.yml
+                    drop_missing_schema: true
+            6:
+                task: deploy_sharing_settings
                     
 tasks:
     robot:
@@ -245,3 +266,9 @@ tasks:
                 internal_sharing_model: Read,
                 external_sharing_model: Read
             }]
+
+    deploy_sharing_settings:
+        class_path: cumulusci.tasks.salesforce.Deploy
+        description: Deploys sharing settings for the Connected University Student Portal.
+        options:
+            path: unpackaged/sharing-settings

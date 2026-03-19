@@ -16,31 +16,35 @@ Don't want one of the configuration tasks to run? Modify the `deploy_education_c
 
 ### Custom Flows
 #### `deploy_education_cloud_customizations`
-Assigns the necessary permission sets to the running user and deploys various metadata components including record types, account settings, and custom report types. Also deploys a quickstart for appointment scheduling in Education Cloud, and sets org-wide sharing settings for the relevant Education Cloud objects.
+Assigns the necessary permission sets to the running user and deploys various metadata components including record types and account settings. Also deploys a quickstart for appointment scheduling in Education Cloud, sets org-wide sharing settings for the relevant Education Cloud objects, and inserts sample data.
 1. task: `assign_permission_sets` - assigns the EducationCloudAccess and OmniStudioExecution permission sets to the running user
-2. task: `deploy_account_record_types`
-3. flow: `deploy_appointments_quickstart`
-4. task: `deploy_case_record_types`
-5. task: `deploy_individual_application_record_types`
-6. task: `deploy_learning_achievement_record_types`
-7. task: `deploy_custom_report_types`
-8. task: `set_education_cloud_objects_org_wide_defaults`
+2. task: `deploy_account_record_types` custom task
+3. flow: `deploy_appointments_quickstart` custom flow
+4. task: `deploy_case_record_types` custom task
+5. task: `deploy_individual_application_record_types` custom task
+6. task: `deploy_learning_achievement_record_types` custom task
+7. task: `deploy_custom_report_types` custom task
+8. task: `set_education_cloud_objects_org_wide_defaults` custom task
 9. task: `update_admin_profile` - enables the new record types for the System Administrator profile
-10. flow: `insert_sample_data`
+10. flow: `insert_sample_data` custom flow
 
 #### `deploy_appointments_quickstart`
 Deploys basic setup for appointment scheduling in Education Cloud, as well as Public Read Only org-wide sharing settings for the relevant objects.
-1. task: `deploy_appointments_quickstart`
-2. task: `set_education_cloud_appointment_objects_org_wide_defaults`
+1. task: `deploy_appointments_quickstart` custom task
+2. task: `set_education_cloud_appointment_objects_org_wide_defaults` custom task
 
 #### `insert_sample_data`
 Inserts sample data for testing and demonstration purposes.
-1. task: `snowfakery` - inserts records from the recipe files in the datasets directory
+1. task: `snowfakery` - inserts records from the recipe files in the `datasets/sample-data` directory
 
 #### `setup_education_cloud_community`
-Creates and publishes a community using the Education Portal template.
-1. task: `create_community`
-2. task: `publish_community`
+Creates and publishes a community using the Education Portal template and inserts sample data, including prospective student and current student community users.
+1. task: `execute_anon` - creates a "President" user role and assigned the running user to the role
+2. task: `create_community` - creates the "Connected University Student Portal" community
+3. task: `publish_community` - publishes the "Connected University Student Portal" community
+4. task: `create_network_member_groups` - assigns the Customer Community Plus User profile to the community
+5. task: `snowfakery` - inserts records from the recipe files in the `datasets/community-sample-data` directory
+6. task: `deploy_sharing_settings` custom task
 
 ### Custom Tasks
 #### `deploy_account_record_types`
@@ -59,3 +63,5 @@ Deploys standard Learning Achievement record types (Learning Course, Learning Pr
 Updates the organization-wide sharing settings for the objects related to appointment scheduling in Education Cloud.
 #### `set_education_cloud_objects_org_wide_defaults`
 Updates the organization-wide sharing settings for the relevant Education Cloud objects.
+#### `deploy_sharing_settings`
+Deploys sharing settings for the Connected University Student Portal.
