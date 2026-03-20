@@ -74,6 +74,16 @@ flows:
                 task: deploy_appointments_quickstart
             2:
                 task: set_education_cloud_appointment_objects_org_wide_defaults
+            3:
+                task: add_page_layout_related_lists
+                options:
+                    related_list: ShiftWorkTopics
+                    api_names: "Shift-Shift Layout"
+            4:
+                task: add_page_layout_related_lists
+                options:
+                    related_list: ShiftEngagementChannels
+                    api_names: "Shift-Shift Layout"
 
     insert_sample_data:
         description: Inserts sample data for testing and demonstration purposes.
