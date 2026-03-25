@@ -37,6 +37,14 @@
           SalesforceQuery.find_record:
             from: PermissionSet
             where: Name='OmniStudioUser'
+    - object: PermissionSetAssignment
+      fields:
+        AssigneeId:
+          reference: Sophia_User
+        PermissionSetId:
+          SalesforceQuery.find_record:
+            from: PermissionSet
+            where: Name='Render_OmniStudio_Components'
 
 - object: User
   nickname: Prospect_1_User
@@ -79,3 +87,11 @@
           SalesforceQuery.find_record:
             from: PermissionSet
             where: Name='OmniStudioUser'
+    - object: PermissionSetAssignment
+      fields:
+        AssigneeId:
+          reference: Prospect_1_User
+        PermissionSetId:
+          SalesforceQuery.find_record:
+            from: PermissionSet
+            where: Name='Render_OmniStudio_Components'

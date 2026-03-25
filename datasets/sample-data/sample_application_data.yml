@@ -1,0 +1,88 @@
+- snowfakery_version: 3
+# =============================================================================
+# Snowfakery Recipe: Connected University — Application Definitions
+# Objects: ApplicationStageDefinition, ApplicationRenderMethod,
+#          ApplnRenderMethodAssignment, ApplicationTimeline,
+#          ProgramTermApplnTimeline
+#
+# STRUCTURE
+# ---------
+# ApplicationStageDefinition (Profile)
+#   └─ ApplicationRenderMethod (Profile OmniScript)
+#        └─ ApplnRenderMethodAssignment (links stage → render method)
+#
+# ApplicationTimeline (ay+1 admissions window)
+#   └─ ProgramTermApplnTimeline (BS Computer Science, Fall plus1)
+# =============================================================================
+
+# =============================================================================
+# APPLICATION STAGE DEFINITION
+# =============================================================================
+
+- object: ApplicationStageDefinition
+  nickname: StageDefinition_Profile
+  fields:
+    Name: Profile
+    Description: >
+      Complete your personal profile to begin your application. This section
+      collects essential details including your address, date of birth, and
+      contact information so we can get in touch with you throughout the
+      admissions process.
+    Type: Recruitment and Admissions
+
+# =============================================================================
+# APPLICATION RENDER METHOD
+# =============================================================================
+
+- object: ApplicationRenderMethod
+  nickname: RenderMethod_Profile
+  fields:
+    Name: Profile
+    MethodName: EDUAdmissions_ProfileWrapper_English_1
+    MethodType: OmniScript
+    UsageType: RecruitmentAndAdmissions
+
+# =============================================================================
+# APPLICATION RENDER METHOD ASSIGNMENT
+# Links the Profile stage definition to the Profile render method.
+# =============================================================================
+
+- object: ApplnRenderMethodAssignment
+  fields:
+    Name: Profile
+    ApplicationComponentId:
+      reference: StageDefinition_Profile
+    ApplicationRenderMethodId:
+      reference: RenderMethod_Profile
+    IsActive: true
+
+# =============================================================================
+# APPLICATION TIMELINE
+# Open: August 1 of ay_start_year (start of current academic year)
+# Close: July 31 of ay_start_year+1 (end of next academic year)
+# Name: ay_start_year+1 - ay_start_year+2  (e.g. "2026-2027")
+# =============================================================================
+
+- object: ApplicationTimeline
+  nickname: AppTimeline_NextYear
+  fields:
+    Name: ${{ (ay_start_year + 1)|string + "-" + (ay_start_year + 2)|string }}
+    ApplicationOpenDate: ${{ today.replace(year=ay_start_year, month=8, day=1) }}
+    ApplicationCloseDate: ${{ today.replace(year=ay_start_year + 1, month=7, day=31) }}
+    Type: Admissions
+
+# =============================================================================
+# PROGRAM TERM APPLICATION TIMELINE
+# Links BS Computer Science program + Plan to Fall plus1 term + timeline.
+# =============================================================================
+
+- object: ProgramTermApplnTimeline
+  fields:
+    AcademicTermId:
+      reference: Term_Fall_plus1
+    ApplicationTimelineId:
+      reference: AppTimeline_NextYear
+    LearningProgramId:
+      reference: LP_BS_ComputerScience
+    LearningProgramPlanId:
+      reference: Plan_BS_ComputerScience

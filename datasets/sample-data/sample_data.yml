@@ -11,3 +11,4 @@
 - include_file: sample_learner_program_data.yml
 - include_file: sample_user_data.yml
 - include_file: sample_appointment_data.yml
+- include_file: sample_application_data.yml

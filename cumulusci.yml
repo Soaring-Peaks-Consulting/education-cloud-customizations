@@ -93,6 +93,10 @@ flows:
                 options:
                     recipe: datasets/sample-data/sample_data.yml
                     drop_missing_schema: true
+            2:
+                task: execute_anon
+                options:
+                    path: apex/ActionPlanTemplates.apex
 
     setup_education_cloud_community:
         description: Creates and publishes a community using the Education Portal template.
@@ -100,12 +104,7 @@ flows:
             1:
                 task: execute_anon
                 options:
-                    apex: 
-                        UserRole president = new UserRole(Name='President');
-                        insert president;
-                        User adminUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-                        adminUser.UserRoleId = president.Id;
-                        update adminUser;
+                    path: apex/UserRoles.apex
             2:
                 task: create_community
                 options:
@@ -122,12 +121,14 @@ flows:
                     network_name: Connected University Student Portal
                     profile_names: Customer Community Plus User
             5:
+                task: deploy_community_permissions
+            6:
+                task: deploy_community_flows
+            7:
                 task: snowfakery
                 options:
                     recipe: datasets/community-sample-data/community_sample_data.yml
                     drop_missing_schema: true
-            6:
-                task: deploy_sharing_settings
                     
 tasks:
     robot:
@@ -277,8 +278,14 @@ tasks:
                 external_sharing_model: Read
             }]
 
-    deploy_sharing_settings:
+    deploy_community_permissions:
         class_path: cumulusci.tasks.salesforce.Deploy
-        description: Deploys sharing settings for the Connected University Student Portal.
+        description: Deploys sharing settings and a permission set for the Connected University Student Portal.
         options:
-            path: unpackaged/sharing-settings
+            path: unpackaged/community-permissions
+
+    deploy_community_flows:
+        class_path: cumulusci.tasks.salesforce.Deploy
+        description: Deploys flows for the Connected University Student Portal, including a flow to automatically create Contact Profile records.
+        options:
+            path: unpackaged/community-flows
