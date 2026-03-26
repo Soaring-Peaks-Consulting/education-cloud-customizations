@@ -22,7 +22,7 @@ flows:
                 flow: setup_education_cloud_community
 
     deploy_education_cloud_customizations:
-        description: Assigns the necessary permission sets to the running user and deploys various metadata components including record types, account settings, and custom report types. Also deploys a quickstart for appointment scheduling in Education Cloud, and sets org-wide sharing settings for the relevant Education Cloud objects.
+        description: Assigns the necessary permission sets to the running user and deploys various metadata components including record types and account settings. Also deploys a quickstart for appointment scheduling in Education Cloud, sets org-wide sharing settings for the relevant Education Cloud objects, and inserts sample data.
         steps:
             1:
                 task: assign_permission_sets
@@ -39,10 +39,8 @@ flows:
             6:
                 task: deploy_learning_achievement_record_types
             7:
-                task: deploy_custom_report_types
-            8:
                 task: set_education_cloud_objects_org_wide_defaults
-            9:
+            8:
                 task: update_admin_profile
                 options:
                     record_types:
@@ -64,7 +62,7 @@ flows:
                         - record_type: LearningAchievement.Achievement_Group
                           visible: true
                           default: false
-            10:
+            9:
                 flow: insert_sample_data
 
     deploy_appointments_quickstart:
@@ -163,12 +161,6 @@ tasks:
         description: Deploys standard Case record types (Academic) for Education Cloud, as well as the business processes.
         options:
             path: unpackaged/case-record-types
-
-    deploy_custom_report_types:
-        class_path: cumulusci.tasks.salesforce.Deploy
-        description: Deploys custom report types for Education Cloud.
-        options:
-            path: unpackaged/custom-report-types
 
     deploy_individual_application_record_types:
         class_path: cumulusci.tasks.salesforce.Deploy
