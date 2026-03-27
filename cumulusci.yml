@@ -22,7 +22,7 @@ flows:
                 flow: setup_education_cloud_community
 
     deploy_education_cloud_customizations:
-        description: Assigns the necessary permission sets to the running user and deploys various metadata components including record types and account settings. Also deploys a quickstart for appointment scheduling in Education Cloud, sets org-wide sharing settings for the relevant Education Cloud objects, and inserts sample data.
+        description: Assigns the necessary permission sets to the running user and deploys various metadata components including record types and account settings. Also deploys configuration for appointment scheduling in Education Cloud, sets org-wide sharing settings for the relevant Education Cloud objects, and inserts sample data.
         steps:
             1:
                 task: assign_permission_sets
@@ -31,7 +31,7 @@ flows:
             2:
                 task: deploy_account_record_types
             3:
-                flow: deploy_appointments_quickstart
+                flow: deploy_appointments_configuration
             4:
                 task: deploy_case_record_types
             5:
@@ -65,11 +65,11 @@ flows:
             9:
                 flow: insert_sample_data
 
-    deploy_appointments_quickstart:
+    deploy_appointments_configuration:
         description: Deploys basic setup for appointment scheduling in Education Cloud, as well as Public Read Only org-wide sharing settings for the relevant objects.
         steps:
             1:
-                task: deploy_appointments_quickstart
+                task: deploy_appointments_configuration
             2:
                 task: set_education_cloud_appointment_objects_org_wide_defaults
             3:
@@ -150,11 +150,11 @@ tasks:
         options:
             path: unpackaged/account-record-types
 
-    deploy_appointments_quickstart:
+    deploy_appointments_configuration:
         class_path: cumulusci.tasks.salesforce.Deploy
         description: Deploys basic setup for appointment scheduling in Education Cloud.
         options:
-            path: unpackaged/appointments-quickstart
+            path: unpackaged/appointments-configuration
 
     deploy_case_record_types:
         class_path: cumulusci.tasks.salesforce.Deploy

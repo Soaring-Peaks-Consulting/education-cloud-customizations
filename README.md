@@ -14,10 +14,10 @@ Don't want one of the configuration tasks to run? Modify the `deploy_education_c
 
 ## Custom Flows Reference
 ### `deploy_education_cloud_customizations`
-Assigns the necessary permission sets to the running user and deploys various metadata components including record types and account settings. Also deploys a quickstart for appointment scheduling in Education Cloud, sets org-wide sharing settings for the relevant Education Cloud objects, and inserts sample data.
+Assigns the necessary permission sets to the running user and deploys various metadata components including record types and account settings. Also deploys configuration for appointment scheduling in Education Cloud, sets org-wide sharing settings for the relevant Education Cloud objects, and inserts sample data.
 1. task: `assign_permission_sets` - assigns the EducationCloudAccess and OmniStudioExecution permission sets to the running user
 1. task: [`deploy_account_record_types`](#deploy_account_record_types)
-1. flow: [`deploy_appointments_quickstart`](#deploy_appointments_quickstart)
+1. flow: [`deploy_appointments_configuration`](#deploy_appointments_configuration)
 1. task: [`deploy_case_record_types`](#deploy_case_record_types)
 1. task: [`deploy_individual_application_record_types`](#deploy_individual_application_record_types)
 1. task: [`deploy_learning_achievement_record_types`](#deploy_learning_achievement_record_types)
@@ -27,9 +27,9 @@ Assigns the necessary permission sets to the running user and deploys various me
 
 ---
 
-### `deploy_appointments_quickstart`
+### `deploy_appointments_configuration`
 Deploys basic setup for appointment scheduling in Education Cloud, as well as Public Read Only org-wide sharing settings for the relevant objects.
-1. task: [`deploy_appointments_quickstart`](#deploy_appointments_quickstart-1)
+1. task: [`deploy_appointments_configuration`](#deploy_appointments_configuration-1)
 1. task: [`set_education_cloud_appointment_objects_org_wide_defaults`](#set_education_cloud_appointment_objects_org_wide_defaults)
 1. task: `add_page_layout_related_lists` - adds Shift Work Topics related list to the Shift page layout
 1. task: `add_page_layout_related_lists` - adds Shift Engagement Channels related list to the Shift page layout
@@ -64,7 +64,7 @@ Deploys standard Account record types (College) for Education Cloud.
 
 ---
 
-### `deploy_appointments_quickstart`
+### `deploy_appointments_configuration`
 Deploys basic setup for appointment scheduling in Education Cloud.
 
 ---
