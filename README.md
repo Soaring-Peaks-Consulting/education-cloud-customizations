@@ -12,6 +12,9 @@ To deploy these customizations in a scratch org:
 
 Don't want one of the configuration tasks to run? Modify the `deploy_education_cloud_customizations` steps locally and remove the task(s) that shouldn't be executed.
 
+## Demo Video
+[<img width="2182" height="840" alt="sophia-student-community" src="https://github.com/user-attachments/assets/a2c66e16-ab48-4183-bde3-64adb9303d0b" />](https://drive.google.com/file/d/1A7co4gnhGXNdDhQCTVX-_5LidbpOB-35/view)
+
 ## Custom Flows Reference
 ### `deploy_education_cloud_customizations`
 Assigns the necessary permission sets to the running user and deploys various metadata components including record types and account settings. Also deploys configuration for appointment scheduling in Education Cloud, sets org-wide sharing settings for the relevant Education Cloud objects, and inserts sample data.
