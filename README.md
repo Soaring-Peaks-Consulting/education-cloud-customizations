@@ -13,7 +13,7 @@ To deploy these customizations in a scratch org:
 Don't want one of the configuration tasks to run? Modify the `deploy_education_cloud_customizations` steps locally and remove the task(s) that shouldn't be executed.
 
 ## Demo Video
-[<img width="2182" height="840" alt="sophia-student-community" src="https://github.com/user-attachments/assets/a2c66e16-ab48-4183-bde3-64adb9303d0b" />](https://drive.google.com/file/d/1A7co4gnhGXNdDhQCTVX-_5LidbpOB-35/view)
+[![Demo Video](https://img.youtube.com/vi/XzDTpzfNMOU/0.jpg)](https://www.youtube.com/watch?v=XzDTpzfNMOU)
 
 ## Custom Flows Reference
 ### `deploy_education_cloud_customizations`
