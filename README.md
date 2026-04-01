@@ -1,6 +1,6 @@
 # Education Cloud Customizations
 
-Various Education Cloud customizations, configuration, and sample data that help Education Cloud consultants, developers, and customers quickly setup Education Cloud in scratch orgs and other development environments.
+Various Education Cloud customizations, configuration, and sample data that help consultants, developers, and customers quickly setup Education Cloud in scratch orgs and other development environments.
 
 ## Deployment
 
