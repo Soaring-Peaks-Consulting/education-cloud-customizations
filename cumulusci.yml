@@ -91,6 +91,7 @@ flows:
                 options:
                     recipe: datasets/sample-data/sample_data.yml
                     drop_missing_schema: true
+                    enable_rollback: true
             2:
                 task: execute_anon
                 options:
@@ -127,6 +128,7 @@ flows:
                 options:
                     recipe: datasets/community-sample-data/community_sample_data.yml
                     drop_missing_schema: true
+                    enable_rollback: true
                     
 tasks:
     robot:

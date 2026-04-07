@@ -532,10 +532,10 @@
 # ── Date variables ─────────────────────────────────────────────────────────────
 
 - var: last_friday
-  value: ${{ today + relativedelta(day=today.day-7, weekday=4) }}
+  value: ${{ today + relativedelta(days=-7, weekday=4) }}
 
 - var: upcoming_friday
-  value: ${{ today + relativedelta(weekday=4) }}
+  value: ${{ today + relativedelta(days=1, weekday=4) }}
 
 # =============================================================================
 # PAST APPOINTMENT — Last Friday at 9:30am PT (Completed)
