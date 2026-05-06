@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <assignmentRulesUsed>false</assignmentRulesUsed>
+    <deletedOnSuccess>false</deletedOnSuccess>
+    <errorIgnored>false</errorIgnored>
+    <expectedInputJson>{
+  &quot;date&quot; : &quot;04/28/2026&quot;,
+  &quot;lastName&quot; : &quot;Student&quot;,
+  &quot;counselorEmail&quot; : &quot;adam@example.com&quot;,
+  &quot;counselorName&quot; : &quot;Adam Advisor&quot;,
+  &quot;streetAddress&quot; : &quot;&quot;,
+  &quot;enrollmentDeadline&quot; : &quot;May 15th, 2026&quot;,
+  &quot;programName&quot; : &quot;Bachelor of Science in Computer Science&quot;,
+  &quot;studentName&quot; : &quot;Sophia Student&quot;,
+  &quot;cityStateZip&quot; : &quot;,  &quot;,
+  &quot;isAccepted&quot; : false,
+  &quot;isRejected&quot; : true,
+  &quot;signatoryName&quot; : &quot;Robert Watson&quot;,
+  &quot;signatoryTitle&quot; : &quot;Director of Admissions&quot;,
+  &quot;startTerm&quot; : &quot;Fall 2026&quot;,
+  &quot;salutation&quot; : &quot;&quot;
+}</expectedInputJson>
+    <fieldLevelSecurityEnabled>true</fieldLevelSecurityEnabled>
+    <inputType>JSON</inputType>
+    <isManagedUsingStdDesigner>false</isManagedUsingStdDesigner>
+    <name>AdmissionsTransform</name>
+    <nullInputsIncludedInOutput>true</nullInputsIncludedInOutput>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>ecccb66f-d352-4407-9a42-15189d1410d9</globalKey>
+        <inputFieldName>counselorName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>AdmissionsTransform</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>counselorName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>00e04544-64ae-484f-b1b8-56f9ebaf7dc2</globalKey>
+        <inputFieldName>studentName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>AdmissionsTransform</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>studentName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>78e1af7f-2b6a-45be-b8c2-1b8f92a22c01</globalKey>
+        <inputFieldName>enrollmentDeadline</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>AdmissionsTransform</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>enrollmentDeadline</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>ce746d3f-1ac8-4f5c-bdc0-0973e87a3560</globalKey>
+        <inputFieldName>counselorEmail</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>AdmissionsTransform</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>counselorEmail</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>23848164-a207-41f6-8b65-ad074d2bd1b3</globalKey>
+        <inputFieldName>startTerm</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>AdmissionsTransform</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>startTerm</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>ef7404d5-ec3c-4e4c-899e-ad0636b415bf</globalKey>
+        <inputFieldName>date</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>AdmissionsTransform</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>date</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>791ef8aa-cb93-4c4e-85ac-7d81679587d1</globalKey>
+        <inputFieldName>lastName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>AdmissionsTransform</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>lastName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>7d4eeabc-0834-44a6-8ab6-74c48e1b8eda</globalKey>
+        <inputFieldName>signatoryTitle</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>AdmissionsTransform</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>signatoryTitle</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>d03536a2-b114-4d7e-aa27-6127c433424c</globalKey>
+        <inputFieldName>isAccepted</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>AdmissionsTransform</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IF_isAccepted</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>2cec2a5c-d941-4952-9826-4bfe8b2d6d4f</globalKey>
+        <inputFieldName>programName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>AdmissionsTransform</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>programName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>f2754d6f-d548-4efe-864c-4c93b3420fac</globalKey>
+        <inputFieldName>signatoryName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>AdmissionsTransform</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>signatoryName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>5c4b9dde-11b9-4798-8edc-1611c3ecce69</globalKey>
+        <inputFieldName>salutation</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>AdmissionsTransform</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>salutation</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>4beaccb0-9abf-40dc-aa60-0bbeeee1ad87</globalKey>
+        <inputFieldName>isRejected</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>AdmissionsTransform</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IF_isRejected</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>6bf8dff8-7d14-4bde-b33e-4fb7cea5edee</globalKey>
+        <inputFieldName>cityStateZip</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>AdmissionsTransform</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>cityStateZip</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>8ba0d63a-d9b1-4c12-a51c-0a1df6719a73</globalKey>
+        <inputFieldName>streetAddress</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>AdmissionsTransform</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>streetAddress</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <outputType>Document Template</outputType>
+    <previewJsonData>{
+  &quot;date&quot; : &quot;04/28/2026&quot;,
+  &quot;lastName&quot; : &quot;Student&quot;,
+  &quot;counselorEmail&quot; : &quot;adam@example.com&quot;,
+  &quot;counselorName&quot; : &quot;Adam Advisor&quot;,
+  &quot;streetAddress&quot; : &quot;&quot;,
+  &quot;enrollmentDeadline&quot; : &quot;May 15th, 2026&quot;,
+  &quot;programName&quot; : &quot;Bachelor of Science in Computer Science&quot;,
+  &quot;studentName&quot; : &quot;Sophia Student&quot;,
+  &quot;cityStateZip&quot; : &quot;,  &quot;,
+  &quot;isAccepted&quot; : false,
+  &quot;isRejected&quot; : true,
+  &quot;signatoryName&quot; : &quot;Robert Watson&quot;,
+  &quot;signatoryTitle&quot; : &quot;Director of Admissions&quot;,
+  &quot;startTerm&quot; : &quot;Fall 2026&quot;,
+  &quot;salutation&quot; : &quot;&quot;
+}</previewJsonData>
+    <processSuperBulk>false</processSuperBulk>
+    <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
+    <rollbackOnError>false</rollbackOnError>
+    <sourceObjectDefault>false</sourceObjectDefault>
+    <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
+    <targetOutputFileName>Admissions(Version 1)</targetOutputFileName>
+    <type>Transform</type>
+    <uniqueName>AdmissionsTransform_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
+</OmniDataTransform>
