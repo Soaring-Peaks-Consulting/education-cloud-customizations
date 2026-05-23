@@ -2,6 +2,7 @@
 <DocumentTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
     <contextDefinitionName>Admissions</contextDefinitionName>
     <contextMappingName>AdmissionsMapping</contextMappingName>
+    <contextTransformationName>AdmissionsTransform</contextTransformationName>
     <documentGenerationMechanism>ServerSide</documentGenerationMechanism>
     <fileExtension>docx</fileExtension>
     <hasBatchableSection>false</hasBatchableSection>

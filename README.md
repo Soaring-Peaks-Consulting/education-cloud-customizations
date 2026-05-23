@@ -71,7 +71,7 @@ Deploys the necessary components for Salesforce Document Generation to work in t
 
 **Important Notes:** There are additional manual steps required before document generation with Salesforce Document Generation will work. In order to test the provided example:
 1. In Setup --> Document Generation --> General Settings, enable the `Design Document Templates in Salesforce` setting.
-1. Navigate to `Design Document Template` and activate Version 1 of the included `Admissions` and `AdmissionsUsingContextService` templates. (Before activating the `AdmissionsUsingContextService` template, set the Context Transformation Name picklist to `AdmissionsTransform`, as it is currently not automatically set.)
+1. Navigate to `Design Document Template` and activate Version 1 of the included `Admissions` and `AdmissionsUsingContextService` templates.
 1. Navigate to `Individual Applications` and create a new application record for a learner account (for example, Sophia Student).
 1. On the Related tab for the new record, create an `Application Decision` record and set the Application Decision to either "Admit" or "Deny".
 1. Refresh the page to view the updated Files related list.
