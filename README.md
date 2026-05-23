@@ -64,16 +64,17 @@ Creates and publishes a community using the Education Portal template and insert
 ---
 
 ### `configure_salesforce_document_generation`
-Deploys the necessary components for Salesforce Document Generation to work in the org, including an example template and flow. The flow fires when a new Application Decision record is created or updated with an Application Decision of "Admit" or "Deny". The flow generates both a DOCX and PDF document. The provided template is configured to query for the data via the AdmissionsExtract and AdmissionsTransform OmniStudio Data Mappers.
+Deploys the necessary components for Salesforce Document Generation to work in the org, including example templates and flows. The flows fire when a new Application Decision record is created or updated with an Application Decision of "Admit" or "Deny". The flows generate both a DOCX and PDF document. One templates is configured to query for the data via the AdmissionsExtract and AdmissionsTransform OmniStudio Data Mappers and the other template queries for the data via the Admissions Context Service.
 1. task: `assign_permission_sets` - assigns the DocGenDesigner and DocGenUser permission sets to the running user
 1. task: [`deploy_document_generation_components`](#deploy_document_generation_components)
+1. task: `add_page_layout_related_lists` - adds Files related list to the Individual Application page layout
 
 **Important Notes:** There are additional manual steps required before document generation with Salesforce Document Generation will work. In order to test the provided example:
 1. In Setup --> Document Generation --> General Settings, enable the `Design Document Templates in Salesforce` setting.
-1. Navigate to `Design Document Template` and activate Version 1 of the included `Admissions` template.
+1. Navigate to `Design Document Template` and activate Version 1 of the included `Admissions` and `AdmissionsUsingContextService` templates. (Before activating the `AdmissionsUsingContextService` template, set the Context Transformation Name picklist to `AdmissionsTransform`, as it is currently not automatically set.)
 1. Navigate to `Individual Applications` and create a new application record for a learner account (for example, Sophia Student).
 1. On the Related tab for the new record, create an `Application Decision` record and set the Application Decision to either "Admit" or "Deny".
-1. Navigate to `Files` to see the generated files, or update the Individual Application page to include the Files related list.
+1. Refresh the page to view the updated Files related list.
 
 ---
 
@@ -82,13 +83,14 @@ Installs the Portwood DocGen managed package and deploys the necessary component
 1. task `install_managed` - installs the Portwood DocGen managed package
 1. task: `assign_permission_sets` - assigns the DocGen_Admin permission set to the running user
 1. task: [`deploy_portwood_docgen_components`](#deploy_portwood_docgen_components)
+1. task: `add_page_layout_related_lists` - adds Files related list to the Individual Application page layout
 
 **Important Notes:** There are additional manual steps required before document generation with the Portwood DocGen managed package will work. In order to test the provided example:
 1. Navigate to the `DocGen` application and click on "Your Templates" from the Template Library.
 1. Click the "Import Template" button and upload the `Admissions_-_DOCX.docgen.json` JSON file. Do the same for the `Admissions_-_PDF.docgen.json` JSON file.
 1. Navigate to `Individual Applications` and create a new application record for a learner account (for example, Sophia Student).
 1. On the Related tab for the new record, create an `Application Decision` record and set the Application Decision to either "Admit" or "Deny".
-1. Navigate to `Files` to see the generated files, or update the Individual Application page to include the Files related list.
+1. Refresh the page to view the updated Files related list.
 
 ## Custom Tasks Reference
 ### `deploy_account_record_types`

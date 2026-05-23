@@ -3,7 +3,7 @@ project:
     name: education-cloud-customizations
     package:
         name: education-cloud-customizations
-        api_version: '63.0'
+        api_version: '67.0'
     git:
         default_branch: 'main'
     source_format: sfdx
@@ -139,6 +139,11 @@ flows:
                     api_names: DocGenDesigner, DocGenUser
             2:
                 task: deploy_document_generation_components
+            3:
+                task: add_page_layout_related_lists
+                options:
+                    related_list: RelatedFileList
+                    api_names: "IndividualApplication-Individual Application Layout"
 
     configure_portwood_docgen_integration:
         description: Installs the Portwood DocGen managed package and deploys the necessary components for it to work in the org, including an example flow.
@@ -147,8 +152,8 @@ flows:
                 task: install_managed
                 options:
                     namespace: portwoodglobal
-                    version: 04tVx000000QKRJIA4
-                    version_number: 1.83.0
+                    version: 04tVx000000Zw5xIAC
+                    version_number: 2.1.0
                     security_type: NONE
             2:
                 task: assign_permission_sets
@@ -156,6 +161,11 @@ flows:
                     api_names: DocGen_Admin
             3:
                 task: deploy_portwood_docgen_components
+            4:
+                task: add_page_layout_related_lists
+                options:
+                    related_list: RelatedFileList
+                    api_names: "IndividualApplication-Individual Application Layout"
                     
 tasks:
     robot:
