@@ -1,7 +1,7 @@
 {
   "orgName": "education-cloud-customizations - Dev Org",
   "edition": "Developer",
-  "features": [ "EducationCloud:5", "PersonAccounts", "ContactsToMultipleAccounts" ],
+  "features": [ "EducationCloud:5", "DocGen", "DocGenDesigner", "PersonAccounts", "ContactsToMultipleAccounts" ],
   "settings": {
     "lightningExperienceSettings": {
       "enableS1DesktopEnabled": true
@@ -34,6 +34,12 @@
       "enableMultipleTopicsForShiftsOrgPref": true,
       "enableShareSaWithArOrgPref": true,
       "enableAppFrmAnywhereOrgPref": true
+    },
+    "industriesContextSettings": {
+      "enableContextDefinitions": true
+    },
+    "OmniStudioSettings": {
+      "enableOmniStudioMetadata": true
     }
   }
 }

@@ -3,7 +3,7 @@ project:
     name: education-cloud-customizations
     package:
         name: education-cloud-customizations
-        api_version: '63.0'
+        api_version: '67.0'
     git:
         default_branch: 'main'
     source_format: sfdx
@@ -129,6 +129,43 @@ flows:
                     recipe: datasets/community-sample-data/community_sample_data.yml
                     drop_missing_schema: true
                     enable_rollback: true
+
+    configure_salesforce_document_generation:
+        description: Deploys the necessary components for Salesforce Document Generation to work in the org, including an example template and flow.
+        steps:
+            1:
+                task: assign_permission_sets
+                options:
+                    api_names: DocGenDesigner, DocGenUser
+            2:
+                task: deploy_document_generation_components
+            3:
+                task: add_page_layout_related_lists
+                options:
+                    related_list: RelatedFileList
+                    api_names: "IndividualApplication-Individual Application Layout"
+
+    configure_portwood_docgen_integration:
+        description: Installs the Portwood DocGen managed package and deploys the necessary components for it to work in the org, including an example flow.
+        steps:
+            1:
+                task: install_managed
+                options:
+                    namespace: portwoodglobal
+                    version: 04tVx000000Zw5xIAC
+                    version_number: 2.1.0
+                    security_type: NONE
+            2:
+                task: assign_permission_sets
+                options:
+                    api_names: DocGen_Admin
+            3:
+                task: deploy_portwood_docgen_components
+            4:
+                task: add_page_layout_related_lists
+                options:
+                    related_list: RelatedFileList
+                    api_names: "IndividualApplication-Individual Application Layout"
                     
 tasks:
     robot:
@@ -283,3 +320,15 @@ tasks:
         description: Deploys flows for the Connected University Student Portal, including a flow to automatically create Contact Profile records.
         options:
             path: unpackaged/community-flows
+
+    deploy_document_generation_components:
+        class_path: cumulusci.tasks.salesforce.Deploy
+        description: Deploys the necessary components for Salesforce Document Generation to work in the org, including an example template and flow.
+        options:
+            path: unpackaged/document-generation-salesforce
+
+    deploy_portwood_docgen_components:
+        class_path: cumulusci.tasks.salesforce.Deploy
+        description: Deploys the necessary components for the Portwood DocGen managed package to work in the org, including an example flow.
+        options:
+            path: unpackaged/document-generation-portwood

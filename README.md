@@ -57,9 +57,40 @@ Creates and publishes a community using the Education Portal template and insert
 1. task: `snowfakery` - inserts records from the recipe files in the `datasets/community-sample-data` directory
 
 **Important Notes:** There are additional manual steps required before a community user can create and access certain portal features. For example, in order to successfully create an application:
-1. Update the sharing settings for `Action Plan Templates` to Read Only for both internal and external users.
+1. In Setup --> Sharing Settings, update the sharing settings for `Action Plan Templates` to Read Only for both internal and external users.
 1. Navigate to the `Action Plan Templates` list view and manually Publish all records.
 1. In the Experience Builder for the "Connected University Student Portal" community, update the "Individual Application Task Detail" page. Set the Omni Viewer properties to use `{!recordId}` for the Record ID and `OmniScript` for the Render Method Type, and Publish your changes.
+
+---
+
+### `configure_salesforce_document_generation`
+Deploys the necessary components for Salesforce Document Generation to work in the org, including example templates and flows. The flows fire when a new Application Decision record is created or updated with an Application Decision of "Admit" or "Deny". The flows generate both a DOCX and PDF document. One templates is configured to query for the data via the AdmissionsExtract and AdmissionsTransform OmniStudio Data Mappers and the other template queries for the data via the Admissions Context Service.
+1. task: `assign_permission_sets` - assigns the DocGenDesigner and DocGenUser permission sets to the running user
+1. task: [`deploy_document_generation_components`](#deploy_document_generation_components)
+1. task: `add_page_layout_related_lists` - adds Files related list to the Individual Application page layout
+
+**Important Notes:** There are additional manual steps required before document generation with Salesforce Document Generation will work. In order to test the provided example:
+1. In Setup --> Document Generation --> General Settings, enable the `Design Document Templates in Salesforce` setting.
+1. Navigate to `Design Document Template` and activate Version 1 of the included `Admissions` and `AdmissionsUsingContextService` templates.
+1. Navigate to `Individual Applications` and create a new application record for a learner account (for example, Sophia Student).
+1. On the Related tab for the new record, create an `Application Decision` record and set the Application Decision to either "Admit" or "Deny".
+1. Refresh the page to view the updated Files related list.
+
+---
+
+### `configure_portwood_docgen_integration`
+Installs the Portwood DocGen managed package and deploys the necessary components for it to work in the org, including an example flow. The flow fires when a new Application Decision record is created or updated with an Application Decision of "Admit" or "Deny". The flow calls the managed package to generate both a DOCX and PDF document. The provided templates are configured to query for the data via the custom AdmissionsLetterDataProvider Apex class. The flow also generates a DOCX document after calling the custom CallDataMapper Apex class to query for the data via the AdmissionsExtract OmniStudio Data Mapper, demonstrating that it is possible to use the managed package in conjunction with OmniStudio.
+1. task `install_managed` - installs the Portwood DocGen managed package
+1. task: `assign_permission_sets` - assigns the DocGen_Admin permission set to the running user
+1. task: [`deploy_portwood_docgen_components`](#deploy_portwood_docgen_components)
+1. task: `add_page_layout_related_lists` - adds Files related list to the Individual Application page layout
+
+**Important Notes:** There are additional manual steps required before document generation with the Portwood DocGen managed package will work. In order to test the provided example:
+1. Navigate to the `DocGen` application and click on "Your Templates" from the Template Library.
+1. Click the "Import Template" button and upload the `Admissions_-_DOCX.docgen.json` JSON file. Do the same for the `Admissions_-_PDF.docgen.json` JSON file.
+1. Navigate to `Individual Applications` and create a new application record for a learner account (for example, Sophia Student).
+1. On the Related tab for the new record, create an `Application Decision` record and set the Application Decision to either "Admit" or "Deny".
+1. Refresh the page to view the updated Files related list.
 
 ## Custom Tasks Reference
 ### `deploy_account_record_types`
@@ -104,3 +135,13 @@ Deploys sharing settings and a permission set for the Connected University Stude
 
 ### `deploy_community_flows`
 Deploys flows for the Connected University Student Portal, including a flow to automatically create Contact Profile records.
+
+---
+
+### `deploy_document_generation_components`
+Deploys the necessary components for Salesforce Document Generation to work in the org, including example templates and flows.
+
+---
+
+### `deploy_portwood_docgen_components`
+Deploys the necessary components for the Portwood DocGen managed package to work in the org, including example templates and flows.
