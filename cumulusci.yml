@@ -152,8 +152,8 @@ flows:
                 task: install_managed
                 options:
                     namespace: portwoodglobal
-                    version: 04tVx000000Zw5xIAC
-                    version_number: 2.1.0
+                    version: 04tVx000000a8blIAA
+                    version_number: 3.0.0
                     security_type: NONE
             2:
                 task: assign_permission_sets
